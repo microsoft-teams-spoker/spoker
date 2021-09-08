@@ -46,7 +46,7 @@
             {
                 "id": "Title",
                 "type": "TextBlock",
-                "text": "${action.dataTables[0].dataColumns[0].displayName}",
+                "text": "Jacek was here 1 ${action.dataTables[0].dataColumns[0].displayName}",
                 "_$text.comment": "display poll title",
                 "wrap": true,
                 "weight": "bolder",
