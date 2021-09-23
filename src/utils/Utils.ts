@@ -4,13 +4,13 @@
 import * as uuid from "uuid";
 
 export namespace Utils {
-    export let YEARS: string = "YEARS";
-    export let MONTHS: string = "MONTHS";
-    export let WEEKS: string = "WEEKS";
-    export let DAYS: string = "DAYS";
-    export let HOURS: string = "HOURS";
-    export let MINUTES: string = "MINUTES";
-    export let DEFAULT_LOCALE: string = "en";
+    export const YEARS: string = "YEARS";
+    export const MONTHS: string = "MONTHS";
+    export const WEEKS: string = "WEEKS";
+    export const DAYS: string = "DAYS";
+    export const HOURS: string = "HOURS";
+    export const MINUTES: string = "MINUTES";
+    export const DEFAULT_LOCALE: string = "en";
 
     /**
      * Method to check whether the obj param is empty or not
