@@ -1,6 +1,7 @@
 # Poll App Template
 
 
+
 | [Documentation](https://github.com/OfficeDev/microsoft-teams-poll-app/wiki/Home) | [Deployment guide](https://github.com/OfficeDev/microsoft-teams-poll-app/wiki/Deployment-guide) | [Architecture](https://github.com/OfficeDev/microsoft-teams-poll-app/wiki/Solution-overview) |
 | ---- | ---- | ---- |
 
