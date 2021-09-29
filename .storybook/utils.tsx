@@ -14,7 +14,9 @@ function getDisplayName<T>(WrappedComponent: React.ComponentType<T>) {
 
 export const withThemeWrapper = <TProps extends object>(WrappedComponent: React.ComponentType<TProps>): React.FC => {
     const wrapper = (props) => (
-        <Provider theme={teamsTheme} rtl={false}>
+        <Provider
+            theme={teamsTheme} // teamsTheme | teamsDarkTheme | teamsHighContrastTheme
+                  rtl={false}>
             <WrappedComponent {...props} />
         </Provider>
     );
