@@ -138,12 +138,12 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps> 
                             this.currentFocus = this.props.options.length;
                         }}
                     >
-                        <AddIcon className="plus-icon" outline size="medium" styles={({ theme: { siteVariables } }) => ({
-                            color: siteVariables.colorScheme.brand.foreground,
-                        })} />
-                        <Text size="medium" content={Localizer.getString("AddChoice")} styles={({ theme: { siteVariables } }) => ({
-                            color: siteVariables.colorScheme.brand.foreground,
-                        })} />
+                        {/*<AddIcon className="plus-icon" outline size="medium" styles={({ theme: { siteVariables } }) => ({*/}
+                        {/*    color: siteVariables.colorScheme.brand.foreground,*/}
+                        {/*})} />*/}
+                        {/*<Text size="medium" content={Localizer.getString("AddChoice")} styles={({ theme: { siteVariables } }) => ({*/}
+                        {/*    color: siteVariables.colorScheme.brand.foreground,*/}
+                        {/*})} />*/}
                     </div>
                 }
             </div>
