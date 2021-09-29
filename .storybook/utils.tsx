@@ -16,7 +16,8 @@ export const withThemeWrapper = <TProps extends object>(WrappedComponent: React.
     const wrapper = (props) => (
         <Provider
             theme={teamsTheme} // teamsTheme | teamsDarkTheme | teamsHighContrastTheme
-                  rtl={false}>
+            rtl={false}
+        >
             <WrappedComponent {...props} />
         </Provider>
     );
