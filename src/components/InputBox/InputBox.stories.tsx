@@ -1,15 +1,16 @@
 import React from 'react';
-import {ComponentStory, ComponentMeta} from '@storybook/react';
-
-import {InputBox} from './InputBox';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { InputBox } from './InputBox';
+import { withThemeWrapper } from '../../../.storybook/utils';
 
 export default {
     title: 'Simple/InputBox',
     component: InputBox,
-
 } as ComponentMeta<typeof InputBox>;
 
-const Template: ComponentStory<typeof InputBox> = (args) => <InputBox {...args} />;
+const WithTheme = withThemeWrapper(InputBox);
+
+const Template: ComponentStory<typeof InputBox> = (args) => <WithTheme {...args} />;
 
 export const withError = Template.bind({});
 withError.args = {
@@ -18,4 +19,3 @@ withError.args = {
     showError: true,
     errorText: 'Error text',
 };
-
