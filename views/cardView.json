@@ -75,6 +75,55 @@
                 ]
             },
             {
+                "id": "ChoicesRow1",
+                "type": "ImageSet",
+                "images": [
+                    {
+                        "type": "Image",
+                        "url": "https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice2.png"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice3.png"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice5.png"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice8.png"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice13.png"
+                    }
+                ],
+                "selectAction": {
+                    "type": "Action.OpenUrl",
+                    "title": "View ${formatEpoch(sunrise_ts, 'dddd')}",
+                    "url": "https://www.microsoft.com"
+                }
+            },
+            {
+                "id": "ChoicesRow2",
+                "type": "ImageSet",
+                "images": [
+                    {
+                        "type": "Image",
+                        "url": "https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choiceQuestionmark.png"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choiceInfinity.png"
+                    },
+                    {
+                        "type": "Image",
+                        "url": "https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choiceCoffe.png"
+                    }
+                ]
+            },
+            {
                 "id": "Responder",
                 "$when": "${equals(action.dataTables[0].rowsVisibility, 'All')}",
                 "type": "Container",
