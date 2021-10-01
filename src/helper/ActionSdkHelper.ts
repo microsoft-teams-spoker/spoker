@@ -115,7 +115,7 @@ export class ActionSdkHelper {
      * @param subscription subscription
      * @param userId user id to get details
      */
-    public static async getSubscriptionMembers(subscription, userIds) {
+    public static async getSubscriptionMembers(subscription, userIds?) {
         let request = new actionSDK.GetSubscriptionMembers.Request(subscription, userIds);
         let response = await actionSDK.executeApi(request) as actionSDK.GetSubscriptionMembers.Response;
         if (!response.error) {

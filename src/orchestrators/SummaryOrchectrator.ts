@@ -9,14 +9,13 @@ import {
     initialize, setProgressStatus, setContext, fetchLocalization, fetchUserDetails, fetchActionInstance, fetchActionInstanceSummary,
     fetchMyResponse, fetchMemberCount, setIsActionDeleted, updateMyRow, updateActionInstance, fetchActionInstanceRows, updateMemberCount,
     updateActionInstanceSummary, addActionInstanceRows, updateContinuationToken, updateNonResponders, closePoll, fetchNonReponders,
-    pollCloseAlertOpen, deletePoll, pollDeleteAlertOpen, updateDueDate, pollExpiryChangeAlertOpen, downloadCSV, updateUserProfileInfo
+    pollCloseAlertOpen, deletePoll, pollDeleteAlertOpen, updateDueDate, pollExpiryChangeAlertOpen, downloadCSV, updateUserProfileInfo, fetchAllUsersPolls, updateAllUsersInfo
 } from "../actions/SummaryActions";
 import { orchestrator } from "satcheljs";
 import { ProgressState } from "../utils/SharedEnum";
 import getStore from "../store/SummaryStore";
 import * as actionSDK from "@microsoft/m365-action-sdk";
 import { ActionSdkHelper } from "../helper/ActionSdkHelper";
-
 /**
  * Summary view orchestrators to fetch data for current action, perform any action on that data and dispatch further actions to modify stores
  */
@@ -137,6 +136,29 @@ orchestrator(fetchActionInstanceSummary, async (msg) => {
     }
 });
 
+orchestrator(fetchAllUsersPolls, async (msg) => {
+    let usersResponse = await ActionSdkHelper.getSubscriptionMembers(toJS(getStore().context.subscription));
+    let pollResposne = await ActionSdkHelper.getActionDataRows(getStore().context.actionId);
+
+    if (usersResponse.success && usersResponse.members && pollResposne.success) {
+        let users: { [key: string]: { user: actionSDK.SubscriptionMember, responseIds: string[]}}[] = [];
+        usersResponse.members.forEach(member => {
+            let response = pollResposne.dataRows.find(row => row.creatorId === member.id);
+
+            users[member.id] = {
+                user: {
+                    id: member.id,
+                    displayName: member.displayName
+                },
+                responseIds: response ? response.columnValues : []
+            }
+        });
+        updateAllUsersInfo(users);
+    } else if (!usersResponse.success || !pollResposne.success) {
+        handleErrorResponse(usersResponse.error);
+    }
+});
+
 orchestrator(fetchUserDetails, async (msg) => {
     let userIds: string[] = [];
 
@@ -180,6 +202,9 @@ orchestrator(fetchUserDetails, async (msg) => {
         updateUserProfileInfo(userProfile);
     }
 });
+
+orchestrator(fetchActionInstanceRows, async (msg) => {
+})
 
 orchestrator(fetchActionInstanceRows, async (msg) => {
     let actionInstance = getStore().actionInstance;

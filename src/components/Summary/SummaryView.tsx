@@ -37,7 +37,8 @@ export default class SummaryView extends React.Component<any, any> {
         this.bodyContainer = React.createRef();
     }
 
-    render() {
+    render() {        console.log(getStore().allUsersPolls);
+
         return (
             <>
                 <Flex
