@@ -64,8 +64,8 @@ orchestrator(callActionInstanceCreationAPI, async () => {
     // create poll question
     updateTitle(getStore().title.trim());
 
-    let fibo = getStore().options[0] == "fibo";
-    let also = getStore().options[1] == "true";
+    let fibo = getStore().scale == "fibo";
+    let extension = getStore().extension;
 
     let pollQuestion: actionSDK.ActionDataColumn = {
         name: "0",
@@ -94,7 +94,7 @@ orchestrator(callActionInstanceCreationAPI, async () => {
         actionInstance.dataTables[0].dataColumns[0].options.push(pollChoice);
     }
 
-    if  (also) {
+    if  (extension) {
         for (const val of ["?", "☕", "♾"]) {
             let pollChoice: actionSDK.ActionDataColumnOption = {
                 name: `${i}`,

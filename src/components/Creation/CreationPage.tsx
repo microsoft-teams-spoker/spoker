@@ -19,6 +19,8 @@ import {
     goToPage,
     shouldValidateUI,
     updateChoiceText,
+    updateScale,
+    updateExtension,
     updateSettings,
     updateTitle
 } from "./../../actions/CreationActions";
@@ -174,7 +176,17 @@ export default class CreationPage extends React.Component<any, any> {
                                      onUpdateChoice={(i, value) => {
                                          updateChoiceText(i, value);
                                          shouldValidateUI(false);
-                                     }}/>
+                                     }}
+                                     onUpdateScale={( value) => {
+                                         updateScale( value);
+                                         shouldValidateUI(false);
+                                     }}
+                                     onUpdateExtension={( value) => {
+                                         updateExtension(value);
+                                         shouldValidateUI(false);
+                                     }}
+
+                    />
                 </div>
             </Flex>
         );
