@@ -20,7 +20,7 @@
   "DueInMinute": "Due in {0} minute",
   "Send": "Send Poll",
   "TitleBlankError": "Title cannot be left blank",
-  "PollTitlePlaceholder": "Enter poll question",
+  "PollTitlePlaceholder": "Story name",
   "Settings": "Settings",
   "BlankChoiceError": "Choice cannot be left blank",
   "You": "You",

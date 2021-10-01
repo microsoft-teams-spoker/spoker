@@ -1,7 +1,7 @@
 {
     "schemaVersion": 1,
     "tag": "spoker-teams-app",
-    "id": "<id>",
+    "id": "<id>>",
     "name": "spoker",
     "description": "Ask a question and get people's opinion",
     "showLoadingIndicator": true,
@@ -30,15 +30,13 @@
     "localizationInfo": {
         "defaultLocale": "en-gb",
         "localeFiles": {
-            "en-gb": "strings/en-gb/strings.json",
-            "de-de": "strings/de-de/strings.json",
-            "pl-pl": "strings/pl-pl/strings.json"
+            "en-gb": "strings/en-gb/strings.json"
         }
     },
     "msTeamsProps": {
         "name": {
-            "short": "spoker",
-            "full": "spoker"
+            "short": "Spoker",
+            "full": "Spoker"
         },
         "description": {
             "short": "Ask a question and get people's opinion",
