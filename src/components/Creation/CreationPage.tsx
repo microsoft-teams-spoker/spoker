@@ -148,6 +148,8 @@ export default class CreationPage extends React.Component<any, any> {
         Utils.announceText(accessibilityAnnouncementString);
         return (
             <Flex column>
+                <Flex className="label-title-box">
+                <div className="label-title">{Localizer.getString("EnterStoryName")}:</div>
                 <InputBox
                     fluid multiline
                     maxLength={Constants.POLL_TITLE_MAX_LENGTH}
@@ -168,7 +170,8 @@ export default class CreationPage extends React.Component<any, any> {
                         shouldValidateUI(false); // setting this flag to false to not validate input everytime value changes
                     }}
                 />
-                <div className="indentation">
+                </Flex>
+                {/*<div className="indentation">*/}
                     <ChoiceContainer optionsError={optionsError} options={choiceOptions} limit={getStore().maxOptions}
                                      focusOnError={focusChoiceOnError}
                                      renderForMobile={UxUtils.renderingForMobile()}
@@ -187,7 +190,7 @@ export default class CreationPage extends React.Component<any, any> {
                                      }}
 
                     />
-                </div>
+                {/*</div>*/}
             </Flex>
         );
     }

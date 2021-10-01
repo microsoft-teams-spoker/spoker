@@ -3,6 +3,8 @@
 
 import * as React from "react";
 import "./ChoiceContainer.scss";
+import {Localizer} from "../../utils/Localizer";
+import {ArrowLeftIcon, Button, Flex, FlexItem, Loader, SettingsIcon, Text} from "@fluentui/react-northstar";
 
 export interface IChoiceContainerOption {
     value: string;
@@ -45,10 +47,12 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps> 
     render() {
         return (
             <div>
-                <div className="pickTheScale">Pick the scale:</div>
-                <div className="box first">
+                <div className="pickTheScale">{Localizer.getString("PickTheScale")}:</div>
+                <Flex>
+                    <div className="equalWidth">
                     <input id="fibo" type="radio" value="fibo" name="scale" key={"option" + 0} onChange={this.handleOnUpdateScale} checked/>
-                    <label htmlFor="fibo" className="element equalWidth">Fibonacci</label>
+                    <label htmlFor="fibo" className="element">Fibonacci</label>
+                    </div>
                     <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice2.png"
                          alt="choice2" className="element"/>
                     <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice3.png"
@@ -59,10 +63,12 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps> 
                          alt="choice8" className="element"/>
                     <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice13.png"
                          alt="choice13" className="element"/>
-                </div>
-                <div className="box second">
+                </Flex>
+                <Flex>
+                    <div className="equalWidth">
                     <input id="tshirts" type="radio" value="tshirts" name="scale" key={"option" + 1} onChange={this.handleOnUpdateScale}/>
-                    <label htmlFor="tshirts" className="element equalWidth">T-shirts</label>
+                    <label htmlFor="tshirts" className="element">T-shirts</label>
+                    </div>
                     <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtXS.png"
                          alt="shirtXS" className="element"/>
                     <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtS.png"
@@ -73,10 +79,12 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps> 
                          alt="shirtL" className="element"/>
                     <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtXL.png"
                          alt="shirtXL" className="element"/>
-                </div>
-                <div className="box third">
+                </Flex>
+                <Flex>
+                    <div className="equalWidth">
                     <input type="checkbox" id="also" name="also" onChange={this.handleOnUpdateExtension}/>
-                    <label htmlFor="also" className="element equalWidth">I need also</label>
+                    <label htmlFor="also" className="element">I need also</label>
+                    </div>
                     <img
                         src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choiceQuestionmark.png"
                         alt="choiceQuestionmark" className="element"/>
@@ -84,7 +92,7 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps> 
                          alt="choiceInfinity" className="element"/>
                     <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choiceCoffe.png"
                          alt="choiceCoffe" className="element"/>
-                </div>
+                </Flex>
             </div>
         );
     }

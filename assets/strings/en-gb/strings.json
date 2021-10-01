@@ -21,6 +21,8 @@
   "Send": "Send Poll",
   "TitleBlankError": "Title cannot be left blank",
   "PollTitlePlaceholder": "Story name",
+  "PickTheScale": "Pick the scale",
+  "EnterStoryName": "Enter story name",
   "Settings": "Settings",
   "BlankChoiceError": "Choice cannot be left blank",
   "You": "You",
