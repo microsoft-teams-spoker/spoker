@@ -1,26 +1,33 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-import * as React from "react";
-import {
-    addChoice, updateTitle, deleteChoice, updateChoiceText, callActionInstanceCreationAPI, updateSettings, goToPage, shouldValidateUI
-} from "./../../actions/CreationActions";
-import "./creation.scss";
-import getStore, { Page } from "./../../store/CreationStore";
-import { observer } from "mobx-react";
-import { Flex, FlexItem, CircleIcon, Button, Loader, ArrowLeftIcon, SettingsIcon, Text } from "@fluentui/react-northstar";
+import {ArrowLeftIcon, Button, Flex, FlexItem, Loader, SettingsIcon, Text} from "@fluentui/react-northstar";
 import * as actionSDK from "@microsoft/m365-action-sdk";
-import { Localizer } from "../../utils/Localizer";
-import { Utils } from "../../utils/Utils";
-import { ProgressState } from "./../../utils/SharedEnum";
-import { ErrorView } from "../ErrorView";
-import { UxUtils } from "./../../utils/UxUtils";
-import { Settings, ISettingsComponentProps, ISettingsComponentStrings } from "./Settings";
-import { IChoiceContainerOption, ChoiceContainer } from "../ChoiceContainer";
-import { InputBox } from "../InputBox";
-import { INavBarComponentProps, NavBarComponent } from "../NavBarComponent";
-import { Constants } from "./../../utils/Constants";
-import { ActionSdkHelper } from "../../helper/ActionSdkHelper";
+import {observer} from "mobx-react";
+import * as React from "react";
+import {ActionSdkHelper} from "../../helper/ActionSdkHelper";
+import {Localizer} from "../../utils/Localizer";
+import {Utils} from "../../utils/Utils";
+import {ChoiceContainer, IChoiceContainerOption} from "../ChoiceContainer";
+import {ErrorView} from "../ErrorView";
+import {InputBox} from "../InputBox";
+import {INavBarComponentProps, NavBarComponent} from "../NavBarComponent";
+import {
+    addChoice,
+    callActionInstanceCreationAPI,
+    deleteChoice,
+    goToPage,
+    shouldValidateUI,
+    updateChoiceText,
+    updateSettings,
+    updateTitle
+} from "./../../actions/CreationActions";
+import getStore, {Page} from "./../../store/CreationStore";
+import {Constants} from "./../../utils/Constants";
+import {ProgressState} from "./../../utils/SharedEnum";
+import {UxUtils} from "./../../utils/UxUtils";
+import "./creation.scss";
+import {ISettingsComponentProps, ISettingsComponentStrings, Settings} from "./Settings";
 
 /**
  * <CreationPage> component for create view of poll app
@@ -35,7 +42,7 @@ export default class CreationPage extends React.Component<any, any> {
     render() {
         let progressState = getStore().progressState;
         if (progressState === ProgressState.NotStarted || progressState == ProgressState.InProgress) {
-            return <Loader />;
+            return <Loader/>;
         } else if (progressState === ProgressState.Failed) {
             ActionSdkHelper.hideLoadingIndicator();
             return (
@@ -47,7 +54,7 @@ export default class CreationPage extends React.Component<any, any> {
         } else {
             // Render View
             ActionSdkHelper.hideLoadingIndicator();
-            <div>Jacek was here 2</div>
+            <div>Jacek was here 2</div>;
             if (UxUtils.renderingForMobile()) {
                 // this will load the setting view where user can change due date and result visibility
                 if (getStore().currentPage === Page.Settings) {
@@ -127,12 +134,10 @@ export default class CreationPage extends React.Component<any, any> {
             }
         }
 
-        const choicePrefix = <CircleIcon outline size="small" className="choice-item-circle" disabled />;
         let i = 0;
         getStore().options.forEach((option) => {
             const choiceOption: IChoiceContainerOption = {
                 value: option,
-                choicePrefix: choicePrefix,
                 choicePlaceholder: Localizer.getString("Choice", i + 1),
                 deleteChoiceLabel: Localizer.getString("DeleteChoiceX", i + 1),
             };
@@ -164,21 +169,21 @@ export default class CreationPage extends React.Component<any, any> {
                 />
                 <div className="indentation">
                     <ChoiceContainer optionsError={optionsError} options={choiceOptions} limit={getStore().maxOptions}
-                        focusOnError={focusChoiceOnError}
-                        renderForMobile={UxUtils.renderingForMobile()}
-                        maxLength={Constants.POLL_CHOICE_MAX_LENGTH}
-                        onDeleteChoice={(i) => {
-                            shouldValidateUI(false);
-                            deleteChoice(i);
-                        }}
-                        onUpdateChoice={(i, value) => {
-                            updateChoiceText(i, value);
-                            shouldValidateUI(false);
-                        }}
-                        onAddChoice={() => {
-                            addChoice();
-                            shouldValidateUI(false);
-                        }} />
+                                     focusOnError={focusChoiceOnError}
+                                     renderForMobile={UxUtils.renderingForMobile()}
+                                     maxLength={Constants.POLL_CHOICE_MAX_LENGTH}
+                                     onDeleteChoice={(i) => {
+                                         shouldValidateUI(false);
+                                         deleteChoice(i);
+                                     }}
+                                     onUpdateChoice={(i, value) => {
+                                         updateChoiceText(i, value);
+                                         shouldValidateUI(false);
+                                     }}
+                                     onAddChoice={() => {
+                                         addChoice();
+                                         shouldValidateUI(false);
+                                     }}/>
                 </div>
             </Flex>
         );
@@ -190,16 +195,16 @@ export default class CreationPage extends React.Component<any, any> {
     renderFooterSettingsSection() {
         return (
             <div className="settings-summary-footer" {...UxUtils.getTabKeyProps()}
-                ref={(element) => {
-                    this.settingsFooterComponentRef = element;
-                }}
-                onClick={() => {
-                    goToPage(Page.Settings);
-                }}>
-                <SettingsIcon className="settings-icon" outline={true} styles={({ theme: { siteVariables } }) => ({
+                 ref={(element) => {
+                     this.settingsFooterComponentRef = element;
+                 }}
+                 onClick={() => {
+                     goToPage(Page.Settings);
+                 }}>
+                <SettingsIcon className="settings-icon" outline={true} styles={({theme: {siteVariables}}) => ({
                     color: siteVariables.colorScheme.brand.foreground,
-                })} />
-                <Text content={this.getSettingsSummary()} size="small" color="brand" />
+                })}/>
+                <Text content={this.getSettingsSummary()} size="small" color="brand"/>
             </div>
         );
     }
@@ -211,7 +216,7 @@ export default class CreationPage extends React.Component<any, any> {
         let navBarComponentProps: INavBarComponentProps = {
             title: Localizer.getString("Settings"),
             leftNavBarItem: {
-                icon: <ArrowLeftIcon />,
+                icon: <ArrowLeftIcon/>,
                 ariaLabel: Localizer.getString("Back"),
                 onClick: () => {
                     goToPage(Page.Main);
