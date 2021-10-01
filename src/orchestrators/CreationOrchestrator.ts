@@ -1,23 +1,25 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-import { setProgressState } from "./../actions/CreationActions";
-import { toJS } from "mobx";
-import { Localizer } from "../utils/Localizer";
-import { orchestrator } from "satcheljs";
-import { setContext, initialize, callActionInstanceCreationAPI, updateTitle, updateChoiceText, setSendingFlag, shouldValidateUI } from "../actions/CreationActions";
-import { ProgressState } from "../utils/SharedEnum";
+import {setProgressState} from "./../actions/CreationActions";
+import {toJS} from "mobx";
+import {Localizer} from "../utils/Localizer";
+import {orchestrator} from "satcheljs";
+import {callActionInstanceCreationAPI, initialize, setContext, setSendingFlag, shouldValidateUI, updateTitle} from "../actions/CreationActions";
+import {ProgressState} from "../utils/SharedEnum";
 import getStore from "../store/CreationStore";
-import { Utils } from "../utils/Utils";
+import {Utils} from "../utils/Utils";
 import * as actionSDK from "@microsoft/m365-action-sdk";
-import { ActionSdkHelper } from "../helper/ActionSdkHelper";
+import {ActionSdkHelper} from "../helper/ActionSdkHelper";
 
 /**
  * Creation view orchestrators to do API calls, perform any action on data and dispatch further actions to modify stores in case of any change
  */
 
 function validateActionInstance(actionInstance: actionSDK.Action): boolean {
-    if (actionInstance == null) { return false; }
+    if (actionInstance == null) {
+        return false;
+    }
 
     let dataColumns = actionInstance.dataTables[0].dataColumns;
     if (!dataColumns || dataColumns.length <= 0 || !dataColumns[0].displayName || dataColumns[0].displayName == "" ||
@@ -48,7 +50,7 @@ orchestrator(initialize, async () => {
 
 orchestrator(callActionInstanceCreationAPI, async () => {
     let actionInstance: actionSDK.Action = {
-        displayName: "Poll",
+        displayName: "Spoker",
         expiryTime: getStore().settings.dueDate,
         dataTables: [
             {
@@ -62,6 +64,9 @@ orchestrator(callActionInstanceCreationAPI, async () => {
     // create poll question
     updateTitle(getStore().title.trim());
 
+    let fibo = getStore().options[0] == "fibo";
+    let also = getStore().options[1] == "true";
+
     let pollQuestion: actionSDK.ActionDataColumn = {
         name: "0",
         valueType: actionSDK.ActionDataColumnValueType.SingleOption,
@@ -71,16 +76,35 @@ orchestrator(callActionInstanceCreationAPI, async () => {
     actionInstance.dataTables[0].dataColumns[0].options = [];
 
     // Create poll options
-    for (let index = 0; index < getStore().options.length; index++) {
-        updateChoiceText(index, getStore().options[index].trim());
+    let values = [];
+    if  (fibo) {
+        values = ["2","3","5","8","13"];
+    } else {
+        values = ["XS", "S", "M", "L", "XL"];
+    }
 
+    let i = 0;
+    for (const val of values) {
         let pollChoice: actionSDK.ActionDataColumnOption = {
-            name: `${index}`,
-            displayName: getStore().options[index],
+            name: `${i}`,
+            displayName: `${val}`,
         };
+        i++;
+
         actionInstance.dataTables[0].dataColumns[0].options.push(pollChoice);
     }
 
+    if  (also) {
+        for (const val of ["?", "☕", "♾"]) {
+            let pollChoice: actionSDK.ActionDataColumnOption = {
+                name: `${i}`,
+                displayName: `${val}`,
+            };
+            i++;
+
+            actionInstance.dataTables[0].dataColumns[0].options.push(pollChoice);
+        }
+    }
     // Set poll responses visibility
     actionInstance.dataTables[0].rowsVisibility = getStore().settings.resultVisibility === actionSDK.Visibility.Sender ?
         actionSDK.Visibility.Sender : actionSDK.Visibility.All;

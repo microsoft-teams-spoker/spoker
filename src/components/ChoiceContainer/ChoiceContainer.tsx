@@ -3,11 +3,6 @@
 
 import * as React from "react";
 import "./ChoiceContainer.scss";
-import { InputBox } from "../InputBox";
-import { Text, ShorthandValue, AddIcon, BoxProps, TrashCanIcon } from "@fluentui/react-northstar";
-import { UxUtils } from "./../../utils/UxUtils";
-import { Constants } from "./../../utils/Constants";
-import { Localizer } from "../../utils/Localizer";
 
 export interface IChoiceContainerOption {
     value: string;
@@ -35,117 +30,56 @@ export interface IChoiceContainerProps {
  */
 export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps> {
 
-    private currentFocus: number = -1;
-    private addButtonRef: HTMLElement;
-
     constructor(props: IChoiceContainerProps) {
         super(props);
+        this.props.onUpdateChoice(0, "fibo");
+        this.props.onUpdateChoice(1, "false");
     }
 
-    /**
-     * method that will add trash icon in input if count of choice is greater than 2 in Poll
-     * @param i index of trash icon
-     */
-    getDeleteIconProps(i: number): ShorthandValue<BoxProps> {
-        if (this.props.options.length > 2) {
-            return {
-                content: <TrashCanIcon className="choice-trash-can" outline={true} aria-hidden="false"
-                    title={this.props.options[i].deleteChoiceLabel}
-                    onClick={() => {
-                        if (this.currentFocus == this.props.options.length - 1) {
-                            setTimeout((() => {
-                                this.addButtonRef.focus();
-                            }).bind(this), 0);
-                        }
-                        this.props.onDeleteChoice(i);
-                    }}
-                />,
-                ...UxUtils.getTabKeyProps()
-            };
+    handleChange = e => {
+        const {name, value} = e.target;
+
+        this.setState({
+            [name]: value
+        });
+
+        if (name === "scale") {
+            this.props.onUpdateChoice(0, value);
         }
-        return null;
+        if (name === "also") {
+            this.props.onUpdateChoice(1, value);
+        }
     }
 
     render() {
-        let items: JSX.Element[] = [];
-        let maxOptions: number = (this.props.limit && this.props.limit > 0) ? this.props.limit : Number.MAX_VALUE;
-        let focusOnErrorSet: boolean = false;
-        let className: string = "item-content";
-
-        // if any input is blank while submitting action then there will be entry in optionError
-        for (let i = 0; i < (maxOptions > this.props.options.length ? this.props.options.length : maxOptions); i++) {
-            let errorString = this.props.optionsError && this.props.optionsError.length > i ? this.props.optionsError[i] : "";
-            if (errorString.length > 0 && this.props.focusOnError && !focusOnErrorSet) {
-                this.currentFocus = i;
-                focusOnErrorSet = true;
-            }
-            items.push(
-                <div key={"option" + i} className="choice-item">
-                    <InputBox
-                        ref={(inputBox) => {
-                            if (inputBox && i == this.currentFocus) {
-                                inputBox.focus();
-                            }
-                        }}
-                        fluid
-                        input={{ className }}
-                        maxLength={this.props.maxLength}
-                        icon={this.getDeleteIconProps(i)}
-                        showError={errorString.length > 0}
-                        errorText={errorString}
-                        key={"option" + i}
-                        value={this.props.options[i].value}
-                        placeholder={this.props.options[i].choicePlaceholder}
-                        onKeyDown={(e) => {
-                            if (!e.repeat && (e.keyCode || e.which) == Constants.CARRIAGE_RETURN_ASCII_VALUE
-                                && this.props.options.length < maxOptions) {
-                                if (i == this.props.options.length - 1) {
-                                    this.props.onAddChoice();
-                                    this.currentFocus = this.props.options.length;
-                                } else {
-                                    this.currentFocus += 1;
-                                    this.forceUpdate();
-                                }
-                            }
-                        }}
-                        onFocus={(e) => {
-                            this.currentFocus = i;
-                        }}
-                        onChange={(e) => {
-                            this.props.onUpdateChoice(i, (e.target as HTMLInputElement).value);
-                        }}
-                        prefixJSX={this.props.options[i].choicePrefix}
-                    />
-                </div>
-            );
-        }
         return (
-            <div
-                className="choice-container"
-                onBlur={(e) => {
-                    this.currentFocus = -1;
-                }}>
-                {items}
-                {this.props.options.length < maxOptions &&
-                    <div
-                        ref={(e) => {
-                            this.addButtonRef = e;
-                        }}
-                        className={"add-options"}
-                        {...UxUtils.getTabKeyProps()}
-                        onClick={(e) => {
-                            this.props.onAddChoice();
-                            this.currentFocus = this.props.options.length;
-                        }}
-                    >
-                        <AddIcon className="plus-icon" outline size="medium" styles={({ theme: { siteVariables } }) => ({
-                            color: siteVariables.colorScheme.brand.foreground,
-                        })} />
-                        <Text size="medium" content={Localizer.getString("AddChoice")} styles={({ theme: { siteVariables } }) => ({
-                            color: siteVariables.colorScheme.brand.foreground,
-                        })} />
-                    </div>
-                }
+            <div>
+                <div className="pickTheScale">Pick the scale:</div>
+                <div className="box first">
+                    <input id="fibo" type="radio" value="fibo" name="scale" key={"option" + 0} onChange={this.handleChange} checked/>
+                    <label htmlFor="fibo" className="element equalWidth">Fibonacci</label>
+                    <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice2.png" alt="choice2" className="element"/>
+                    <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice3.png" alt="choice3" className="element"/>
+                    <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice5.png" alt="choice5" className="element"/>
+                    <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice8.png" alt="choice8" className="element"/>
+                    <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice13.png" alt="choice13" className="element"/>
+                </div>
+                <div className="box second">
+                    <input id="tshirts" type="radio" value="tshirts" name="scale" key={"option" + 1} onChange={this.handleChange}/>
+                    <label htmlFor="tshirts" className="element equalWidth">T-shirts</label>
+                    <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtXS.png" alt="shirtXS" className="element"/>
+                    <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtS.png" alt="shirtS" className="element"/>
+                    <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtM.png" alt="shirtM" className="element"/>
+                    <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtL.png" alt="shirtL" className="element"/>
+                    <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtXL.png" alt="shirtXL" className="element"/>
+                </div>
+                <div className="box third">
+                    <input type="checkbox" id="also" name="also" onChange={this.handleChange}/>
+                    <label htmlFor="also" className="element equalWidth">I need also</label>
+                    <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choiceQuestionmark.png" alt="choiceQuestionmark" className="element"/>
+                    <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choiceInfinity.png" alt="choiceInfinity" className="element"/>
+                    <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choiceCoffe.png" alt="choiceCoffe" className="element"/>
+                </div>
             </div>
         );
     }

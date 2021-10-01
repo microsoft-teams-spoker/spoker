@@ -32,3 +32,46 @@
 .choice-trash-can {
     cursor: pointer !important;
 }
+
+.box {
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    float: left;
+}
+.element {
+    display: inline-block;
+    height: 100px;
+    text-align: center;
+    margin-left: 5px;
+}
+
+.equalWidth {
+    width: 70px;
+}
+
+.pickTheScale {
+    color: #464775;
+    font-weight: bold;
+}
+
+.first{
+    width:100%;
+    height:100px;
+    position:absolute;
+    box-sizing: border-box;
+}
+.second{
+    position: relative;
+    width:100%;
+    height:100px;
+    top: 100px;
+    box-sizing: border-box;
+}
+.third{
+    position: relative;
+    width:100%;
+    height:100px;
+    top: 100px;
+    box-sizing: border-box;
+}
