@@ -1,8 +1,8 @@
 {
     "schemaVersion": 1,
     "tag": "spoker-teams-app",
-    "id": "<id>>",
-    "name": "Spoker",
+    "id": "4d05fc49-b516-43f6-b5aa-ff21e2f72155",
+    "name": "Spoker-dm",
     "description": "Estimate your stories in fast and easy way",
     "showLoadingIndicator": true,
     "developer": {
@@ -13,7 +13,7 @@
     },
     "icon": "images/custom/color_icon.png",
     "actionModel": "actionModel.json",
-    "version": "1.3.22",
+    "version": "1.2.32",
     "views": {
         "CardView": {
             "sourceLocation": "cardView.json"
@@ -35,8 +35,8 @@
     },
     "msTeamsProps": {
         "name": {
-            "short": "Spoker",
-            "full": "Spoker"
+            "short": "Spoker-dm",
+            "full": "Spoker-dm"
         },
         "description": {
             "short": "Estimate your stories in fast and easy way",
