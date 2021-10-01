@@ -99,7 +99,7 @@
   "ResultCreator": "Responses are visible to creator only",
   "Submit": "Vote",
   "Results": "Result",
-  "BeTheFirstOneToRespond": "Be the first one to take the poll",
+  "BeTheFirstOneToRespond": "Be the first one to send the vote",
   "OneResponded": "{0} responded",
   "TwoResponded": "{0} and {1} responded",
   "ThreeResponded": "{0}, {1} and {2} responded",
