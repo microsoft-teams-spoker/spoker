@@ -11,7 +11,7 @@
         "privacyUrl": "https://www.capgemini.com/privacy-policy/",
         "termsOfUseUrl": "https://www.capgemini.com/terms-of-use/"
     },
-    "icon": "images/appIcon.png",
+    "icon": "images/custom/color_icon.png",
     "actionModel": "actionModel.json",
     "version": "1.0.4",
     "views": {
@@ -43,8 +43,8 @@
             "full": "Prepare estimation with your Team by creating Scrum planning poker game (SPOKER) in a chat or channel. Find the app in “...” under the message compose box. Enter story name and select your settings for the game:\n - pick the voting scale you want to use (Fibonacci or T-shirts),\n - select additional cards (?, ∞ and coffee) if needed,\n - pick voting method (single or multiple choice),\n - pick the ending method (“Results” button or timer) and send it to all chat or channel participants. Vote easily by selecting chosen card in chat. Track the responses in Results’ window. Results of your games will be always stored in proper chat or channel. Estimate your stories in fast and easy way! It’s fun!"
         },
         "icons": {
-            "color": "images/custom/logo.png",
-            "outline": "images/custom/logo.png"
+            "color": "images/custom/color_icon.png",
+            "outline": "images/custom/outline.png"
         },
         "accentColor": "#6264A7"
     }
