@@ -46,7 +46,7 @@
       {
         "id": "Title",
         "type": "TextBlock",
-        "text": "Daniel was here 1 ${action.dataTables[0].dataColumns[0].displayName}",
+        "text": "${action.dataTables[0].dataColumns[0].displayName}",
         "_$text.comment": "display poll title",
         "wrap": true,
         "weight": "bolder",
@@ -156,18 +156,18 @@
     ],
     "actions": [
       {
-        "id": "RespondButton",
-        "$when": "${equals(action.status, 'Active')}",
-        "title": "${strings.Submit}",
-        "command": "SubmitActionDataRow"
-      },
-      {
         "id": "Result",
         "title": "${strings.Results}",
         "command": "LaunchActionPackageView",
         "parameters": {
           "viewName": "DetailView"
         }
+      },
+      {
+        "id": "RespondButton",
+        "$when": "${equals(action.status, 'Active')}",
+        "title": "${strings.Submit}",
+        "command": "SubmitActionDataRow"
       }
     ]
   },

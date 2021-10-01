@@ -176,7 +176,6 @@ export default class SummaryView extends React.Component<any, any> {
                         <Text weight="bold" className="primary-text">
                             Poll Title
                         </Text>
-                                    <div>Jacek was here 3.1</div>
                     </ShimmerContainer>
                     {barChartComponent}
                 </>
@@ -187,7 +186,6 @@ export default class SummaryView extends React.Component<any, any> {
                     <Text weight="bold" className="primary-text word-break">
                         {getStore().actionInstance && getStore().actionInstance.dataTables[0].dataColumns[0].displayName}
                     </Text>
-                                    <div>Jacek was here 3.2</div>
                     {this.canCurrentUserViewResults() ? barChartComponent : this.getNonCreatorErrorView()}
                 </>
             );

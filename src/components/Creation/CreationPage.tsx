@@ -54,7 +54,6 @@ export default class CreationPage extends React.Component<any, any> {
         } else {
             // Render View
             ActionSdkHelper.hideLoadingIndicator();
-            <div>Jacek was here 2</div>;
             if (UxUtils.renderingForMobile()) {
                 // this will load the setting view where user can change due date and result visibility
                 if (getStore().currentPage === Page.Settings) {
@@ -172,16 +171,8 @@ export default class CreationPage extends React.Component<any, any> {
                                      focusOnError={focusChoiceOnError}
                                      renderForMobile={UxUtils.renderingForMobile()}
                                      maxLength={Constants.POLL_CHOICE_MAX_LENGTH}
-                                     onDeleteChoice={(i) => {
-                                         shouldValidateUI(false);
-                                         deleteChoice(i);
-                                     }}
                                      onUpdateChoice={(i, value) => {
                                          updateChoiceText(i, value);
-                                         shouldValidateUI(false);
-                                     }}
-                                     onAddChoice={() => {
-                                         addChoice();
                                          shouldValidateUI(false);
                                      }}/>
                 </div>

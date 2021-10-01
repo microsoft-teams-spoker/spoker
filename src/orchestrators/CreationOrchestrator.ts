@@ -64,6 +64,9 @@ orchestrator(callActionInstanceCreationAPI, async () => {
     // create poll question
     updateTitle(getStore().title.trim());
 
+    let fibo = getStore().options[0] == "fibo";
+    let also = getStore().options[1] == "true";
+
     let pollQuestion: actionSDK.ActionDataColumn = {
         name: "0",
         valueType: actionSDK.ActionDataColumnValueType.SingleOption,
@@ -73,8 +76,15 @@ orchestrator(callActionInstanceCreationAPI, async () => {
     actionInstance.dataTables[0].dataColumns[0].options = [];
 
     // Create poll options
+    let values = [];
+    if  (fibo) {
+        values = ["2","3","5","8","13"];
+    } else {
+        values = ["XS", "S", "M", "L", "XL"];
+    }
+
     let i = 0;
-    for (const val of [2, 3, 5, 8, 13]) {
+    for (const val of values) {
         let pollChoice: actionSDK.ActionDataColumnOption = {
             name: `${i}`,
             displayName: `${val}`,
@@ -84,6 +94,17 @@ orchestrator(callActionInstanceCreationAPI, async () => {
         actionInstance.dataTables[0].dataColumns[0].options.push(pollChoice);
     }
 
+    if  (also) {
+        for (const val of ["?", "☕", "♾"]) {
+            let pollChoice: actionSDK.ActionDataColumnOption = {
+                name: `${i}`,
+                displayName: `${val}`,
+            };
+            i++;
+
+            actionInstance.dataTables[0].dataColumns[0].options.push(pollChoice);
+        }
+    }
     // Set poll responses visibility
     actionInstance.dataTables[0].rowsVisibility = getStore().settings.resultVisibility === actionSDK.Visibility.Sender ?
         actionSDK.Visibility.Sender : actionSDK.Visibility.All;
