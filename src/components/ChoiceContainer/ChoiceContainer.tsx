@@ -80,7 +80,7 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps> 
                 <div className="pickTheScale">Pick the scale:</div>
                 <div className="box first">
                     <input id="fibo" type="radio" value="Fibonacci" name="scale" key={"option" + 0} onChange={this.handleChange} checked/>
-                    <label htmlFor="fibo" className="element">Fibonacci</label>
+                    <label htmlFor="fibo" className="element equalWidth">Fibonacci</label>
                     <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice2.png" alt="choice2" className="element"/>
                     <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice3.png" alt="choice3" className="element"/>
                     <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice5.png" alt="choice5" className="element"/>
@@ -89,7 +89,7 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps> 
                 </div>
                 <div className="box second">
                     <input id="tshirts" type="radio" value="T-shirts" name="scale" key={"option" + 1} onChange={this.handleChange}/>
-                    <label htmlFor="tshirts" className="element">T-shirts</label>
+                    <label htmlFor="tshirts" className="element equalWidth">T-shirts</label>
                     <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtXS.png" alt="shirtXS" className="element"/>
                     <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtS.png" alt="shirtS" className="element"/>
                     <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtM.png" alt="shirtM" className="element"/>
@@ -98,7 +98,7 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps> 
                 </div>
                 <div className="box third">
                     <input type="checkbox" id="also" name="scale" onChange={this.handleChange}/>
-                    <label htmlFor="also" className="element">I need also</label>
+                    <label htmlFor="also" className="element equalWidth">I need also</label>
                     <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choiceQuestionmark.png" alt="choiceQuestionmark" className="element"/>
                     <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choiceInfinity.png" alt="choiceInfinity" className="element"/>
                     <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choiceCoffe.png" alt="choiceCoffe" className="element"/>
