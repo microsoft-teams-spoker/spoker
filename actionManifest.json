@@ -20,11 +20,11 @@
         },
         "LaunchView": {
             "sourceLocation": "CreateView.html",
-            "header": "Create poker"
+            "header": "Set your own rules for this game"
         },
         "DetailView": {
             "sourceLocation": "DetailView.html",
-            "header": "Results view"
+            "header": "Check this game’s results. Satisfied?"
         }
     },
     "localizationInfo": {
@@ -45,7 +45,7 @@
             "full": "Get your team's opinion by creating a poll in a chat or channel.​ Find the app in '…' under the message compose box​. Enter your question and choices and you're good to go. Stay on top of participation by tracking responses. Download poll result to share with your co-workers."
         },
         "icons": {
-            "color": "images/appIcon.png",
+            "color": "images/custom/logo.png",
             "outline": "images/outline.png"
         },
         "accentColor": "#ee4444"
