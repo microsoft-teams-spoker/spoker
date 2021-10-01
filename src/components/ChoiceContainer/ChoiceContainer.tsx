@@ -47,11 +47,11 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps> 
     render() {
         return (
             <div>
-                <div className="pickTheScale">{Localizer.getString("PickTheScale")}:</div>
-                <Flex>
-                    <div className="equalWidth">
-                    <input id="fibo" type="radio" value="fibo" name="scale" key={"option" + 0} onChange={this.handleOnUpdateScale} checked/>
-                    <label htmlFor="fibo" className="element">Fibonacci</label>
+                <div className="label">{Localizer.getString("PickTheScale")}:</div>
+                <Flex className="row">
+                    <div className="equal-width">
+                        <input id="fibo" type="radio"  className="option" value="fibo" name="scale" key={"option" + 0} onChange={this.handleOnUpdateScale} checked/>
+                        <label htmlFor="fibo">{Localizer.getString("Fibonacci")}</label>
                     </div>
                     <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice2.png"
                          alt="choice2" className="element"/>
@@ -64,10 +64,10 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps> 
                     <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice13.png"
                          alt="choice13" className="element"/>
                 </Flex>
-                <Flex>
-                    <div className="equalWidth">
-                    <input id="tshirts" type="radio" value="tshirts" name="scale" key={"option" + 1} onChange={this.handleOnUpdateScale}/>
-                    <label htmlFor="tshirts" className="element">T-shirts</label>
+                <Flex className="row">
+                    <div className="equal-width">
+                        <input id="tshirts" type="radio"  className="option" value="tshirts" name="scale" key={"option" + 1} onChange={this.handleOnUpdateScale}/>
+                        <label htmlFor="tshirts">{Localizer.getString("Tshirts")}</label>
                     </div>
                     <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtXS.png"
                          alt="shirtXS" className="element"/>
@@ -80,10 +80,10 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps> 
                     <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtXL.png"
                          alt="shirtXL" className="element"/>
                 </Flex>
-                <Flex>
-                    <div className="equalWidth">
-                    <input type="checkbox" id="also" name="also" onChange={this.handleOnUpdateExtension}/>
-                    <label htmlFor="also" className="element">I need also</label>
+                <Flex className="row">
+                    <div className="equal-width">
+                        <input type="checkbox" className="option" id="also" name="also" onChange={this.handleOnUpdateExtension}/>
+                        <label htmlFor="also">{Localizer.getString("OtherCards")}</label>
                     </div>
                     <img
                         src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choiceQuestionmark.png"
