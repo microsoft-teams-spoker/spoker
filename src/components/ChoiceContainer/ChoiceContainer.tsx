@@ -27,16 +27,24 @@ export interface IChoiceContainerProps {
     onUpdateExtension?: (value) => void;
 }
 
+type State = {
+    scale: string;
+}
+
 /**
  * <ChoiceContainer> component to add choice input box in creation view
  */
-export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps> {
+export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps, State> {
 
     constructor(props: IChoiceContainerProps) {
         super(props);
+        this.state = {scale: "fibo"};
+
+        this.handleOnUpdateScale = this.handleOnUpdateScale.bind(this);
     }
 
     handleOnUpdateScale = e => {
+        this.setState({scale: e.target.value});
         this.props.onUpdateScale(e.target.value);
     };
 
@@ -51,8 +59,9 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps> 
                 <Flex className="row">
                     <Flex className="equal-width">
                         <div className="first-scale-label">
-                            <input id="fibo" type="radio" className="option" value="fibo" name="scale" key={"option" + 0} onChange={this.handleOnUpdateScale}
-                                   checked/>
+                            <input id="fibo" type="radio" className="option" value="fibo" name="scale"
+                                   key={"option" + 0} onChange={this.handleOnUpdateScale}
+                                   checked={this.state.scale === "fibo"}/>
                             <label htmlFor="fibo">{Localizer.getString("Fibonacci")}</label>
                         </div>
                     </Flex>
@@ -70,7 +79,8 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps> 
                 <Flex className="row">
                     <Flex className="equal-width">
                         <div className="second-scale-label">
-                            <input id="tshirts" type="radio" className="option" value="tshirts" name="scale" key={"option" + 1}
+                            <input id="tshirts" type="radio" className="option" value="tshirts" name="scale"
+                                   key={"option" + 1} checked={this.state.scale === "tshirts"}
                                    onChange={this.handleOnUpdateScale}/>
                             <label htmlFor="tshirts">{Localizer.getString("Tshirts")}</label>
                         </div>
