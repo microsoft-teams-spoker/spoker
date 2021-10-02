@@ -6,11 +6,11 @@ import "./TableComponent.scss";
 const fiboHeader = {
     items: [
         <p className="headerText participants">Participants</p>,
-        <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice2.png" alt="choice2" className="element"/>,
-        <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice3.png" alt="choice3" className="element"/>,
-        <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice5.png" alt="choice5" className="element"/>,
-        <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice8.png" alt="choice8" className="element"/>,
-        <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice13.png" alt="choice13" className="element"/>,
+        <img src="images/custom/choice2.png" alt="choice2" className="element"/>,
+        <img src="images/custom/choice3.png" alt="choice3" className="element"/>,
+        <img src="images/custom/choice5.png" alt="choice5" className="element"/>,
+        <img src="images/custom/choice8.png" alt="choice8" className="element"/>,
+        <img src="images/custom/choice13.png" alt="choice13" className="element"/>,
         <p className="headerText">Other cards</p>
     ],
   }
@@ -18,29 +18,29 @@ const fiboHeader = {
   const tshirtsHeader = {
     items: [
         <p className="headerText participants">Participants</p>,
-        <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtXS.png" alt="shirtXS" className="element"/>,
-        <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtS.png" alt="shirtS" className="element"/>,
-        <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtM.png" alt="shirtM" className="element"/>,
-        <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtL.png" alt="shirtL" className="element"/>,
-        <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtXL.png" alt="shirtXL" className="element"/>,
+        <img src="images/custom/shirtXS.png" alt="shirtXS" className="element"/>,
+        <img src="images/custom/shirtS.png" alt="shirtS" className="element"/>,
+        <img src="images/custom/shirtM.png" alt="shirtM" className="element"/>,
+        <img src="images/custom/shirtL.png" alt="shirtL" className="element"/>,
+        <img src="images/custom/shirtXL.png" alt="shirtXL" className="element"/>,
         <p className="headerText">Other cards</p>
     ],
   }
 
   const fiboItems = [
-    <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice2.png" alt="choice2" className="element"/>,
-    <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice3.png" alt="choice3" className="element"/>,
-    <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice5.png" alt="choice5" className="element"/>,
-    <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice8.png" alt="choice8" className="element"/>,
-    <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/choice13.png" alt="choice13" className="element"/>
+    <img src="images/custom/choice2.png" alt="choice2" className="element"/>,
+    <img src="images/custom/choice3.png" alt="choice3" className="element"/>,
+    <img src="images/custom/choice5.png" alt="choice5" className="element"/>,
+    <img src="images/custom/choice8.png" alt="choice8" className="element"/>,
+    <img src="images/custom/choice13.png" alt="choice13" className="element"/>
   ]
 
   const tshirtItems = [
-    <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtXS.png" alt="shirtXS" className="element"/>,
-        <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtS.png" alt="shirtS" className="element"/>,
-        <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtM.png" alt="shirtM" className="element"/>,
-        <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtL.png" alt="shirtL" className="element"/>,
-        <img src="https://raw.githubusercontent.com/microsoft-teams-spoker/spoker/master-without-storybook/assets/images/custom/shirtXL.png" alt="shirtXL" className="element"/>
+    <img src="images/custom/shirtXS.png" alt="shirtXS" className="element"/>,
+        <img src="images/custom/shirtS.png" alt="shirtS" className="element"/>,
+        <img src="images/custom/shirtM.png" alt="shirtM" className="element"/>,
+        <img src="images/custom/shirtL.png" alt="shirtL" className="element"/>,
+        <img src="images/custom/shirtXL.png" alt="shirtXL" className="element"/>
   ]
   
   export interface ITableComponentProps {
