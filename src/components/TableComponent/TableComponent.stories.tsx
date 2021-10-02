@@ -16,6 +16,10 @@ const Template: ComponentStory<typeof TableComponent> = (args) => <WithTheme {..
 export const withError = Template.bind({});
 withError.args = {
     scale: 'fibo',
-    allUsersPolls: [{user: {id: 1, displayName: "User 1"}, responseIds: {0: 1}}],
+    allUsersPolls: [
+        {user: {id: 1, displayName: "User 1"}, responseIds: {0: 1}},
+        {user: {id: 1, displayName: "User 2"}},
+        {user: {id: 1, displayName: "User 3"}, responseIds: {0: 3}},
+    ],
     showShimmer: false,
 };
