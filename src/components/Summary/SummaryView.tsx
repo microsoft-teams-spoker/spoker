@@ -50,7 +50,6 @@ export default class SummaryView extends React.Component<any, any> {
                 >
                     {this.getHeaderContainer()}
                     {this.getTopContainer()}
-                    {/* {this.getMyResponseContainer()} */}
                     {this.getShortSummaryContainer()}
                 </Flex>
                 {this.getFooterView()}
@@ -165,11 +164,6 @@ export default class SummaryView extends React.Component<any, any> {
         if (showShimmer) {
             return (
                 <>
-                    {/* <ShimmerContainer lines={1} width={["50%"]} showShimmer={showShimmer}>
-                        <Text weight="bold" className="primary-text">
-                            Poll Title
-                        </Text>
-                    </ShimmerContainer> */}
                     {barChartComponent}
                 </>
             );
