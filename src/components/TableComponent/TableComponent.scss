@@ -11,5 +11,31 @@
 }
 
 .participants /deep/ ui-table__cell {
-    width: 150px !important;
+  width: 150px !important;
+}
+
+.votesTable {
+  padding-top: 10px !important;
+  background-color: #f0f0f0 !important;
+  border-top: 2px solid #a2a3ba;
+  border-bottom: 2px solid #a2a3ba;
+  .ui-table__row:first-child:hover {
+    background-color: #f0f0f0;
+  }
+  .ui-table__row {
+    height: 52px;
+    background-color: #f0f0f0;
+  }
+  .ui-table__cell {
+    max-width: 50px;
+    justify-content: center;
+  }
+  .ui-table__cell:first-child {
+    max-width: 100px;
+    justify-content: left;
+  }
+  .ui-table__cell__content {
+    display: flex;
+    align-items: center;
+  }
 }
