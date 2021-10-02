@@ -110,30 +110,6 @@ export default class CreationPage extends React.Component<any, any> {
         let choiceOptions = [];
         let accessibilityAnnouncementString: string = "";
         let focusChoiceOnError: boolean = false;
-        // validation of title and choices that it should not be blank setting this flag to true while creating action instance only
-        if (getStore().shouldValidate) {
-            questionEmptyError = getStore().title == "" ? Localizer.getString("TitleBlankError") : null;
-            if (getStore().options.length >= 2) {
-                for (let option of getStore().options) {
-                    optionsError.push((option == null || option == "") ? Localizer.getString("BlankChoiceError") : "");
-                }
-            }
-
-            if (questionEmptyError) {
-                accessibilityAnnouncementString = questionEmptyError;
-                if (this.validationErrorQuestionRef) {
-                    this.validationErrorQuestionRef.focus();
-                }
-            } else {
-                for (let error in optionsError) {
-                    if (!Utils.isEmpty(error)) {
-                        accessibilityAnnouncementString = Localizer.getString("BlankChoiceError");
-                        focusChoiceOnError = true;
-                        break;
-                    }
-                }
-            }
-        }
 
         let i = 0;
         getStore().options.forEach((option) => {

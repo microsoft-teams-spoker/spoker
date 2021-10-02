@@ -20,6 +20,7 @@
   "DueInMinute": "Due in {0} minute",
   "Send": "Send Poll",
   "TitleBlankError": "Title cannot be left blank",
+  "UnnamedStory": "Unnamed story",
   "PollTitlePlaceholder": "Story name",
   "PickTheScale": "Pick the scale",
   "OtherCards": "Other cards",

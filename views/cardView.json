@@ -154,20 +154,22 @@
         ]
       }
     ],
+
     "actions": [
-      {
-        "id": "Result",
-        "title": "${strings.Results}",
-        "command": "LaunchActionPackageView",
-        "parameters": {
-          "viewName": "DetailView"
-        }
-      },
       {
         "id": "RespondButton",
         "$when": "${equals(action.status, 'Active')}",
         "title": "${strings.Submit}",
         "command": "SubmitActionDataRow"
+      },
+      {
+        "id": "Result",
+        "title": "${strings.Results}",
+        "$when": "${greater(summary.rowCreatorCount, 0)}",
+        "command": "LaunchActionPackageView",
+        "parameters": {
+          "viewName": "DetailView"
+        }
       }
     ]
   },

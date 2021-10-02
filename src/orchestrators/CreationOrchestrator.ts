@@ -61,8 +61,11 @@ orchestrator(callActionInstanceCreationAPI, async () => {
         ],
     };
 
-    // create poll question
-    updateTitle(getStore().title.trim());
+    if (getStore().title == "") {
+        updateTitle(Localizer.getString("UnnamedStory"));
+    } else {
+        updateTitle(getStore().title.trim());
+    }
 
     let fibo = getStore().scale == "fibo";
     let extension = getStore().extension;
@@ -77,8 +80,8 @@ orchestrator(callActionInstanceCreationAPI, async () => {
 
     // Create poll options
     let values = [];
-    if  (fibo) {
-        values = ["2","3","5","8","13"];
+    if (fibo) {
+        values = ["2", "3", "5", "8", "13"];
     } else {
         values = ["XS", "S", "M", "L", "XL"];
     }
@@ -94,7 +97,7 @@ orchestrator(callActionInstanceCreationAPI, async () => {
         actionInstance.dataTables[0].dataColumns[0].options.push(pollChoice);
     }
 
-    if  (extension) {
+    if (extension) {
         for (const val of ["?", "☕", "♾"]) {
             let pollChoice: actionSDK.ActionDataColumnOption = {
                 name: `${i}`,
