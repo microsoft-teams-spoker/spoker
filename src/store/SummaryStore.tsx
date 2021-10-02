@@ -46,7 +46,7 @@ interface IPollSummaryStore {
     actionInstanceRows: actionSDK.ActionDataRow[];
     myRow: actionSDK.ActionDataRow;
     userProfile: { [key: string]: actionSDK.SubscriptionMember };
-    allUsersPolls: { [key: string]: { user: actionSDK.SubscriptionMember, responseId: string[]}}[];
+    allUsersPolls: { user: actionSDK.SubscriptionMember, responseIds: {[key:string]: string}}[];
     nonResponders: actionSDK.SubscriptionMember[];
     memberCount: number;
     showMoreOptionsList: boolean;

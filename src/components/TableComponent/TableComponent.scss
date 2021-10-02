@@ -1,0 +1,15 @@
+@import "./../../scss/common.scss";
+
+.element {
+  margin-right: 0px;
+  height: 48px;
+}
+
+.headerText {
+  color: $brand-color;
+  font-weight: 800;
+}
+
+.participants /deep/ ui-table__cell {
+    width: 150px !important;
+}

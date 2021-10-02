@@ -132,7 +132,7 @@ export let updateUserProfileInfo = action(PollSummaryAction.updateUserProfileInf
     userProfileMap: userProfileMap
 }));
 
-export let updateAllUsersInfo = action(PollSummaryAction.updateAllUsersInfo, (usersProfileMap: { [key: string]: { user: actionSDK.SubscriptionMember, responseIds: string[]}}[]) => ({
+export let updateAllUsersInfo = action(PollSummaryAction.updateAllUsersInfo, (usersProfileMap: { user: actionSDK.SubscriptionMember, responseIds: {[key:string]: string}}[]) => ({
     usersProfileMap: usersProfileMap
 }));
 

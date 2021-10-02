@@ -79,8 +79,6 @@ mutator(updateUserProfileInfo, (msg) => {
 
 mutator(updateAllUsersInfo, (msg) => {
     const store = getStore();
-    console.log(store.allUsersPolls);
-    console.log(msg.usersProfileMap);
     store.allUsersPolls = Object.assign(store.allUsersPolls, msg.usersProfileMap);
 });
 

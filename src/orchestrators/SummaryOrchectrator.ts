@@ -46,6 +46,7 @@ orchestrator(initialize, async () => {
             fetchActionInstanceSummary(true);
             fetchMyResponse();
             fetchMemberCount();
+            fetchAllUsersPolls();
             setProgressStatus({ currentContext: ProgressState.Completed });
         } else {
             handleError(actionContext.error, "currentContext");
@@ -141,18 +142,19 @@ orchestrator(fetchAllUsersPolls, async (msg) => {
     let pollResposne = await ActionSdkHelper.getActionDataRows(getStore().context.actionId);
 
     if (usersResponse.success && usersResponse.members && pollResposne.success) {
-        let users: { [key: string]: { user: actionSDK.SubscriptionMember, responseIds: string[]}}[] = [];
-        usersResponse.members.forEach(member => {
+        var users: { user: actionSDK.SubscriptionMember, responseIds: {[key:string]: string}}[] = [];
+        for (let index = 0; index < usersResponse.members.length; index++) {
+            const member = usersResponse.members[index];
             let response = pollResposne.dataRows.find(row => row.creatorId === member.id);
 
-            users[member.id] = {
+            users[index] = {
                 user: {
                     id: member.id,
                     displayName: member.displayName
                 },
-                responseIds: response ? response.columnValues : []
-            }
-        });
+                responseIds: response ? response.columnValues : null
+            };
+        };
         updateAllUsersInfo(users);
     } else if (!usersResponse.success || !pollResposne.success) {
         handleErrorResponse(usersResponse.error);

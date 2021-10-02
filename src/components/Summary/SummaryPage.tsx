@@ -11,7 +11,6 @@ import { Localizer } from "../../utils/Localizer";
 import { ErrorView } from "../ErrorView";
 import { ProgressState } from "./../../utils/SharedEnum";
 import { ActionSdkHelper } from "../../helper/ActionSdkHelper";
-import { fetchAllUsersPolls } from "../../actions/SummaryActions";
 
 /**
  * <SummaryPage> component to render data for summary page
@@ -19,11 +18,6 @@ import { fetchAllUsersPolls } from "../../actions/SummaryActions";
  */
 @observer
 export default class SummaryPage extends React.Component<any, any> {
-
-    componentWillMount() {
-        fetchAllUsersPolls();
-        console.log(getStore().allUsersPolls);
-    }
 
     render() {
         if (getStore().isActionDeleted) {
