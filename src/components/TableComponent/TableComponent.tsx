@@ -52,7 +52,6 @@ export interface ITableItem {
 export class TableComponent extends React.PureComponent<ITableComponentProps> {
 
     render() {
-        console.log("TABLE");
         let header = fiboHeader;
         if (this.props.scale !== "fibo") {
             header = tshirtsHeader;
@@ -63,25 +62,25 @@ export class TableComponent extends React.PureComponent<ITableComponentProps> {
 
         for (let index = 0; index < this.props.allUsersPolls.length; index++) {
             const userPoll = this.props.allUsersPolls[index];
-            let defaultItems: JSX.Element[] = fiboItems;
-            if (this.props.scale !== "fibo") {
-                defaultItems = tshirtItems;
-            }
-
-            rows[index] = {
-                key: index,
-                items: [
-                    <p className="headerText">{userPoll.user.displayName}</p>,
-                    <p></p>,
-                    <p></p>,
-                    <p></p>,
-                    <p></p>,
-                    <p></p>,
-                    <p></p>
-                ]
-            };
-
             if (userPoll.responseIds) {
+                let defaultItems: JSX.Element[] = fiboItems;
+                if (this.props.scale !== "fibo") {
+                    defaultItems = tshirtItems;
+                }
+    
+                rows[index] = {
+                    key: index,
+                    items: [
+                        <p className="headerText">{userPoll.user.displayName}</p>,
+                        <p></p>,
+                        <p></p>,
+                        <p></p>,
+                        <p></p>,
+                        <p></p>,
+                        <p></p>
+                    ]
+                };
+
                 let place = parseInt(userPoll.responseIds['0']);
                 rows[index].items[place+1] = defaultItems[place];
                 counterArray[place] = counterArray[place] + 1;

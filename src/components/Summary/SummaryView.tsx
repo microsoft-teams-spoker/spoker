@@ -48,91 +48,11 @@ export default class SummaryView extends React.Component<any, any> {
                 >
                     {this.getHeaderContainer()}
                     {this.getTopContainer()}
-                    {this.getMyResponseContainer()}
                     {this.getShortSummaryContainer()}
                 </Flex>
                 {this.getFooterView()}
             </>
         );
-    }
-
-    /**
-     * Method that will return the UI component of response of current user
-     */
-    private getMyResponseContainer(): JSX.Element {
-        let myResponse: string = "";
-
-        // User name
-        let currentUserProfile: actionSDK.SubscriptionMember = getStore().context
-            ? getStore().userProfile[getStore().context.userId] : null;
-
-        let myUserName = (currentUserProfile && currentUserProfile.displayName)
-            ? currentUserProfile.displayName : Localizer.getString("You");
-
-        // Showing shimmer effect till we get data from API
-        let progressStatus = getStore().progressStatus;
-        if (progressStatus.myActionInstanceRow != ProgressState.Completed ||
-            progressStatus.actionInstance != ProgressState.Completed) {
-            return (
-                <Flex className="my-response" gap="gap.small" vAlign="center">
-                    <ShimmerContainer showProfilePic>
-                        <Avatar
-                            aria-hidden={true}
-                            name={myUserName}
-                            className="no-flex-shrink"
-                        />
-                    </ShimmerContainer>
-                    <ShimmerContainer fill>
-                        <label>{Localizer.getString("NotResponded")}</label>
-                    </ShimmerContainer>
-                </Flex>
-            );
-        } else if (getStore().myRow && getStore().myRow.columnValues) {
-            // getting poll choice selected by current user from actionInstance
-            myResponse = getStore().actionInstance.dataTables[0].dataColumns[0].options[getStore().myRow.columnValues[0]].displayName;
-
-            return (
-                <>
-                    {getStore().myRow && (
-                        <Flex
-                            data-html2canvas-ignore="true"
-                            className="my-response"
-                            gap="gap.small"
-                            vAlign="center"
-                        >
-                            <Avatar
-                                aria-hidden={true}
-                                name={myUserName}
-                                className="no-flex-shrink"
-                            />
-                            <Flex column className="overflow-hidden">
-                                <Text
-                                    truncated
-                                    title = {myResponse}
-                                    content={Localizer.getString("YourResponse", myResponse)}
-                                />
-                            </Flex>
-                        </Flex>
-                    )}
-                </>
-            );
-        } else {
-            return (
-                <Flex
-                    data-html2canvas-ignore="true"
-                    className="my-response"
-                    gap="gap.small"
-                    vAlign="center"
-                >
-                    <Avatar
-                        aria-hidden={true}
-                        name={myUserName}
-                        className="no-flex-shrink"
-                    />
-                    <label>{Localizer.getString("NotResponded")}</label>
-                </Flex>
-            );
-        }
     }
 
     /**
