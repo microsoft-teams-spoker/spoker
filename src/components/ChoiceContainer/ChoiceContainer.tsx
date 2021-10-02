@@ -76,26 +76,26 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps, 
                     <img src="images/custom/choice13.png"
                          alt="choice13" className="element"/>
                 </Flex>
-                <Flex className="row">
-                    <Flex className="equal-width">
-                        <div className="second-scale-label">
-                            <input id="tshirts" type="radio" className="option" value="tshirts" name="scale"
-                                   key={"option" + 1} checked={this.state.scale === "tshirts"}
-                                   onChange={this.handleOnUpdateScale}/>
-                            <label htmlFor="tshirts">{Localizer.getString("Tshirts")}</label>
-                        </div>
-                    </Flex>
-                    <img src="images/custom/shirtXS.png"
-                         alt="shirtXS" className="element"/>
-                    <img src="images/custom/shirtS.png"
-                         alt="shirtS" className="element"/>
-                    <img src="images/custom/shirtM.png"
-                         alt="shirtM" className="element"/>
-                    <img src="images/custom/shirtL.png"
-                         alt="shirtL" className="element"/>
-                    <img src="images/custom/shirtXL.png"
-                         alt="shirtXL" className="element"/>
-                </Flex>
+                {/*<Flex className="row">*/}
+                {/*    <Flex className="equal-width">*/}
+                {/*        <div className="second-scale-label">*/}
+                {/*            <input id="tshirts" type="radio" className="option" value="tshirts" name="scale"*/}
+                {/*                   key={"option" + 1} checked={this.state.scale === "tshirts"}*/}
+                {/*                   onChange={this.handleOnUpdateScale}/>*/}
+                {/*            <label htmlFor="tshirts">{Localizer.getString("Tshirts")}</label>*/}
+                {/*        </div>*/}
+                {/*    </Flex>*/}
+                {/*    <img src="images/custom/shirtXS.png"*/}
+                {/*         alt="shirtXS" className="element"/>*/}
+                {/*    <img src="images/custom/shirtS.png"*/}
+                {/*         alt="shirtS" className="element"/>*/}
+                {/*    <img src="images/custom/shirtM.png"*/}
+                {/*         alt="shirtM" className="element"/>*/}
+                {/*    <img src="images/custom/shirtL.png"*/}
+                {/*         alt="shirtL" className="element"/>*/}
+                {/*    <img src="images/custom/shirtXL.png"*/}
+                {/*         alt="shirtXL" className="element"/>*/}
+                {/*</Flex>*/}
                 <Flex className="row">
                     <Flex className="equal-width">
                         <div className="option-label">
