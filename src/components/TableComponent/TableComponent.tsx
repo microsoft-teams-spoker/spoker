@@ -87,7 +87,7 @@ export class TableComponent extends React.PureComponent<ITableComponentProps> {
                 rows[index] = {
                     key: index,
                     items: [
-                        <p className="headerText">{userPoll.user.displayName}</p>,
+                        <p className="participant-text">{userPoll.user.displayName}</p>,
                         ...fiboItemsBasic.map(() => <p></p>),
                         <p></p>
                     ]
