@@ -39,7 +39,7 @@ export default class SummaryView extends React.Component<any, any> {
         this.bodyContainer = React.createRef();
     }
 
-    render() { 
+    render() {
         return (
             <>
                 <Flex
@@ -138,6 +138,23 @@ export default class SummaryView extends React.Component<any, any> {
     }
 
     /**
+     * Method to return configured scale
+     */
+    private getConfiguredScale(actionInstance: actionSDK.Action): string {
+        let scale = "";
+        if (actionInstance && actionInstance.customProperties) {
+            const cps = actionInstance.customProperties;
+            const scaleProp = cps.find(cp => cp.name === "Scale");
+            if (!scaleProp) {
+                return "fibo";
+            } else {
+                return scaleProp.value;
+            }
+        }
+        return scale;
+    }
+
+    /**
      * Method to return short summary for each choice of poll
      */
     private getShortSummaryContainer(): JSX.Element {
@@ -145,6 +162,9 @@ export default class SummaryView extends React.Component<any, any> {
         let optionsWithResponseCount: ITableItem[] = [];
         let rowCount: number = 0;
         let progressStatus = getSummaryStore().progressStatus;
+        let actionInstance = getSummaryStore().actionInstance;
+        const scale = this.getConfiguredScale(actionInstance);
+
         if (progressStatus.actionInstanceSummary != ProgressState.Completed || progressStatus.actionInstance != ProgressState.Completed) {
             showShimmer = true;
 
@@ -156,7 +176,7 @@ export default class SummaryView extends React.Component<any, any> {
 
         let barChartComponent: JSX.Element = (
             <TableComponent
-                scale={getCreationStore().scale}
+                scale={scale}
                 allUsersPolls={optionsWithResponseCount}
             />
         );
