@@ -72,6 +72,9 @@ export class TableComponent extends React.PureComponent<ITableComponentProps> {
 
     render() {
         console.log(this.props.scale);
+        if (!this.props.scale) {
+            return null;
+        }
         const header = this.props.scale === "fibo" ? fiboHeader : tshirtsHeader;
         const defaultItems: JSX.Element[] = this.props.scale === "fibo" ? fiboItems : tshirtItems;
 

@@ -145,12 +145,18 @@ function prepareActionInstance(actionInstance: actionSDK.Action, actionContext: 
         }
     }
 
+    let scale = getStore().scale;
+
     if (!isPropertyExists) {
         actionInstance.customProperties = actionInstance.customProperties || [];
         actionInstance.customProperties.push({
             name: "Locale",
             valueType: actionSDK.ActionPropertyValueType.Text,
             value: actionContext.locale,
+        },{
+            name: "Scale",
+            valueType: actionSDK.ActionPropertyValueType.Text,
+            value: scale,
         });
     }
 }
