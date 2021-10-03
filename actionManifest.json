@@ -1,7 +1,7 @@
 {
     "schemaVersion": 1,
     "tag": "spoker-teams-app",
-    "id": "<id>",
+    "id": "9cceef9e-0907-4e33-953e-61f721da7213",
     "name": "Spoker",
     "description": "Estimate your stories in fast and easy way",
     "showLoadingIndicator": true,
@@ -13,7 +13,7 @@
     },
     "icon": "images/custom/color_icon.png",
     "actionModel": "actionModel.json",
-    "version": "2.0.0",
+    "version": "2.0.3",
     "views": {
         "CardView": {
             "sourceLocation": "cardView.json"

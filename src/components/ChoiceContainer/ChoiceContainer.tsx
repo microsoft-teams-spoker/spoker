@@ -4,7 +4,7 @@
 import * as React from "react";
 import "./ChoiceContainer.scss";
 import {Localizer} from "../../utils/Localizer";
-import {ArrowLeftIcon, Button, Flex, FlexItem, Loader, SettingsIcon, Text} from "@fluentui/react-northstar";
+import {Flex} from "@fluentui/react-northstar";
 
 export interface IChoiceContainerOption {
     value: string;
@@ -56,7 +56,7 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps, 
         return (
             <div>
                 <div className="label">{Localizer.getString("PickTheScale")}:</div>
-                <Flex className="row">
+                <Flex className="row-scale">
                     <Flex className="equal-width">
                         <div className="first-scale-label">
                             <input id="fibo" type="radio" className="option" value="fibo" name="scale"
@@ -65,8 +65,8 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps, 
                             <label htmlFor="fibo">{Localizer.getString("Fibonacci")}</label>
                         </div>
                     </Flex>
-                    <img src="images/custom/choice2.png"
-                         alt="choice2" className="element"/>
+                    <img src="images/custom/choice1.png"
+                         alt="choice1" className="element"/>
                     <img src="images/custom/choice3.png"
                          alt="choice3" className="element"/>
                     <img src="images/custom/choice5.png"
@@ -76,7 +76,7 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps, 
                     <img src="images/custom/choice13.png"
                          alt="choice13" className="element"/>
                 </Flex>
-                <Flex className="row">
+                <Flex className="row-scale">
                     <Flex className="equal-width">
                         <div className="second-scale-label">
                             <input id="tshirts" type="radio" className="option" value="tshirts" name="scale"
@@ -96,7 +96,7 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps, 
                     <img src="images/custom/shirtXL.png"
                          alt="shirtXL" className="element"/>
                 </Flex>
-                <Flex className="row">
+                <Flex className="row-option">
                     <Flex className="equal-width">
                         <div className="option-label">
                             <input type="checkbox" className="option" id="also" name="also" onChange={this.handleOnUpdateExtension}/>

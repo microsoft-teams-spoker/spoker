@@ -2,7 +2,7 @@
 
 .element {
   margin-right: 16px;
-  height: 64px;
+  height: 48px;
 }
 
 .option {
@@ -11,24 +11,30 @@
 }
 
 .equal-width {
-  width: 135px;
+  width: 200px;
 }
 
 .label {
   color: #464775;
   font-weight: bold;
+  padding-bottom: 16px;
+  padding-top: 16px;
 }
 
-.row {
+.row-scale {
   padding-bottom: 16px;
 }
 
+.row-option {
+  padding-top: 16px;
+}
+
 .first-scale-label {
-  align-self: flex-end;
+  align-self: center;
 }
 
 .second-scale-label {
-  align-self: flex-start;
+  align-self: center;
 }
 
 .option-label {

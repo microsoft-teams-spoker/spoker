@@ -82,7 +82,7 @@ orchestrator(callActionInstanceCreationAPI, async () => {
     // Create poll options
     let values = [];
     if (fibo) {
-        values = ["2", "3", "5", "8", "13"];
+        values = ["1", "3", "5", "8", "13"];
     } else {
         values = ["XS", "S", "M", "L", "XL"];
     }
@@ -99,7 +99,7 @@ orchestrator(callActionInstanceCreationAPI, async () => {
     }
 
     if (extension) {
-        for (const val of ["?", "☕", "♾"]) {
+        for (const val of ["?", "☕", "∞"]) {
             let pollChoice: actionSDK.ActionDataColumnOption = {
                 name: `${i}`,
                 displayName: `${val}`,

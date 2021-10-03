@@ -9,7 +9,7 @@ const extraItems = [
 ]
 
 const fiboItemsBasic = [
-    <img src="images/custom/choice2.png" alt="choice2" className="element"/>,
+    <img src="images/custom/choice1.png" alt="choice1" className="element"/>,
     <img src="images/custom/choice3.png" alt="choice3" className="element"/>,
     <img src="images/custom/choice5.png" alt="choice5" className="element"/>,
     <img src="images/custom/choice8.png" alt="choice8" className="element"/>,

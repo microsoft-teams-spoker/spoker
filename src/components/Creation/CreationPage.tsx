@@ -147,7 +147,6 @@ export default class CreationPage extends React.Component<any, any> {
                     }}
                 />
                 </Flex>
-                {/*<div className="indentation">*/}
                     <ChoiceContainer optionsError={optionsError} options={choiceOptions} limit={getStore().maxOptions}
                                      focusOnError={focusChoiceOnError}
                                      renderForMobile={UxUtils.renderingForMobile()}
@@ -166,7 +165,6 @@ export default class CreationPage extends React.Component<any, any> {
                                      }}
 
                     />
-                {/*</div>*/}
             </Flex>
         );
     }
