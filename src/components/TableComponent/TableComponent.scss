@@ -1,4 +1,5 @@
 @import "./../../scss/common.scss";
+@import "./../../scss/variables.scss";
 
 .element {
   margin-right: 0px;
@@ -22,16 +23,34 @@
   margin-top: 10px !important;
   background-color: #f0f0f0 !important;
 
+  .theme-dark & {
+    background-color: #292929;
+  }
+
   .ui-table__row:first-child:hover {
     background-color: #f0f0f0;
+
+    .theme-dark & {
+      background-color: #292929;
+    }  
   }
   .ui-table__row {
     height: 52px;
     background-color: #f0f0f0;
+
+    .theme-dark & {
+      background-color: $black-color;
+    }
   }
   .ui-table__row:first-child {
     background-color: #ffff;
     border-bottom: 2px solid #a2a3ba;
+
+    .theme-dark & {
+      background-color: #292929;
+      border-bottom: 1px solid #F3F2F1;
+
+    }
   }
   .ui-table__cell {
     max-width: 50px;
@@ -44,6 +63,12 @@
   .ui-table__row:last-child {
     background-color: #ffff;
     border-top: 2px solid #a2a3ba;
+
+    .theme-dark & {
+      background-color: #292929;
+      border-top: 1px solid #F3F2F1;
+
+    }
   }
   .ui-table__cell__content {
     display: flex;
