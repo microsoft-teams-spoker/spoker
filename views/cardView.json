@@ -64,9 +64,7 @@
             "style": "expanded",
             "wrap": "true",
             "isMultiSelect": false,
-            "isRequired": true,
-                        "errorMessage": "Please select/reselect value. It is possible that your chosen value has been lost if the card has received a refresh.",
-                        "choices": [
+            "choices": [
               {
                 "$data": "${action.dataTables[0].dataColumns[0].options}",
                 "title": "${displayName}",
