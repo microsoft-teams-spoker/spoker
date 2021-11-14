@@ -27,6 +27,8 @@ interface IPollCreationStore {
     title: string;
     maxOptions: number;
     options: string[];
+    scale: string;
+    extension: boolean;
     settings: ISettingsComponentProps;
     shouldValidate: boolean;
     sendingAction: boolean;
@@ -38,6 +40,8 @@ const store: IPollCreationStore = {
     title: "",
     maxOptions: 10, // max choice we can have in poll
     options: ["", ""],
+    scale: "fibo",
+    extension: false,
     settings: {
         resultVisibility: actionSDK.Visibility.All,   // result of poll will be visible to everyone
         dueDate: Utils.getDefaultExpiry(7).getTime(), // default due date for poll is one week

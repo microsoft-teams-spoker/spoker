@@ -1,53 +1,51 @@
 {
     "schemaVersion": 1,
     "tag": "spoker-teams-app",
-    "id": "<id>",
-    "name": "spoker",
-    "description": "Ask a question and get people's opinion",
+    "id": "9cceef9e-0907-4e33-953e-61f721da7213",
+    "name": "Spoker",
+    "description": "Estimate your stories in fast and easy way",
     "showLoadingIndicator": true,
     "developer": {
         "name": "Capgemini",
         "websiteUrl": "https://www.capgemini.com",
-        "privacyUrl": "https://www.capgemini.com",
-        "termsOfUseUrl": "https://gist.githubusercontent.com/jczas/fa2112c7602a2efc02aede95f5be65f8/raw/0415a85ec2dd34d7bf85a9e49dc0c7a4845a5276/gistfile1.txt"
+        "privacyUrl": "https://www.capgemini.com/privacy-policy/",
+        "termsOfUseUrl": "https://www.capgemini.com/terms-of-use/"
     },
-    "icon": "images/appIcon.png",
+    "icon": "images/custom/color_icon.png",
     "actionModel": "actionModel.json",
-    "version": "1.0.4",
+    "version": "2.0.6",
     "views": {
         "CardView": {
             "sourceLocation": "cardView.json"
         },
         "LaunchView": {
             "sourceLocation": "CreateView.html",
-            "header": "Create poker"
+            "header": "Set your own rules for this game"
         },
         "DetailView": {
             "sourceLocation": "DetailView.html",
-            "header": "Results view"
+            "header": "Check this game’s results. Satisfied?"
         }
     },
     "localizationInfo": {
         "defaultLocale": "en-gb",
         "localeFiles": {
-            "en-gb": "strings/en-gb/strings.json",
-            "de-de": "strings/de-de/strings.json",
-            "pl-pl": "strings/pl-pl/strings.json"
+            "en-gb": "strings/en-gb/strings.json"
         }
     },
     "msTeamsProps": {
         "name": {
-            "short": "spoker",
-            "full": "spoker"
+            "short": "Spoker",
+            "full": "Spoker"
         },
         "description": {
-            "short": "Ask a question and get people's opinion",
-            "full": "Get your team's opinion by creating a poll in a chat or channel.​ Find the app in '…' under the message compose box​. Enter your question and choices and you're good to go. Stay on top of participation by tracking responses. Download poll result to share with your co-workers."
+            "short": "Estimate your stories in fast and easy way",
+            "full": "Prepare estimation with your Team by creating Scrum planning poker game (SPOKER) in a chat or channel. Find the app in “...” under the message compose box. Enter story name and select your settings for the game:\n - pick the voting scale you want to use (Fibonacci or T-shirts),\n - select additional cards (?, ∞ and coffee) if needed,\n - pick voting method (single or multiple choice),\n - pick the ending method (“Results” button or timer) and send it to all chat or channel participants. Vote easily by selecting chosen card in chat. Track the responses in Results’ window. Results of your games will be always stored in proper chat or channel. Estimate your stories in fast and easy way! It’s fun!"
         },
         "icons": {
-            "color": "images/appIcon.png",
-            "outline": "images/outline.png"
+            "color": "images/custom/color_icon.png",
+            "outline": "images/custom/outline.png"
         },
-        "accentColor": "#ee4444"
+        "accentColor": "#6264A7"
     }
 }

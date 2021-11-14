@@ -1,34 +1,42 @@
 @import "./../../scss/common.scss";
 
-.choice-item {
-    display: flex;
-    flex-direction: column;
-    padding-top: 4px;
-    padding-bottom: 4px;
+.element {
+  margin-right: 16px;
+  height: 48px;
 }
 
-.choice-container {
-    padding-top: 16px;
+.option {
+  margin-right: 8px;
+  margin-left: 8px;
 }
 
-.add-options {
-    margin-top: 8px;
-    align-items: center;
-    display: flex;
-    cursor: pointer;
+.equal-width {
+  width: 200px;
 }
 
-.plus-icon {
-    @include resolve-dir(margin-right, 8px);
+.label {
+  color: $brand-color;
+  font-weight: bold;
+  padding-bottom: 16px;
+  padding-top: 16px;
 }
 
-.item-content {
-    font-size: 14px;
-    .client-mobile & {
-        font-size: 16px;
-    }
+.row-scale {
+  padding-bottom: 16px;
 }
 
-.choice-trash-can {
-    cursor: pointer !important;
+.row-option {
+  padding-top: 16px;
+}
+
+.first-scale-label {
+  align-self: center;
+}
+
+.second-scale-label {
+  align-self: center;
+}
+
+.option-label {
+  align-self: center;
 }

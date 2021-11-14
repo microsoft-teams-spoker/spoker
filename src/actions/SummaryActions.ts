@@ -24,6 +24,7 @@ export enum PollSummaryAction {
     updateNonResponders = "updateNonResponders",
     updateMemberCount = "updateMemberCount",
     updateUserProfileInfo = "updateUserProfileInfo",
+    updateAllUsersInfo = "updateAllUsersInfo",
     updateMyRow = "updateMyRow",
     setProgressStatus = "setProgressStatus",
     goBack = "goBack",
@@ -31,6 +32,7 @@ export enum PollSummaryAction {
     fetchActionInstanceRows = "fetchActionInstanceRows",
     fetchActionInstance = "fetchActionInstance",
     fetchActionInstanceSummary = "fetchActionInstanceSummary",
+    fetchAllUsersPolls = "fetchAllUsersPolls",
     fetchNonReponders = "fetchNonReponders",
     updateDueDate = "updateDueDate",
     closePoll = "closePoll",
@@ -69,6 +71,8 @@ export let fetchActionInstance = action(PollSummaryAction.fetchActionInstance, (
 export let fetchActionInstanceSummary = action(PollSummaryAction.fetchActionInstanceSummary, (updateProgressState: boolean) => ({
     updateProgressState: updateProgressState
 }));
+
+export let fetchAllUsersPolls = action(PollSummaryAction.fetchAllUsersPolls);
 
 export let updateDueDate = action(PollSummaryAction.updateDueDate, (dueDate: number) => ({
     dueDate: dueDate
@@ -126,6 +130,10 @@ export let updateContinuationToken = action(PollSummaryAction.updateContinuation
 
 export let updateUserProfileInfo = action(PollSummaryAction.updateUserProfileInfo, (userProfileMap: { [key: string]: actionSDK.SubscriptionMember }) => ({
     userProfileMap: userProfileMap
+}));
+
+export let updateAllUsersInfo = action(PollSummaryAction.updateAllUsersInfo, (usersProfileMap: { user: actionSDK.SubscriptionMember, responseIds: {[key:string]: string}}[]) => ({
+    usersProfileMap: usersProfileMap
 }));
 
 export let updateMemberCount = action(PollSummaryAction.updateMemberCount, (memberCount) => ({
