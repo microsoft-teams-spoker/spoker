@@ -3,6 +3,7 @@
 
 import * as actionSDK from "@microsoft/m365-action-sdk";
 import { Logger } from "./../utils/Logger";
+import {ActionDataRow} from "@microsoft/m365-action-sdk";
 
 export class ActionSdkHelper {
 
@@ -53,6 +54,23 @@ export class ActionSdkHelper {
         }
         else {
             Logger.logError(`getActionDataRows failed, Error: ${response.error.category}, ${response.error.code}, ${response.error.message}`);
+            return { success: false, error: response.error };
+        }
+    }
+
+    /**
+     * Function to add data row
+     * @param dataRow data row
+     */
+    public static async addActionDataRow(dataRow: ActionDataRow) {
+        let request = new actionSDK.AddActionDataRow.Request(dataRow);
+        let response = await actionSDK.executeApi(request) as actionSDK.AddActionDataRow.Response;
+        if (!response.error) {
+            Logger.logInfo(`addActionDataRow success - Request: ${JSON.stringify(request)} Response: ${JSON.stringify(response)}`);
+            return { success: true, dataRowId: response.dataRowId, id: response.id };
+        }
+        else {
+            Logger.logError(`addActionDataRow failed, Error: ${response.error.category}, ${response.error.code}, ${response.error.message}`);
             return { success: false, error: response.error };
         }
     }

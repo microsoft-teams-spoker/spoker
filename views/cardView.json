@@ -163,12 +163,20 @@
         "command": "SubmitActionDataRow"
       },
       {
+        "id": "Vote",
+        "title": "${strings.Vote}",
+        "command": "LaunchActionPackageView",
+        "parameters": {
+          "viewName": "VoteView"
+        }
+      },
+      {
         "id": "Result",
         "title": "${strings.Results}",
         "$when": "${greater(summary.rowCreatorCount, 0)}",
         "command": "LaunchActionPackageView",
         "parameters": {
-          "viewName": "DetailView"
+            "viewName": "DetailView"
         }
       }
     ]

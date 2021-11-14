@@ -99,6 +99,7 @@
   "ResultEveryone": "Responses are visible to everyone",
   "ResultCreator": "Responses are visible to creator only",
   "Submit": "Vote",
+  "Vote": "Vote in popup",
   "Results": "Result",
   "BeTheFirstOneToRespond": "Be the first one to send the vote",
   "OneResponded": "{0} responded",
