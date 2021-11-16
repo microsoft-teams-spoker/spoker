@@ -1,6 +1,7 @@
 import * as React from "react";
 import "./VoteCard.scss";
 import {VoteCardUtils} from "./VoteCardUtils";
+import {Button} from "@fluentui/react-northstar";
 
 export enum VoteCardEnum {
     CARD_1,
@@ -51,6 +52,7 @@ export const OTHER_VOTE_CARDS = [
 export interface IVoteCardProps {
     card: VoteCardEnum;
     renderForMobile?: boolean;
+    onClick?: (voteCardEnum: VoteCardEnum) => void;
 }
 
 export interface IVoteCardState {
@@ -78,7 +80,13 @@ export class VoteCard extends React.Component<IVoteCardProps, IVoteCardState> {
     }
 
     renderTimePickerForWebOrDesktop() {
-        return <img src={this.getUrl()} alt={this.getName()} className="card"/>;
+        if (this.props.onClick) {
+            return <Button>
+                <img src={this.getUrl()} alt={this.getName()} className="card" onClick={(e) => this.props.onClick(this.props.card)}/>
+            </Button>;
+        } else {
+            return <img src={this.getUrl()} alt={this.getName()} className="card"/>;
+        }
     }
 
     getUrl(): string {

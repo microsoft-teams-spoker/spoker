@@ -47,11 +47,11 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps, 
     handleOnUpdateScale = e => {
         this.setState({scale: e.target.value});
         this.props.onUpdateScale(e.target.value);
-    };
+    }
 
     handleOnUpdateExtension = e => {
         this.props.onUpdateExtension(e.target.checked);
-    };
+    }
 
     render() {
         return (

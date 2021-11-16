@@ -1,4 +1,4 @@
-import {Button, Flex, FlexItem, Loader} from "@fluentui/react-northstar";
+import {Flex, Loader} from "@fluentui/react-northstar";
 import {observer} from "mobx-react";
 import * as React from "react";
 import {ActionSdkHelper} from "../../helper/ActionSdkHelper";
@@ -8,7 +8,8 @@ import getStore from "./../../store/VoteStore";
 import {ProgressState} from "./../../utils/SharedEnum";
 import {UxUtils} from "./../../utils/UxUtils";
 import "./vote.scss";
-import {vote} from "../../actions/VoteActions";
+import {VoteCard, VoteCardEnum} from "../VoteCard/VoteCard";
+import {setVoteCard, vote} from "../../actions/VoteActions";
 
 /**
  * <VotePage> component for vote view
@@ -33,41 +34,56 @@ export default class VotePage extends React.Component<any, any> {
             // Render View
             ActionSdkHelper.hideLoadingIndicator();
             if (UxUtils.renderingForMobile()) {
-                return (
-                    <>
-                        <Flex className="body-container no-mobile-footer">
-                            <div>This is vote page for mobile</div>
-                        </Flex>
-                        {this.renderFooterSection(true)}
-                    </>
-                );
+                return this.renderForMobile();
             } else {
-                return (
-                    <>
-                        <Flex gap="gap.medium" column className="body-container">
-                            <div>This is vote page</div>
-                            <FlexItem push>
-                                <Button
-                                    primary
-                                    content={"Send a vote"}
-                                    onClick={() => {
-                                        vote();
-                                    }}>
-                                </Button>
-                            </FlexItem>
-                        </Flex>
-                        {this.renderFooterSection()}
-                    </>
-                );
+                return this.renderForWebOrDesktop();
             }
         }
     }
 
-    /**
-     * Helper function to provide footer for main page
-     * @param isMobileView true or false based of whether its for mobile view or not
-     */
-    renderFooterSection(isMobileView?: boolean) {
+    private renderForMobile() {
+        return (
+            <>
+                <Flex className="body-container no-mobile-footer">
+                    {this.renderVoteCards()}
+                </Flex>
+                {this.renderFooterSection(true)}
+            </>
+        );
+    }
+
+    private renderForWebOrDesktop() {
+        return (
+            <>
+                <Flex gap="gap.medium" column className="body-container">
+                    {this.renderVoteCards()}
+                </Flex>
+                {this.renderFooterSection()}
+            </>
+        );
+    }
+
+    private renderVoteCards() {
+        //                    "id": "${action.dataTables[0].dataColumns[0].name}",
+        // {stations.map(station => (
+        //     <div key={station.call} className='station'>{station.call}</div>
+        // ))}
+
+        // {voteCardEnums.map(value => (
+        //     <VoteCard card={value} renderForMobile={UxUtils.renderingForMobile()} onClick={() => this.voteCardOnClick(value)}/>
+        // ))}
+
+        const voteCardEnums = this.getVoteCardEnums();
+        console.log("voteCardEnums: " + voteCardEnums.length);
+
+        return <Flex>
+            {voteCardEnums.map(value => (
+                <VoteCard card={value} renderForMobile={UxUtils.renderingForMobile()} onClick={() => this.voteCardOnClick(value)}/>
+            ))}
+        </Flex>;
+    }
+
+    private renderFooterSection(isMobileView?: boolean) {
         let className = isMobileView ? "" : "footer-layout";
         return (
             <Flex className={className} gap={"gap.smaller"}>
@@ -76,4 +92,21 @@ export default class VotePage extends React.Component<any, any> {
         );
     }
 
+    private getVoteCardEnums(): VoteCardEnum[] {
+        console.log("options: " + JSON.stringify(getStore().action.dataTables[0].dataColumns[0].options));
+        return getStore().action.dataTables[0].dataColumns[0].options.map(value => {
+            console.log("o: " + value.name);
+            const voteCardEnum: VoteCardEnum = parseInt(value.name);
+            console.log("v: " + voteCardEnum);
+            return voteCardEnum;
+        });
+    }
+
+    private voteCardOnClick(value: VoteCardEnum) {
+        console.log("getStore().voteCard: " + getStore().voteCard);
+        const isUpdate = !!getStore().voteCard;
+        console.log("isUpdate: " + isUpdate);
+        setVoteCard(value);
+        vote(value, isUpdate);
+    }
 }

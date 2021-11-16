@@ -2,8 +2,8 @@
 // Licensed under the MIT License.
 
 import * as actionSDK from "@microsoft/m365-action-sdk";
-import { Logger } from "./../utils/Logger";
 import {ActionDataRow} from "@microsoft/m365-action-sdk";
+import {Logger} from "./../utils/Logger";
 
 export class ActionSdkHelper {
 
@@ -15,11 +15,10 @@ export class ActionSdkHelper {
         let response = await actionSDK.executeApi(request) as actionSDK.GetContext.Response;
         if (!response.error) {
             Logger.logInfo(`fetchCurrentContext success - Request: ${JSON.stringify(request)} Response: ${JSON.stringify(response)}`);
-            return { success: true, context: response.context };
-        }
-        else {
+            return {success: true, context: response.context};
+        } else {
             Logger.logError(`fetchCurrentContext failed, Error: ${response.error.category}, ${response.error.code}, ${response.error.message}`);
-            return { success: false, error: response.error };
+            return {success: false, error: response.error};
         }
     }
 
@@ -32,8 +31,7 @@ export class ActionSdkHelper {
         let response = await actionSDK.executeApi(request) as actionSDK.GetContext.Response;
         if (!response.error) {
             Logger.logInfo(`createActionInstance success - Request: ${JSON.stringify(request)} Response: ${JSON.stringify(response)}`);
-        }
-        else {
+        } else {
             Logger.logError(`createActionInstance failed, Error: ${response.error.category}, ${response.error.code}, ${response.error.message}`);
         }
     }
@@ -50,11 +48,10 @@ export class ActionSdkHelper {
         let response = await actionSDK.executeApi(request) as actionSDK.GetActionDataRows.Response;
         if (!response.error) {
             Logger.logInfo(`getActionDataRows success - Request: ${JSON.stringify(request)} Response: ${JSON.stringify(response)}`);
-            return { success: true, dataRows: response.dataRows, continuationToken: response.continuationToken };
-        }
-        else {
+            return {success: true, dataRows: response.dataRows, continuationToken: response.continuationToken};
+        } else {
             Logger.logError(`getActionDataRows failed, Error: ${response.error.category}, ${response.error.code}, ${response.error.message}`);
-            return { success: false, error: response.error };
+            return {success: false, error: response.error};
         }
     }
 
@@ -67,11 +64,39 @@ export class ActionSdkHelper {
         let response = await actionSDK.executeApi(request) as actionSDK.AddActionDataRow.Response;
         if (!response.error) {
             Logger.logInfo(`addActionDataRow success - Request: ${JSON.stringify(request)} Response: ${JSON.stringify(response)}`);
-            return { success: true, dataRowId: response.dataRowId, id: response.id };
-        }
-        else {
+            return {success: true, dataRowId: response.dataRowId, id: response.id};
+        } else {
             Logger.logError(`addActionDataRow failed, Error: ${response.error.category}, ${response.error.code}, ${response.error.message}`);
-            return { success: false, error: response.error };
+            return {success: false, error: response.error};
+        }
+    }
+
+    /**
+     * Function to update data row
+     * @param dataRow data row
+     */
+    public static async updateActionDataRow(dataRow: ActionDataRow) {
+        let request = new actionSDK.UpdateActionDataRow.Request(dataRow);
+        let response = await actionSDK.executeApi(request) as actionSDK.UpdateActionDataRow.Response;
+        if (!response.error) {
+            Logger.logInfo(`updateActionDataRow success - Request: ${JSON.stringify(request)} Response: ${JSON.stringify(response)}`);
+            return {success: true, id: response.id};
+        } else {
+            Logger.logError(`updateActionDataRow failed, Error: ${response.error.category}, ${response.error.code}, ${response.error.message}`);
+            return {success: false, error: response.error};
+        }
+    }
+
+    /**
+     * Function to add or update data row
+     * @param dataRow data row
+     * @param isUpdate <true> if update
+     */
+    public static async addOrUpdateActionDataRow(dataRow: ActionDataRow, isUpdate: boolean) {
+        if (isUpdate) {
+            return ActionSdkHelper.updateActionDataRow(dataRow);
+        } else {
+            return ActionSdkHelper.addActionDataRow(dataRow);
         }
     }
 
@@ -84,11 +109,10 @@ export class ActionSdkHelper {
         let response = await actionSDK.executeApi(request) as actionSDK.GetSubscriptionMemberCount.Response;
         if (!response.error) {
             Logger.logInfo(`getSubscriptionMemberCount success - Request: ${JSON.stringify(request)} Response: ${JSON.stringify(response)}`);
-            return { success: true, memberCount: response.memberCount };
-        }
-        else {
+            return {success: true, memberCount: response.memberCount};
+        } else {
             Logger.logError(`getSubscriptionMemberCount failed, Error: ${response.error.category}, ${response.error.code}, ${response.error.message}`);
-            return { success: false, error: response.error };
+            return {success: false, error: response.error};
         }
     }
 
@@ -101,11 +125,10 @@ export class ActionSdkHelper {
         let response = await actionSDK.executeApi(request) as actionSDK.GetAction.Response;
         if (!response.error) {
             Logger.logInfo(`getAction success - Request: ${JSON.stringify(request)} Response: ${JSON.stringify(response)}`);
-            return { success: true, action: response.action };
-        }
-        else {
+            return {success: true, action: response.action};
+        } else {
             Logger.logError(`getAction failed, Error: ${response.error.category}, ${response.error.code}, ${response.error.message}`);
-            return { success: false, error: response.error };
+            return {success: false, error: response.error};
         }
     }
 
@@ -119,11 +142,10 @@ export class ActionSdkHelper {
         let response = await actionSDK.executeApi(request) as actionSDK.GetActionDataRowsSummary.Response;
         if (!response.error) {
             Logger.logInfo(`getActionDataRowsSummary success - Request: ${JSON.stringify(request)} Response: ${JSON.stringify(response)}`);
-            return { success: true, summary: response.summary };
-        }
-        else {
+            return {success: true, summary: response.summary};
+        } else {
             Logger.logError(`getActionDataRowsSummary failed, Error: ${response.error.category}, ${response.error.code}, ${response.error.message}`);
-            return { success: false, error: response.error };
+            return {success: false, error: response.error};
         }
 
     }
@@ -138,11 +160,10 @@ export class ActionSdkHelper {
         let response = await actionSDK.executeApi(request) as actionSDK.GetSubscriptionMembers.Response;
         if (!response.error) {
             Logger.logInfo(`getSubscriptionMembers success - Request: ${JSON.stringify(request)} Response: ${JSON.stringify(response)}`);
-            return { success: true, members: response.members, memberIdsNotFound: response.memberIdsNotFound };
-        }
-        else {
+            return {success: true, members: response.members, memberIdsNotFound: response.memberIdsNotFound};
+        } else {
             Logger.logError(`getSubscriptionMembers failed, Error: ${response.error.category}, ${response.error.code}, ${response.error.message}`);
-            return { success: false, error: response.error };
+            return {success: false, error: response.error};
         }
     }
 
@@ -156,11 +177,10 @@ export class ActionSdkHelper {
         let response = await actionSDK.executeApi(request) as actionSDK.GetActionSubscriptionNonParticipants.Response;
         if (!response.error) {
             Logger.logInfo(`getNonResponders success - Request: ${JSON.stringify(request)} Response: ${JSON.stringify(response)}`);
-            return { success: true, nonParticipants: response.nonParticipants };
-        }
-        else {
+            return {success: true, nonParticipants: response.nonParticipants};
+        } else {
             Logger.logError(`getNonResponders failed, Error: ${response.error.category}, ${response.error.code}, ${response.error.message}`);
-            return { sucess: false, error: response.error };
+            return {sucess: false, error: response.error};
         }
     }
 
@@ -173,11 +193,10 @@ export class ActionSdkHelper {
         let response = await actionSDK.executeApi(request) as actionSDK.UpdateAction.Response;
         if (!response.error) {
             Logger.logInfo(`updateActionInstance success - Request: ${JSON.stringify(request)} Response: ${JSON.stringify(response)}`);
-            return { success: true, updateSuccess: response.success };
-        }
-        else {
+            return {success: true, updateSuccess: response.success};
+        } else {
             Logger.logError(`updateActionInstance failed, Error: ${response.error.category}, ${response.error.code}, ${response.error.message}`);
-            return { success: false, error: response.error };
+            return {success: false, error: response.error};
         }
     }
 
@@ -198,10 +217,10 @@ export class ActionSdkHelper {
         let response = await actionSDK.executeApi(request) as actionSDK.DeleteAction.Response;
         if (!response.error) {
             Logger.logInfo(`deleteActionInstance success - Request: ${JSON.stringify(request)} Response: ${JSON.stringify(response)}`);
-            return { success: true, deleteSuccess: response.success };
+            return {success: true, deleteSuccess: response.success};
         } else {
             Logger.logError(`deleteActionInstance failed, Error: ${response.error.category}, ${response.error.code}, ${response.error.message}`);
-            return { success: false, error: response.error };
+            return {success: false, error: response.error};
         }
     }
 
@@ -215,10 +234,10 @@ export class ActionSdkHelper {
         try {
             let response = actionSDK.executeApi(request);
             Logger.logInfo(`downloadCSV success - Request: ${JSON.stringify(request)} Response: ${JSON.stringify(response)}`);
-            return { success: true };
+            return {success: true};
         } catch (error) {
             Logger.logError(`downloadCSV failed, Error: ${error.category}, ${error.code}, ${error.message}`);
-            return { success: false, error: error };
+            return {success: false, error: error};
         }
     }
 
@@ -229,9 +248,8 @@ export class ActionSdkHelper {
         let request = new actionSDK.GetLocalizedStrings.Request();
         let response = await actionSDK.executeApi(request) as actionSDK.GetLocalizedStrings.Response;
         if (!response.error) {
-            return { success: true, strings: response.strings };
-        }
-        else {
+            return {success: true, strings: response.strings};
+        } else {
             Logger.logError(`fetchLocalization failed, Error: ${response.error.category}, ${response.error.code}, ${response.error.message}`);
         }
     }

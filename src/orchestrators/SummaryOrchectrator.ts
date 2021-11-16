@@ -1,21 +1,47 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-import { toJS } from "mobx";
-import { Logger } from "./../utils/Logger";
-import { Constants } from "../utils/Constants";
-import { Localizer } from "../utils/Localizer";
+import {toJS} from "mobx";
+import {Logger} from "./../utils/Logger";
+import {Constants} from "../utils/Constants";
+import {Localizer} from "../utils/Localizer";
 import {
-    initialize, setProgressStatus, setContext, fetchLocalization, fetchUserDetails, fetchActionInstance, fetchActionInstanceSummary,
-    fetchMyResponse, fetchMemberCount, setIsActionDeleted, updateMyRow, updateActionInstance, fetchActionInstanceRows, updateMemberCount,
-    updateActionInstanceSummary, addActionInstanceRows, updateContinuationToken, updateNonResponders, closePoll, fetchNonReponders,
-    pollCloseAlertOpen, deletePoll, pollDeleteAlertOpen, updateDueDate, pollExpiryChangeAlertOpen, downloadCSV, updateUserProfileInfo, fetchAllUsersPolls, updateAllUsersInfo
+    addActionInstanceRows,
+    closePoll,
+    deletePoll,
+    downloadCSV,
+    fetchActionInstance,
+    fetchActionInstanceRows,
+    fetchActionInstanceSummary,
+    fetchAllUsersPolls,
+    fetchLocalization,
+    fetchMemberCount,
+    fetchMyResponse,
+    fetchNonReponders,
+    fetchUserDetails,
+    initialize,
+    pollCloseAlertOpen,
+    pollDeleteAlertOpen,
+    pollExpiryChangeAlertOpen,
+    setContext,
+    setIsActionDeleted,
+    setProgressStatus,
+    updateActionInstance,
+    updateActionInstanceSummary,
+    updateAllUsersInfo,
+    updateContinuationToken,
+    updateDueDate,
+    updateMemberCount,
+    updateMyRow,
+    updateNonResponders,
+    updateUserProfileInfo
 } from "../actions/SummaryActions";
-import { orchestrator } from "satcheljs";
-import { ProgressState } from "../utils/SharedEnum";
+import {orchestrator} from "satcheljs";
+import {ProgressState} from "../utils/SharedEnum";
 import getStore from "../store/SummaryStore";
 import * as actionSDK from "@microsoft/m365-action-sdk";
-import { ActionSdkHelper } from "../helper/ActionSdkHelper";
+import {ActionSdkHelper} from "../helper/ActionSdkHelper";
+
 /**
  * Summary view orchestrators to fetch data for current action, perform any action on that data and dispatch further actions to modify stores
  */
@@ -28,13 +54,13 @@ const handleErrorResponse = (error: actionSDK.ApiError) => {
 
 const handleError = (error: actionSDK.ApiError, requestType: string) => {
     handleErrorResponse(error);
-    setProgressStatus({ [requestType]: ProgressState.Failed });
+    setProgressStatus({[requestType]: ProgressState.Failed});
 };
 
 orchestrator(initialize, async () => {
     let currentContext = getStore().progressStatus.currentContext;
     if (currentContext == ProgressState.NotStarted || currentContext == ProgressState.Failed) {
-        setProgressStatus({ currentContext: ProgressState.InProgress });
+        setProgressStatus({currentContext: ProgressState.InProgress});
 
         let actionContext = await ActionSdkHelper.getActionContext();
         if (actionContext.success) {
@@ -47,7 +73,7 @@ orchestrator(initialize, async () => {
             fetchMyResponse();
             fetchMemberCount();
             fetchAllUsersPolls();
-            setProgressStatus({ currentContext: ProgressState.Completed });
+            setProgressStatus({currentContext: ProgressState.Completed});
         } else {
             handleError(actionContext.error, "currentContext");
         }
@@ -57,24 +83,24 @@ orchestrator(initialize, async () => {
 orchestrator(fetchLocalization, async (msg) => {
     let localizationState = getStore().progressStatus.localizationState;
     if (localizationState == ProgressState.NotStarted || localizationState == ProgressState.Failed) {
-        setProgressStatus({ localizationState: ProgressState.InProgress });
+        setProgressStatus({localizationState: ProgressState.InProgress});
         let response = await Localizer.initialize();
-        response ? setProgressStatus({ localizationState: ProgressState.Completed }) :
-            setProgressStatus({ localizationState: ProgressState.Failed });
+        response ? setProgressStatus({localizationState: ProgressState.Completed}) :
+            setProgressStatus({localizationState: ProgressState.Failed});
     }
 });
 
 orchestrator(fetchMyResponse, async () => {
     let myActionInstanceRow = getStore().progressStatus.myActionInstanceRow;
     if (myActionInstanceRow == ProgressState.NotStarted || myActionInstanceRow == ProgressState.Failed) {
-        setProgressStatus({ myActionInstanceRow: ProgressState.InProgress });
+        setProgressStatus({myActionInstanceRow: ProgressState.InProgress});
 
         let response = await ActionSdkHelper.getActionDataRows(getStore().context.actionId, "self", null, 1);
 
         if (response.success) {
             let row: actionSDK.ActionDataRow = response.dataRows[0];
             updateMyRow(row);
-            setProgressStatus({ myActionInstanceRow: ProgressState.Completed });
+            setProgressStatus({myActionInstanceRow: ProgressState.Completed});
         } else {
             handleError(response.error, "myActionInstanceRow");
         }
@@ -84,12 +110,12 @@ orchestrator(fetchMyResponse, async () => {
 orchestrator(fetchMemberCount, async (msg) => {
     let memberCount = getStore().progressStatus.memberCount;
     if (memberCount == ProgressState.NotStarted || memberCount == ProgressState.Failed) {
-        setProgressStatus({ memberCount: ProgressState.InProgress });
+        setProgressStatus({memberCount: ProgressState.InProgress});
 
         let response = await ActionSdkHelper.getSubscriptionMemberCount(toJS(getStore().context.subscription));
         if (response.success) {
             updateMemberCount(response.memberCount);
-            setProgressStatus({ memberCount: ProgressState.Completed });
+            setProgressStatus({memberCount: ProgressState.Completed});
         } else {
             handleError(response.error, "memberCount");
         }
@@ -99,7 +125,7 @@ orchestrator(fetchMemberCount, async (msg) => {
 orchestrator(fetchActionInstance, async (msg) => {
     if (getStore().progressStatus.actionInstance != ProgressState.InProgress) {
         if (msg.updateProgressState) {
-            setProgressStatus({ actionInstance: ProgressState.InProgress });
+            setProgressStatus({actionInstance: ProgressState.InProgress});
         }
 
         let response = await ActionSdkHelper.getAction(getStore().context.actionId);
@@ -107,11 +133,11 @@ orchestrator(fetchActionInstance, async (msg) => {
             updateActionInstance(response.action);
             fetchActionInstanceRows(false);
             if (msg.updateProgressState) {
-                setProgressStatus({ actionInstance: ProgressState.Completed });
+                setProgressStatus({actionInstance: ProgressState.Completed});
             }
         } else {
             if (msg.updateProgressState) {
-                setProgressStatus({ actionInstance: ProgressState.Failed });
+                setProgressStatus({actionInstance: ProgressState.Failed});
             }
         }
     }
@@ -120,18 +146,18 @@ orchestrator(fetchActionInstance, async (msg) => {
 orchestrator(fetchActionInstanceSummary, async (msg) => {
     if (getStore().progressStatus.actionInstanceSummary != ProgressState.InProgress) {
         if (msg.updateProgressState) {
-            setProgressStatus({ actionInstanceSummary: ProgressState.InProgress });
+            setProgressStatus({actionInstanceSummary: ProgressState.InProgress});
         }
 
         let response = await ActionSdkHelper.getActionDataRowsSummary(getStore().context.actionId, true);
         if (response.success) {
             updateActionInstanceSummary(response.summary);
             if (msg.updateProgressState) {
-                setProgressStatus({ actionInstanceSummary: ProgressState.Completed });
+                setProgressStatus({actionInstanceSummary: ProgressState.Completed});
             }
         } else {
             if (msg.updateProgressState) {
-                setProgressStatus({ actionInstanceSummary: ProgressState.Failed });
+                setProgressStatus({actionInstanceSummary: ProgressState.Failed});
             }
         }
     }
@@ -142,7 +168,7 @@ orchestrator(fetchAllUsersPolls, async (msg) => {
     let pollResposne = await ActionSdkHelper.getActionDataRows(getStore().context.actionId);
 
     if (usersResponse.success && usersResponse.members && pollResposne.success) {
-        var users: { user: actionSDK.SubscriptionMember, responseIds: {[key:string]: string}}[] = [];
+        const users: { user: actionSDK.SubscriptionMember, responseIds: { [key: string]: string } }[] = [];
         for (let index = 0; index < usersResponse.members.length; index++) {
             const member = usersResponse.members[index];
             let response = pollResposne.dataRows.find(row => row.creatorId === member.id);
@@ -154,7 +180,7 @@ orchestrator(fetchAllUsersPolls, async (msg) => {
                 },
                 responseIds: response ? response.columnValues : null
             };
-        };
+        }
         updateAllUsersInfo(users);
     } else if (!usersResponse.success || !pollResposne.success) {
         handleErrorResponse(usersResponse.error);
@@ -206,7 +232,7 @@ orchestrator(fetchUserDetails, async (msg) => {
 });
 
 orchestrator(fetchActionInstanceRows, async (msg) => {
-})
+});
 
 orchestrator(fetchActionInstanceRows, async (msg) => {
     let actionInstance = getStore().actionInstance;
@@ -216,7 +242,7 @@ orchestrator(fetchActionInstanceRows, async (msg) => {
 
         let actionInstanceRow = getStore().progressStatus.actionInstanceRow;
         if ([ProgressState.Partial, ProgressState.Failed, ProgressState.NotStarted].indexOf(actionInstanceRow) > -1) {
-            setProgressStatus({ actionInstanceRow: ProgressState.InProgress });
+            setProgressStatus({actionInstanceRow: ProgressState.InProgress});
 
             let response = await ActionSdkHelper.getActionDataRows(getStore().context.actionId, null, getStore().continuationToken, 30);
 
@@ -235,9 +261,9 @@ orchestrator(fetchActionInstanceRows, async (msg) => {
 
                 if (response.continuationToken) {
                     updateContinuationToken(response.continuationToken);
-                    setProgressStatus({ actionInstanceRow: ProgressState.Partial });
+                    setProgressStatus({actionInstanceRow: ProgressState.Partial});
                 } else {
-                    setProgressStatus({ actionInstanceRow: ProgressState.Completed });
+                    setProgressStatus({actionInstanceRow: ProgressState.Completed});
                 }
             } else {
                 handleError(response.error, "actionInstanceRow");
@@ -249,7 +275,7 @@ orchestrator(fetchActionInstanceRows, async (msg) => {
 orchestrator(fetchNonReponders, async () => {
     let nonResponder = getStore().progressStatus.nonResponder;
     if (nonResponder == ProgressState.NotStarted || nonResponder == ProgressState.Failed) {
-        setProgressStatus({ nonResponder: ProgressState.InProgress });
+        setProgressStatus({nonResponder: ProgressState.InProgress});
 
         let response = await ActionSdkHelper.getNonResponders(getStore().context.actionId, getStore().context.subscription.id);
 
@@ -263,7 +289,7 @@ orchestrator(fetchNonReponders, async () => {
             );
             updateUserProfileInfo(userProfile);
             updateNonResponders(response.nonParticipants);
-            setProgressStatus({ nonResponder: ProgressState.Completed });
+            setProgressStatus({nonResponder: ProgressState.Completed});
         } else {
             handleError(response.error, "nonResponder");
         }
@@ -273,11 +299,11 @@ orchestrator(fetchNonReponders, async () => {
 orchestrator(closePoll, async () => {
     if (getStore().progressStatus.closeActionInstance != ProgressState.InProgress) {
         let failedCallback = () => {
-            setProgressStatus({ closeActionInstance: ProgressState.Failed });
+            setProgressStatus({closeActionInstance: ProgressState.Failed});
             fetchActionInstance(false);
         };
 
-        setProgressStatus({ closeActionInstance: ProgressState.InProgress });
+        setProgressStatus({closeActionInstance: ProgressState.InProgress});
         let actionInstanceUpdateInfo: actionSDK.ActionUpdateInfo = {
             id: getStore().context.actionId,
             version: getStore().actionInstance.version,
@@ -303,11 +329,11 @@ orchestrator(closePoll, async () => {
 orchestrator(deletePoll, async () => {
     if (getStore().progressStatus.deleteActionInstance != ProgressState.InProgress) {
         let failedCallback = () => {
-            setProgressStatus({ deleteActionInstance: ProgressState.Failed });
+            setProgressStatus({deleteActionInstance: ProgressState.Failed});
             fetchActionInstance(false);
         };
 
-        setProgressStatus({ deleteActionInstance: ProgressState.InProgress });
+        setProgressStatus({deleteActionInstance: ProgressState.InProgress});
 
         let response = await ActionSdkHelper.deleteActionInstance(getStore().context.actionId);
         if (response.success) {
@@ -334,7 +360,7 @@ orchestrator(updateDueDate, async (actionMessage) => {
             fetchActionInstance(false);
         };
 
-        setProgressStatus({ updateActionInstance: ProgressState.InProgress });
+        setProgressStatus({updateActionInstance: ProgressState.InProgress});
         let actionInstanceUpdateInfo: actionSDK.ActionUpdateInfo = {
             id: getStore().context.actionId,
             version: getStore().actionInstance.version,
@@ -359,13 +385,13 @@ orchestrator(updateDueDate, async (actionMessage) => {
 
 orchestrator(downloadCSV, async (msg) => {
     if (getStore().progressStatus.downloadData != ProgressState.InProgress) {
-        setProgressStatus({ downloadData: ProgressState.InProgress });
+        setProgressStatus({downloadData: ProgressState.InProgress});
 
         let response = await ActionSdkHelper.downloadCSV(getStore().context.actionId,
             Localizer.getString("PollResult", getStore().actionInstance.dataTables[0].dataColumns[0].displayName)
                 .substring(0, Constants.ACTION_RESULT_FILE_NAME_MAX_LENGTH)
         );
 
-        response.success ? setProgressStatus({ downloadData: ProgressState.Completed }) : handleError(response.error, "downloadData");
+        response.success ? setProgressStatus({downloadData: ProgressState.Completed}) : handleError(response.error, "downloadData");
     }
 });
