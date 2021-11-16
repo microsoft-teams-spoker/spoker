@@ -11,6 +11,7 @@ import getStore from "../store/CreationStore";
 import {Utils} from "../utils/Utils";
 import * as actionSDK from "@microsoft/m365-action-sdk";
 import {ActionSdkHelper} from "../helper/ActionSdkHelper";
+import {FIBO_VOTE_CARDS, OTHER_VOTE_CARDS, TSHIRT_VOTE_CARDS, VoteCardType} from "../components/VoteCard/VoteCard";
 
 /**
  * Creation view orchestrators to do API calls, perform any action on data and dispatch further actions to modify stores in case of any change
@@ -67,7 +68,7 @@ orchestrator(callActionInstanceCreationAPI, async () => {
         updateTitle(getStore().title.trim());
     }
 
-    let fibo = getStore().scale == "fibo";
+    let voteCardType = getStore().scale == "fibo" ? VoteCardType.FIBO : VoteCardType.TSHIRT;
     let extension = getStore().extension;
 
     let pollQuestion: actionSDK.ActionDataColumn = {
@@ -80,32 +81,27 @@ orchestrator(callActionInstanceCreationAPI, async () => {
     actionInstance.dataTables[0].dataColumns[0].options = [];
 
     // Create poll options
-    let values = [];
-    if (fibo) {
-        values = ["1", "3", "5", "8", "13"];
+    let cards = [];
+    if (voteCardType == VoteCardType.FIBO) {
+        cards = FIBO_VOTE_CARDS;
     } else {
-        values = ["XS", "S", "M", "L", "XL"];
+        cards = TSHIRT_VOTE_CARDS;
     }
 
-    let i = 0;
-    for (const val of values) {
+    for (const card of cards) {
         let pollChoice: actionSDK.ActionDataColumnOption = {
-            name: `${i}`,
-            displayName: `${val}`,
+            name: card.toString(),
+            displayName: card.toString(),
         };
-        i++;
-
         actionInstance.dataTables[0].dataColumns[0].options.push(pollChoice);
     }
 
     if (extension) {
-        for (const val of ["?", "☕", "∞"]) {
+        for (const card of OTHER_VOTE_CARDS) {
             let pollChoice: actionSDK.ActionDataColumnOption = {
-                name: `${i}`,
-                displayName: `${val}`,
+                name: card.toString(),
+                displayName: card.toString(),
             };
-            i++;
-
             actionInstance.dataTables[0].dataColumns[0].options.push(pollChoice);
         }
     }
@@ -153,7 +149,7 @@ function prepareActionInstance(actionInstance: actionSDK.Action, actionContext: 
             name: "Locale",
             valueType: actionSDK.ActionPropertyValueType.Text,
             value: actionContext.locale,
-        },{
+        }, {
             name: "Scale",
             valueType: actionSDK.ActionPropertyValueType.Text,
             value: scale,

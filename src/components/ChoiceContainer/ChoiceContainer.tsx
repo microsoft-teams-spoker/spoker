@@ -5,6 +5,7 @@ import * as React from "react";
 import "./ChoiceContainer.scss";
 import {Localizer} from "../../utils/Localizer";
 import {Flex} from "@fluentui/react-northstar";
+import {VoteCard, VoteCardEnum} from "../VoteCard/VoteCard";
 
 export interface IChoiceContainerOption {
     value: string;
@@ -65,16 +66,11 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps, 
                             <label htmlFor="fibo">{Localizer.getString("Fibonacci")}</label>
                         </div>
                     </Flex>
-                    <img src="images/custom/choice1.png"
-                         alt="choice1" className="element"/>
-                    <img src="images/custom/choice3.png"
-                         alt="choice3" className="element"/>
-                    <img src="images/custom/choice5.png"
-                         alt="choice5" className="element"/>
-                    <img src="images/custom/choice8.png"
-                         alt="choice8" className="element"/>
-                    <img src="images/custom/choice13.png"
-                         alt="choice13" className="element"/>
+                    <VoteCard card={VoteCardEnum.CARD_1} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum.CARD_3} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum.CARD_5} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum.CARD_8} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum.CARD_13} renderForMobile={this.props.renderForMobile}/>
                 </Flex>
                 <Flex className="row-scale">
                     <Flex className="equal-width">
@@ -85,16 +81,11 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps, 
                             <label htmlFor="tshirts">{Localizer.getString("Tshirts")}</label>
                         </div>
                     </Flex>
-                    <img src="images/custom/shirtXS.png"
-                         alt="shirtXS" className="element"/>
-                    <img src="images/custom/shirtS.png"
-                         alt="shirtS" className="element"/>
-                    <img src="images/custom/shirtM.png"
-                         alt="shirtM" className="element"/>
-                    <img src="images/custom/shirtL.png"
-                         alt="shirtL" className="element"/>
-                    <img src="images/custom/shirtXL.png"
-                         alt="shirtXL" className="element"/>
+                    <VoteCard card={VoteCardEnum.CARD_XS} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum.CARD_S} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum.CARD_M} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum.CARD_L} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum.CARD_XL} renderForMobile={this.props.renderForMobile}/>
                 </Flex>
                 <Flex className="row-option">
                     <Flex className="equal-width">
@@ -103,13 +94,9 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps, 
                             <label htmlFor="also">{Localizer.getString("OtherCards")}</label>
                         </div>
                     </Flex>
-                    <img
-                        src="images/custom/choiceQuestionmark.png"
-                        alt="choiceQuestionmark" className="element"/>
-                    <img src="images/custom/choiceInfinity.png"
-                         alt="choiceInfinity" className="element"/>
-                    <img src="images/custom/choiceCoffe.png"
-                         alt="choiceCoffe" className="element"/>
+                    <VoteCard card={VoteCardEnum.CARD_QUESTIONMARK} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum.CARD_INFINITY} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum.CARD_COFFEE} renderForMobile={this.props.renderForMobile}/>
                 </Flex>
             </div>
         );

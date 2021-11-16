@@ -1,54 +1,8 @@
 import {Table} from "@fluentui/react-northstar";
 import * as React from "react";
 import "./TableComponent.scss";
-
-const extraItems = [
-    <img src="images/custom/choiceQuestionmark.png" alt="choiceQuestionmark" className="element"/>,
-    <img src="images/custom/choiceCoffe.png" alt="choiceCoffe" className="element"/>,
-    <img src="images/custom/choiceInfinity.png" alt="choiceInfinity" className="element"/>,
-]
-
-const fiboItemsBasic = [
-    <img src="images/custom/choice1.png" alt="choice1" className="element"/>,
-    <img src="images/custom/choice3.png" alt="choice3" className="element"/>,
-    <img src="images/custom/choice5.png" alt="choice5" className="element"/>,
-    <img src="images/custom/choice8.png" alt="choice8" className="element"/>,
-    <img src="images/custom/choice13.png" alt="choice13" className="element"/>
-]
-
-const fiboItems = [
-    ...fiboItemsBasic,
-    ...extraItems
-];
-
-const tshirtItemsBasic = [
-    <img src="images/custom/shirtXS.png" alt="shirtXS" className="element"/>,
-    <img src="images/custom/shirtS.png" alt="shirtS" className="element"/>,
-    <img src="images/custom/shirtM.png" alt="shirtM" className="element"/>,
-    <img src="images/custom/shirtL.png" alt="shirtL" className="element"/>,
-    <img src="images/custom/shirtXL.png" alt="shirtXL" className="element"/>
-]
-
-const tshirtItems = [
-    ...tshirtItemsBasic,
-    ...extraItems
-];
-
-const fiboHeader = {
-    items: [
-        <p className="headerText participants">Participants</p>,
-        ...fiboItemsBasic,
-        <p className="headerText">Other cards</p>
-    ],
-};
-
-const tshirtsHeader = {
-    items: [
-        <p className="headerText participants">Participants</p>,
-        ...tshirtItemsBasic,
-        <p className="headerText">Other cards</p>
-    ],
-};
+import {FIBO_VOTE_CARDS, TSHIRT_VOTE_CARDS, VoteCard, VoteCardEnum, VoteCardType} from "../VoteCard/VoteCard";
+import {VoteCardUtils} from "../VoteCard/VoteCardUtils";
 
 function getDefaultCounterArray(): number[] {
     return new Array(6).fill(0);
@@ -61,8 +15,8 @@ export interface ITableComponentProps {
 }
 
 export interface ITableItem {
-    user: actionSDK.SubscriptionMember,
-    responseIds: { [key: string]: string }
+    user: actionSDK.SubscriptionMember;
+    responseIds: { [key: string]: string };
 }
 
 /**
@@ -75,31 +29,42 @@ export class TableComponent extends React.PureComponent<ITableComponentProps> {
         if (!this.props.scale) {
             return null;
         }
-        const header = this.props.scale === "fibo" ? fiboHeader : tshirtsHeader;
-        const defaultItems: JSX.Element[] = this.props.scale === "fibo" ? fiboItems : tshirtItems;
+        const type = this.props.scale === "fibo" ? VoteCardType.FIBO : VoteCardType.TSHIRT;
+        const voteCardEnums = type == VoteCardType.FIBO ? FIBO_VOTE_CARDS : TSHIRT_VOTE_CARDS;
+
+        const header = {
+            items: [
+                <p className="headerText participants">Participants</p>,
+                ...voteCardEnums.map(voteCardEnum => <VoteCard card={voteCardEnum}/>),
+                <p className="headerText">Other cards</p>
+            ],
+        };
 
         const counterArray: number[] = getDefaultCounterArray();
         const rows: { key: number, items: JSX.Element[] }[] = [];
 
-        this.props.allUsersPolls.forEach((user, index) => {
-            const userPoll = this.props.allUsersPolls[index];
+        this.props.allUsersPolls.forEach((userPoll, index) => {
             if (userPoll.responseIds) {
+                console.log("userPoll: " + JSON.stringify(userPoll));
                 rows[index] = {
                     key: index,
                     items: [
                         <p className="participant-text">{userPoll.user.displayName}</p>,
-                        ...fiboItemsBasic.map(() => <p></p>),
+                        ...voteCardEnums.map(() => <p></p>),
                         <p></p>
                     ]
                 };
 
-                const place = parseInt(userPoll.responseIds['0']);
-                if (place < 5) {
-                    rows[index].items[place + 1] = defaultItems[place];
-                    counterArray[place] = counterArray[place] + 1;
-                } else if (place > 4) {
-                    rows[index].items[6] = defaultItems[place];
-                    counterArray[5] = counterArray[5] + 1;
+                console.log("userPoll.responseIds['0']: " + userPoll.responseIds['0']);
+                const voteCardEnum: VoteCardEnum = parseInt(userPoll.responseIds['0']);
+                console.log("voteCardEnum: " + voteCardEnum);
+                if (VoteCardUtils.getType(voteCardEnum) === VoteCardType.OTHER) {
+                    rows[index].items[voteCardEnums.length + 1] = <VoteCard card={voteCardEnum}/>;
+                    counterArray[voteCardEnums.length] = counterArray[voteCardEnums.length] + 1;
+                } else {
+                    const position = voteCardEnums.indexOf(voteCardEnum);
+                    rows[index].items[position + 1] = <VoteCard card={voteCardEnum}/>;
+                    counterArray[position] = counterArray[position] + 1;
                 }
 
             }

@@ -1,14 +1,13 @@
 import {Button, Flex, FlexItem, Loader} from "@fluentui/react-northstar";
-import { observer } from "mobx-react";
+import {observer} from "mobx-react";
 import * as React from "react";
-import { ActionSdkHelper } from "../../helper/ActionSdkHelper";
-import { Localizer } from "../../utils/Localizer";
-import { ErrorView } from "../ErrorView";
+import {ActionSdkHelper} from "../../helper/ActionSdkHelper";
+import {Localizer} from "../../utils/Localizer";
+import {ErrorView} from "../ErrorView";
 import getStore from "./../../store/VoteStore";
-import { ProgressState } from "./../../utils/SharedEnum";
-import { UxUtils } from "./../../utils/UxUtils";
+import {ProgressState} from "./../../utils/SharedEnum";
+import {UxUtils} from "./../../utils/UxUtils";
 import "./vote.scss";
-import {callActionInstanceCreationAPI} from "../../actions/CreationActions";
 import {vote} from "../../actions/VoteActions";
 
 /**
@@ -21,7 +20,7 @@ export default class VotePage extends React.Component<any, any> {
     render() {
         let progressState = getStore().progressState;
         if (progressState === ProgressState.NotStarted || progressState == ProgressState.InProgress) {
-            return <Loader />;
+            return <Loader/>;
         } else if (progressState === ProgressState.Failed) {
             ActionSdkHelper.hideLoadingIndicator();
             return (
@@ -76,6 +75,5 @@ export default class VotePage extends React.Component<any, any> {
             </Flex>
         );
     }
-
 
 }
