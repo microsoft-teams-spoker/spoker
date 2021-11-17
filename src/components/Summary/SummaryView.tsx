@@ -62,7 +62,6 @@ export default class SummaryView extends React.Component<any, any> {
      */
     private getMyResponseContainer(): JSX.Element {
         let myResponse: string = "";
-        console.log(getSummaryStore().allUsersPolls);
 
         // User name
         let currentUserProfile: actionSDK.SubscriptionMember = getSummaryStore().context

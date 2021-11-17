@@ -25,7 +25,6 @@ export interface ITableItem {
 export class TableComponent extends React.PureComponent<ITableComponentProps> {
 
     render() {
-        console.log(this.props.scale);
         if (!this.props.scale) {
             return null;
         }
@@ -45,7 +44,6 @@ export class TableComponent extends React.PureComponent<ITableComponentProps> {
 
         this.props.allUsersPolls.forEach((userPoll, index) => {
             if (userPoll.responseIds) {
-                console.log("userPoll: " + JSON.stringify(userPoll));
                 rows[index] = {
                     key: index,
                     items: [
@@ -55,9 +53,7 @@ export class TableComponent extends React.PureComponent<ITableComponentProps> {
                     ]
                 };
 
-                console.log("userPoll.responseIds['0']: " + userPoll.responseIds['0']);
                 const voteCardEnum: VoteCardEnum = parseInt(userPoll.responseIds['0']);
-                console.log("voteCardEnum: " + voteCardEnum);
                 if (VoteCardUtils.getType(voteCardEnum) === VoteCardType.OTHER) {
                     rows[index].items[voteCardEnums.length + 1] = <VoteCard card={voteCardEnum}/>;
                     counterArray[voteCardEnums.length] = counterArray[voteCardEnums.length] + 1;

@@ -81,9 +81,9 @@ export class VoteCard extends React.Component<IVoteCardProps, IVoteCardState> {
 
     renderTimePickerForWebOrDesktop() {
         if (this.props.onClick) {
-            return <Button>
+            return <button>
                 <img src={this.getUrl()} alt={this.getName()} className="card" onClick={(e) => this.props.onClick(this.props.card)}/>
-            </Button>;
+            </button>;
         } else {
             return <img src={this.getUrl()} alt={this.getName()} className="card"/>;
         }

@@ -19,10 +19,12 @@ import {setVoteCard, vote} from "../../actions/VoteActions";
 export default class VotePage extends React.Component<any, any> {
 
     render() {
-        let progressState = getStore().progressState;
-        if (progressState === ProgressState.NotStarted || progressState == ProgressState.InProgress) {
-            return <Loader/>;
-        } else if (progressState === ProgressState.Failed) {
+        const progressStatus = getStore().progressStatus;
+        console.log("VotePage statusProgress: " + JSON.stringify(progressStatus));
+
+        if (progressStatus.context == ProgressState.Failed ||
+            progressStatus.action == ProgressState.Failed ||
+            progressStatus.myRow == ProgressState.Failed) {
             ActionSdkHelper.hideLoadingIndicator();
             return (
                 <ErrorView
@@ -30,6 +32,10 @@ export default class VotePage extends React.Component<any, any> {
                     buttonTitle={Localizer.getString("Close")}
                 />
             );
+        } else if (progressStatus.context != ProgressState.Completed ||
+            progressStatus.action != ProgressState.Completed ||
+            progressStatus.myRow != ProgressState.Completed) {
+            return <Loader/>;
         } else {
             // Render View
             ActionSdkHelper.hideLoadingIndicator();
@@ -64,49 +70,54 @@ export default class VotePage extends React.Component<any, any> {
     }
 
     private renderVoteCards() {
-        //                    "id": "${action.dataTables[0].dataColumns[0].name}",
-        // {stations.map(station => (
-        //     <div key={station.call} className='station'>{station.call}</div>
-        // ))}
-
-        // {voteCardEnums.map(value => (
-        //     <VoteCard card={value} renderForMobile={UxUtils.renderingForMobile()} onClick={() => this.voteCardOnClick(value)}/>
-        // ))}
-
         const voteCardEnums = this.getVoteCardEnums();
-        console.log("voteCardEnums: " + voteCardEnums.length);
 
-        return <Flex>
-            {voteCardEnums.map(value => (
-                <VoteCard card={value} renderForMobile={UxUtils.renderingForMobile()} onClick={() => this.voteCardOnClick(value)}/>
-            ))}
-        </Flex>;
+        return <div>
+            <Flex className="vote-card-row">
+                {voteCardEnums.map(value => (
+                    <VoteCard card={value} renderForMobile={UxUtils.renderingForMobile()} onClick={() => this.voteCardOnClick(value)}/>
+                ))}
+            </Flex>
+            <Flex className="your-vote-card">
+                {this.renderYourVote()}
+            </Flex>
+        </div>;
     }
 
     private renderFooterSection(isMobileView?: boolean) {
         let className = isMobileView ? "" : "footer-layout";
         return (
             <Flex className={className} gap={"gap.smaller"}>
-                <div>This is footer</div>
+                <div>Please remember. You can vote only once and you can not change you vote!</div>
             </Flex>
         );
     }
 
     private getVoteCardEnums(): VoteCardEnum[] {
-        console.log("options: " + JSON.stringify(getStore().action.dataTables[0].dataColumns[0].options));
         return getStore().action.dataTables[0].dataColumns[0].options.map(value => {
-            console.log("o: " + value.name);
             const voteCardEnum: VoteCardEnum = parseInt(value.name);
-            console.log("v: " + voteCardEnum);
             return voteCardEnum;
         });
     }
 
     private voteCardOnClick(value: VoteCardEnum) {
-        console.log("getStore().voteCard: " + getStore().voteCard);
-        const isUpdate = !!getStore().voteCard;
-        console.log("isUpdate: " + isUpdate);
-        setVoteCard(value);
-        vote(value, isUpdate);
+        const lastVoteCard = getStore().voteCard;
+        console.log("1 voteCardOnClick getStore().voteCard: " + lastVoteCard);
+        if (lastVoteCard == null) {
+            console.log("2 voteCardOnClick");
+            setVoteCard(value);
+            console.log("3 voteCardOnClick");
+            vote(value);
+            console.log("4 voteCardOnClick");
+        }
+    }
+
+    private renderYourVote() {
+        const lastVoteCard = getStore().voteCard;
+        if (lastVoteCard != null) {
+            return <p>Your vote: <VoteCard card={lastVoteCard} renderForMobile={UxUtils.renderingForMobile()}/></p>;
+        } else {
+            return <p></p>;
+        }
     }
 }

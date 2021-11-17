@@ -54,25 +54,9 @@
         "spacing": "small"
       },
       {
-        "id": "Choices",
-        "type": "Container",
-        "style": "emphasis",
-        "items": [
-          {
-            "id": "${action.dataTables[0].dataColumns[0].name}",
-            "type": "Input.ChoiceSet",
-            "style": "expanded",
-            "wrap": "true",
-            "isMultiSelect": false,
-            "choices": [
-              {
-                "$data": "${action.dataTables[0].dataColumns[0].options}",
-                "title": "${displayName}",
-                "value": "${name}"
-              }
-            ]
-          }
-        ]
+        "type": "Image",
+        "url": "https://cdn.shopify.com/s/files/1/0265/2815/3659/products/41rf74dQzRL_500x.jpg?v=1616464588",
+        "horizontalAlignment": "center"
       },
       {
         "id": "Responder",
@@ -156,12 +140,6 @@
     ],
 
     "actions": [
-      {
-        "id": "RespondButton",
-        "$when": "${equals(action.status, 'Active')}",
-        "title": "${strings.Submit}",
-        "command": "SubmitActionDataRow"
-      },
       {
         "id": "Vote",
         "title": "${strings.Vote}",
