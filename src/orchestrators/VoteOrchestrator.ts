@@ -1,5 +1,5 @@
 import {orchestrator} from "satcheljs";
-import {fetchAction, fetchMyRow, initialize, setAction, setContext, setIsActionDeleted, setMyRow, setVoteCard} from "../actions/VoteActions";
+import {fetchAction, fetchMyRow, initialize, setAction, setContext, setIsActionDeleted, setMyRow, setVoteCard, setVoteCardActionDataRow} from "../actions/VoteActions";
 import {ActionSdkHelper} from "../helper/ActionSdkHelper";
 import {ProgressState} from "../utils/SharedEnum";
 import {setProgressStatus, vote} from "./../actions/VoteActions";
@@ -58,6 +58,7 @@ orchestrator(fetchMyRow, async () => {
                 const voteCard: VoteCardEnum = parseInt(actionDataRow.columnValues['0']);
                 console.log("1 orchestrator fetchMyRow: " + voteCard);
                 setVoteCard(voteCard);
+                setVoteCardActionDataRow(actionDataRow);
                 console.log("2 orchestrator fetchMyRow: " + voteCard);
             }
             setProgressStatus({myRow: ProgressState.Completed});
@@ -69,18 +70,24 @@ orchestrator(fetchMyRow, async () => {
 });
 
 orchestrator(vote, async (actionMessage) => {
+    let actionDataRow: actionSDK.ActionDataRow = getStore().voteCardActionDataRow;
+    let isUpdate = !!actionDataRow;
 
-    let actionDataRow: actionSDK.ActionDataRow = {
-        id: Utils.generateGUID(),
-        actionId: getStore().context.actionId,
-        dataTableName: "Default",
-        creatorId: getStore().context.userId,
-        createTime: Date.now(),
-        updateTime: Date.now(),
-        columnValues: {["0"]: actionMessage.voteCard.toString()}
-    };
-
-    let response = await ActionSdkHelper.addOrUpdateActionDataRow(actionDataRow, actionMessage.isUpdate);
+    if (isUpdate) {
+        actionDataRow.columnValues["0"] = actionMessage.voteCard.toString();
+    } else {
+        actionDataRow = {
+            id: Utils.generateGUID(),
+            actionId: getStore().context.actionId,
+            dataTableName: "Default",
+            creatorId: getStore().context.userId,
+            createTime: Date.now(),
+            updateTime: Date.now(),
+            columnValues: {["0"]: actionMessage.voteCard.toString()}
+        };
+    }
+    setVoteCardActionDataRow(actionDataRow);
+    let response = await ActionSdkHelper.addOrUpdateActionDataRow(actionDataRow, isUpdate);
 
     if (!response.success) {
         handleError(response.error, "addOrUpdateActionDataRow");

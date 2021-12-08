@@ -15,6 +15,7 @@ interface IPollVoteStore {
     context: actionSDK.ActionSdkContext;
     action: actionSDK.Action;
     myRow: actionSDK.ActionDataRow;
+    voteCardActionDataRow: actionSDK.ActionDataRow;
     voteCard: VoteCardEnum;
     progressStatus: VoteProgressStatus;
     isActionDeleted: boolean;
@@ -24,6 +25,7 @@ const store: IPollVoteStore = {
     context: null,
     action: null,
     myRow: null,
+    voteCardActionDataRow: null,
     voteCard: null,
     progressStatus: {
         context: ProgressState.NotStarted,

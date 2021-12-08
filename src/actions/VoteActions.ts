@@ -9,6 +9,7 @@ export enum PollVoteAction {
     setAction = "setAction",
     setProgressStatus = "setProgressStatus",
     setVoteCard = "setVoteCard",
+    setVoteCardActionDataRow = "setVoteCardActionDataRow",
     setMyRow = "setMyRow",
     vote = "vote",
     setIsActionDeleted = "setIsActionDeleted",
@@ -46,6 +47,13 @@ export let setMyRow = action(
     })
 );
 
+export let setVoteCardActionDataRow = action(
+    PollVoteAction.setVoteCard,
+    (voteCardActionDataRow: actionSDK.ActionDataRow) => ({
+        voteCardActionDataRow: voteCardActionDataRow,
+    })
+);
+
 export let setVoteCard = action(
     PollVoteAction.setVoteCard,
     (voteCard: VoteCardEnum) => ({
@@ -55,8 +63,8 @@ export let setVoteCard = action(
 
 export let vote = action(
     PollVoteAction.vote,
-    (voteCard: VoteCardEnum, isUpdate?: boolean) => ({
-        voteCard: voteCard, isUpdate: isUpdate
+    (voteCard: VoteCardEnum) => ({
+        voteCard: voteCard,
     })
 );
 

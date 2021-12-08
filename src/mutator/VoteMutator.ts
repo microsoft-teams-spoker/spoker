@@ -1,5 +1,5 @@
 import {mutator} from "satcheljs";
-import {setAction, setContext, setMyRow, setProgressStatus, setVoteCard} from "./../actions/VoteActions";
+import {setAction, setContext, setMyRow, setProgressStatus, setVoteCard, setVoteCardActionDataRow} from "./../actions/VoteActions";
 import getStore from "./../store/VoteStore";
 
 /**
@@ -27,6 +27,15 @@ mutator(setAction, (msg) => {
 mutator(setMyRow, (msg) => {
     const store = getStore();
     store.myRow = msg.myRow;
+});
+
+mutator(setVoteCardActionDataRow, (msg) => {
+    const store = getStore();
+    console.log("1 mutuator setVoteCard store: " + JSON.stringify(store));
+
+    store.voteCardActionDataRow = msg.voteCardActionDataRow;
+    console.log("2 mutuator setVoteCard store: " + JSON.stringify(store));
+
 });
 
 mutator(setVoteCard, (msg) => {

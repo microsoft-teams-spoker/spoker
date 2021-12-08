@@ -82,6 +82,7 @@
   "MoreOptions": "More Options",
   "PollOptions": "Game Options",
   "GenericError": "There was a problem reaching this app. Please try after sometime.",
+  "FooterVoteMessage": "You can always change your vote!",
   "PollDeletedError": "This game has been deleted.",
   "PollDeletedErrorDescription": "This game is no more relevant and deleted by the creator.",
   "Close": "Close",

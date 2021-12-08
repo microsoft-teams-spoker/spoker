@@ -1,4 +1,4 @@
-import {Flex, Loader} from "@fluentui/react-northstar";
+import {Flex, Text, Loader} from "@fluentui/react-northstar";
 import {observer} from "mobx-react";
 import * as React from "react";
 import {ActionSdkHelper} from "../../helper/ActionSdkHelper";
@@ -88,7 +88,9 @@ export default class VotePage extends React.Component<any, any> {
         let className = isMobileView ? "" : "footer-layout";
         return (
             <Flex className={className} gap={"gap.smaller"}>
-                <div>Please remember. You can vote only once and you can not change you vote!</div>
+                <Text
+                    content={Localizer.getString("FooterVoteMessage")}
+                />
             </Flex>
         );
     }
@@ -101,19 +103,12 @@ export default class VotePage extends React.Component<any, any> {
     }
 
     private voteCardOnClick(value: VoteCardEnum) {
-        const lastVoteCard = getStore().voteCard;
-        console.log("1 voteCardOnClick getStore().voteCard: " + lastVoteCard);
-        if (lastVoteCard == null) {
-            console.log("2 voteCardOnClick");
-            setVoteCard(value);
-            console.log("3 voteCardOnClick");
-            vote(value);
-            console.log("4 voteCardOnClick");
-        }
+        setVoteCard(value);
+        vote(value);
     }
 
     private renderYourVote() {
-        const lastVoteCard = getStore().voteCard;
+        const lastVoteCard: VoteCardEnum = getStore().voteCard;
         if (lastVoteCard != null) {
             return <p>Your vote: <VoteCard card={lastVoteCard} renderForMobile={UxUtils.renderingForMobile()}/></p>;
         } else {
