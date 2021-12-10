@@ -2,6 +2,7 @@ import * as React from "react";
 import "./VoteCard.scss";
 import {VoteCardUtils} from "./VoteCardUtils";
 import {Button} from "@fluentui/react-northstar";
+import { thProperties } from "office-ui-fabric-react";
 
 export enum VoteCardEnum {
     CARD_1,
@@ -51,6 +52,7 @@ export const OTHER_VOTE_CARDS = [
 
 export interface IVoteCardProps {
     card: VoteCardEnum;
+    isSelected?: boolean;
     renderForMobile?: boolean;
     onClick?: (voteCardEnum: VoteCardEnum) => void;
 }
@@ -81,14 +83,28 @@ export class VoteCard extends React.Component<IVoteCardProps, IVoteCardState> {
 
     renderTimePickerForWebOrDesktop() {
         if (this.props.onClick) {
-            return <button>
-                <img src={this.getUrl()} alt={this.getName()} className="card" onClick={(e) => this.props.onClick(this.props.card)}/>
-            </button>;
+
+            if (this.props.isSelected) {
+                return <Button
+                    iconOnly
+                    className="selected-button"
+                    onClick={(e) => this.props.onClick(this.props.card)}
+                    text>
+                    <img src={this.getUrl()} alt={this.getName()} className="button-card"/>
+                </Button>;
+            } else {
+                return <Button
+                    iconOnly
+                    className="button"
+                    onClick={(e) => this.props.onClick(this.props.card)}
+                    text>
+                    <img src={this.getUrl()} alt={this.getName()} className="button-card"/>
+                </Button>;
+            }
         } else {
             return <img src={this.getUrl()} alt={this.getName()} className="card"/>;
         }
     }
-
     getUrl(): string {
         let path = "images/custom/";
         switch (this.getType()) {

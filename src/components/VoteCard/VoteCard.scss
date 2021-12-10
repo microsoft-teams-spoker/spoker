@@ -4,3 +4,21 @@
   margin: 8px;
   height: 48px;
 }
+
+.selected-button {
+  height: fit-content !important;
+  width: fit-content !important;    
+  margin: 12px;
+  opacity: 0.3 !important;
+}
+
+.button {
+  height: fit-content !important;
+  width: fit-content !important;
+  opacity: 1 !important; 
+  margin: 12px;
+}
+
+.button-card {
+  height: 56px;
+}

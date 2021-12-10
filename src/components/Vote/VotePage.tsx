@@ -7,7 +7,7 @@ import {ErrorView} from "../ErrorView";
 import getStore from "./../../store/VoteStore";
 import {ProgressState} from "./../../utils/SharedEnum";
 import {UxUtils} from "./../../utils/UxUtils";
-import "./vote.scss";
+import "./VotePage.scss";
 import {VoteCard, VoteCardEnum} from "../VoteCard/VoteCard";
 import {setVoteCard, vote} from "../../actions/VoteActions";
 
@@ -71,16 +71,18 @@ export default class VotePage extends React.Component<any, any> {
 
     private renderVoteCards() {
         const voteCardEnums = this.getVoteCardEnums();
+        const selectedVoteCard = getStore().voteCard;
 
         return <div>
             <Flex className="vote-card-row">
-                {voteCardEnums.map(value => (
-                    <VoteCard card={value} renderForMobile={UxUtils.renderingForMobile()} onClick={() => this.voteCardOnClick(value)}/>
-                ))}
+                {voteCardEnums.map(value => {
+                    console.log("CONDITION", value == selectedVoteCard)
+                    return <VoteCard card={value} isSelected={value == selectedVoteCard} renderForMobile={UxUtils.renderingForMobile()} onClick={() => this.voteCardOnClick(value)}/>
+                    })}
             </Flex>
-            <Flex className="your-vote-card">
+            {/* <Flex className="your-vote-card">
                 {this.renderYourVote()}
-            </Flex>
+            </Flex> */}
         </div>;
     }
 
@@ -89,7 +91,7 @@ export default class VotePage extends React.Component<any, any> {
         return (
             <Flex className={className} gap={"gap.smaller"}>
                 <Text
-                    content={Localizer.getString("FooterVoteMessage")}
+                    content="You can vote multiple times!"
                 />
             </Flex>
         );
