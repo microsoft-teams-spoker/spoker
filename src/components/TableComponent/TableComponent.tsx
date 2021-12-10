@@ -6,6 +6,7 @@ import {VoteCardUtils} from "../VoteCard/VoteCardUtils";
 
 function getDefaultCounterArray(): number[] {
     return new Array(6).fill(0);
+}
 
 export interface ITableComponentProps {
     scale: string;
@@ -37,7 +38,7 @@ export class TableComponent extends React.PureComponent<ITableComponentProps> {
                 <p className="headerText">Other cards</p>
             ],
         };
-  
+
         const counterArray: number[] = getDefaultCounterArray();
         const rows: { key: number, items: JSX.Element[] }[] = [];
 
@@ -61,6 +62,7 @@ export class TableComponent extends React.PureComponent<ITableComponentProps> {
                     rows[index].items[position + 1] = <VoteCard card={voteCardEnum}/>;
                     counterArray[position] = counterArray[position] + 1;
                 }
+
             }
         });
 
