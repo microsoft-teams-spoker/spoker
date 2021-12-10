@@ -55,7 +55,7 @@ export class InputBox extends React.Component<IInputBoxProps> {
             this.renderAs = RenderAs.TextArea;
         }
         return (
-            <Flex column>
+            <Flex column className="grow">
                 {(this.props.showError && !Utils.isEmpty(this.props.errorText)) &&
                     <Text align="end" error>{this.props.errorText}</Text>}
                 {this.props.prefixJSX ? this.getInputItem() : this.getInput()}

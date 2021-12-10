@@ -46,6 +46,7 @@ interface IPollSummaryStore {
     actionInstanceRows: actionSDK.ActionDataRow[];
     myRow: actionSDK.ActionDataRow;
     userProfile: { [key: string]: actionSDK.SubscriptionMember };
+    allUsersPolls: { user: actionSDK.SubscriptionMember, responseIds: {[key:string]: string}}[];
     nonResponders: actionSDK.SubscriptionMember[];
     memberCount: number;
     showMoreOptionsList: boolean;
@@ -70,6 +71,7 @@ const store: IPollSummaryStore = {
     isChangeExpiryAlertOpen: false,
     isDeletePollAlertOpen: false,
     userProfile: {},
+    allUsersPolls: [],
     nonResponders: null,
     memberCount: null,
     progressStatus: {

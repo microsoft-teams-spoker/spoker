@@ -18,6 +18,7 @@ import { ActionSdkHelper } from "../../helper/ActionSdkHelper";
  */
 @observer
 export default class SummaryPage extends React.Component<any, any> {
+
     render() {
         if (getStore().isActionDeleted) {
             ActionSdkHelper.hideLoadingIndicator();

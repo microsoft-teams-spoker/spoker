@@ -1,11 +1,11 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-import { action } from "satcheljs";
-import { Page } from "../store/CreationStore";
+import {action} from "satcheljs";
+import {Page} from "../store/CreationStore";
 import * as actionSDK from "@microsoft/m365-action-sdk";
-import { ISettingsComponentProps } from "./../components/Creation/Settings";
-import { ProgressState } from "./../utils/SharedEnum";
+import {ISettingsComponentProps} from "./../components/Creation/Settings";
+import {ProgressState} from "./../utils/SharedEnum";
 
 export enum PollCreationAction {
     initialize = "initialize",
@@ -13,6 +13,8 @@ export enum PollCreationAction {
     addChoice = "addChoice",
     deleteChoice = "deleteChoice",
     updateChoiceText = "updateChoiceText",
+    updateScale = "updateScale",
+    updateExtension = "updateExtension",
     updateTitle = "updateTitle",
     updateSettings = "updateSettings",
     shouldValidateUI = "shouldValidateUI",
@@ -45,6 +47,14 @@ export let deleteChoice = action(PollCreationAction.deleteChoice, (index: number
 export let updateChoiceText = action(PollCreationAction.updateChoiceText, (index: number, text: string) => ({
     index: index,
     text: text
+}));
+
+export let updateScale = action(PollCreationAction.updateScale, (scale: string) => ({
+    scale: scale
+}));
+
+export let updateExtension = action(PollCreationAction.updateExtension, (extension: boolean) => ({
+    extension: extension
 }));
 
 export let updateTitle = action(PollCreationAction.updateTitle, (title: string) => ({

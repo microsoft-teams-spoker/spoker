@@ -76,6 +76,7 @@
   "MoreOptions": "Więcej opcji",
   "PollOptions": "Opcje ankiety",
   "GenericError": "Wystąpił problem podczas uzyskiwania dostępu do tej aplikacji. Spróbuj ponownie później.",
+  "FooterVoteMessage": "Zawsze możesz zmienić swój głos!",
   "PollDeletedError": "Ta sonda została usunięta.",
   "PollDeletedErrorDescription": "Ta sonda nie jest już potrzebna i została usunięta przez twórcę.",
   "Close": "Zamknij",

@@ -1,13 +1,23 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-import { mutator } from "satcheljs";
+import {mutator} from "satcheljs";
 import {
-    setContext, setSendingFlag, goToPage, updateTitle, updateSettings, updateChoiceText, deleteChoice, shouldValidateUI,
-    addChoice, setProgressState
+    addChoice,
+    deleteChoice,
+    goToPage,
+    setContext,
+    setProgressState,
+    setSendingFlag,
+    shouldValidateUI,
+    updateChoiceText,
+    updateExtension,
+    updateScale,
+    updateSettings,
+    updateTitle
 } from "./../actions/CreationActions";
 import * as actionSDK from "@microsoft/m365-action-sdk";
-import { Utils } from "../utils/Utils";
+import {Utils} from "../utils/Utils";
 import getStore from "../store/CreationStore";
 
 /**
@@ -69,6 +79,16 @@ mutator(updateChoiceText, (msg) => {
     const optionsCopy = [...store.options];
     optionsCopy[msg.index] = msg.text;
     store.options = optionsCopy;
+});
+
+mutator(updateScale, (msg) => {
+    const store = getStore();
+    store.scale = msg.scale;
+});
+
+mutator(updateExtension, (msg) => {
+    const store = getStore();
+    store.extension = msg.extension;
 });
 
 mutator(updateTitle, (msg) => {

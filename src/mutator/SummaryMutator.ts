@@ -6,7 +6,7 @@ import getStore, { ViewType } from "./../store/SummaryStore";
 import {
     setProgressStatus, setContext, updateMyRow, pollCloseAlertOpen, pollExpiryChangeAlertOpen, pollDeleteAlertOpen, setDueDate,
     showMoreOptions, setCurrentView, addActionInstanceRows, updateContinuationToken, updateMemberCount, goBack, updateNonResponders,
-    setIsActionDeleted, updateActionInstance, updateActionInstanceSummary, updateUserProfileInfo
+    setIsActionDeleted, updateActionInstance, updateActionInstanceSummary, updateUserProfileInfo, updateAllUsersInfo
 } from "./../actions/SummaryActions";
 import { Utils } from "../utils/Utils";
 
@@ -75,6 +75,11 @@ mutator(updateContinuationToken, (msg) => {
 mutator(updateUserProfileInfo, (msg) => {
     const store = getStore();
     store.userProfile = Object.assign(store.userProfile, msg.userProfileMap);
+});
+
+mutator(updateAllUsersInfo, (msg) => {
+    const store = getStore();
+    store.allUsersPolls = Object.assign(store.allUsersPolls, msg.usersProfileMap);
 });
 
 mutator(updateMemberCount, (msg) => {

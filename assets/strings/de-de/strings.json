@@ -76,6 +76,7 @@
   "MoreOptions": "Weitere Optionen",
   "PollOptions": "Abstimmungsoptionen",
   "GenericError": "Problem beim Erreichen dieser App. Versuchen Sie es bitte später noch mal.",
+  "FooterVoteMessage": "Sie können Ihre Stimme jederzeit ändern!",
   "PollDeletedError": "Diese Abstimmung wurde gelöscht.",
   "PollDeletedErrorDescription": "Diese Abstimmung ist nicht mehr relevant und wurde vom Ersteller gelöscht.",
   "Close": "Schließen",

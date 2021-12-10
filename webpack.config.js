@@ -7,7 +7,8 @@ module.exports = (env) => {
     var config = {
         entry: {
             "CreateView": "./src/CreateView.tsx",
-            "DetailView": "./src/DetailView.tsx"
+            "DetailView": "./src/DetailView.tsx",
+            "VoteView": "./src/VoteView.tsx"
         },
         output: {
             path: path.resolve(__dirname, `./output`),
