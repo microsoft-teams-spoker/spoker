@@ -61,7 +61,7 @@ export interface IVoteCardState {
 /**
  * <VoteCard> Component to provide vote card
  */
-export class VoteCard extends React.Component<IVoteCardProps, IVoteCardState> {
+export default class VoteCard extends React.Component<IVoteCardProps, IVoteCardState> {
 
     constructor(props: IVoteCardProps) {
         super(props);
@@ -81,9 +81,9 @@ export class VoteCard extends React.Component<IVoteCardProps, IVoteCardState> {
 
     renderTimePickerForWebOrDesktop() {
         if (this.props.onClick) {
-            return <button>
-                <img src={this.getUrl()} alt={this.getName()} className="card" onClick={(e) => this.props.onClick(this.props.card)}/>
-            </button>;
+            return <Button className="button">
+                <img src={this.getUrl()} alt={this.getName()} className="button-card" onClick={(e) => this.props.onClick(this.props.card)}/>
+            </Button>;
         } else {
             return <img src={this.getUrl()} alt={this.getName()} className="card"/>;
         }

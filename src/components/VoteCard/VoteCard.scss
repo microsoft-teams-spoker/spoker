@@ -1,6 +1,24 @@
 @import "./../../scss/common.scss";
 
 .card {
-  margin: 8px;
+  margin: 2px;
   height: 48px;
+}
+
+.button {
+  border: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background-color: white !important;
+  height: fit-content !important;
+  width: fit-content !important;
+
+  .button-card {
+    margin: 0px;
+    height: 60px;
+  }
+
+  .theme-dark & {
+    background-color: #292929;
+  }
 }

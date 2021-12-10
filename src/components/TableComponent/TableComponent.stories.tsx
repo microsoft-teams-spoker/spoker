@@ -1,7 +1,7 @@
 import React from 'react';
 import {ComponentMeta, ComponentStory} from '@storybook/react';
 import {withThemeWrapper} from '../../../.storybook/utils';
-import {TableComponent} from "./TableComponent";
+import TableComponent from './TableComponent';
 
 export default {
     title: 'Simple/TableComponent',

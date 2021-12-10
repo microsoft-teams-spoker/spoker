@@ -6,6 +6,7 @@ import {VoteCardUtils} from "../VoteCard/VoteCardUtils";
 
 function getDefaultCounterArray(): number[] {
     return new Array(6).fill(0);
+}
 
 export interface ITableComponentProps {
     scale: string;
@@ -21,7 +22,7 @@ export interface ITableItem {
 /**
  * <TableComponent> component to show all users pools
  */
-export class TableComponent extends React.PureComponent<ITableComponentProps> {
+export default class TableComponent extends React.PureComponent<ITableComponentProps> {
 
     render() {
         if (!this.props.scale) {
