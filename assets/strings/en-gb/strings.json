@@ -89,6 +89,7 @@
   "ResponderAccessibilityLabel": "{0} voted {1} on {2}",
   "OptionResponseAccessibility": "{0}, {1} voters, {2}",
   "Next": "Next",
+  "Submit": "Submit",
   "DeleteChoiceX": "Delete Choice {0}",
   "ChangeDueBy": "Change Due By",
   "DialogTalkback": "{0} dialogue. {1}",

@@ -56,10 +56,8 @@ orchestrator(fetchMyRow, async () => {
             if (actionDataRow) {
                 setMyRow(actionDataRow);
                 const voteCard: VoteCardEnum = parseInt(actionDataRow.columnValues['0']);
-                console.log("1 orchestrator fetchMyRow: " + voteCard);
                 setVoteCard(voteCard);
                 setVoteCardActionDataRow(actionDataRow);
-                console.log("2 orchestrator fetchMyRow: " + voteCard);
             }
             setProgressStatus({myRow: ProgressState.Completed});
         } else {

@@ -83,6 +83,7 @@
   "ResponderAccessibilityLabel": "Użytkownik {0} odpowiedział {1} w dniu {2}",
   "OptionResponseAccessibility": "{0}, {1} respondentów, {2}",
   "Next": "Dalej",
+  "Submit": "Zatwierdź",
   "DeleteChoiceX": "Usuń opcję wyboru {0}",
   "ChangeDueBy": "Zmień termin wykonania",
   "DialogTalkback": "Okno dialogowe {0}. {1}",

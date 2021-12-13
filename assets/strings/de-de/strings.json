@@ -83,6 +83,7 @@
   "ResponderAccessibilityLabel": "{0} hat mit \"{1}\" am {2} geantwortet.",
   "OptionResponseAccessibility": "{0}, {1} Antwortende, {2}",
   "Next": "Weiter",
+  "Submit": "Einreichen",
   "DeleteChoiceX": "Auswahl {0} löschen",
   "ChangeDueBy": "Änderung fällig am",
   "DialogTalkback": "Dialogfeld\"{0}\". {1}",

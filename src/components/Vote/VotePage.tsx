@@ -1,4 +1,4 @@
-import {Flex, Text, Loader} from "@fluentui/react-northstar";
+import {Flex, Text, Loader, FlexItem, Button} from "@fluentui/react-northstar";
 import {observer} from "mobx-react";
 import * as React from "react";
 import {ActionSdkHelper} from "../../helper/ActionSdkHelper";
@@ -20,7 +20,6 @@ export default class VotePage extends React.Component<any, any> {
 
     render() {
         const progressStatus = getStore().progressStatus;
-        console.log("VotePage statusProgress: " + JSON.stringify(progressStatus));
 
         if (progressStatus.context == ProgressState.Failed ||
             progressStatus.action == ProgressState.Failed ||
@@ -76,8 +75,7 @@ export default class VotePage extends React.Component<any, any> {
         return <div>
             <Flex className="vote-card-row">
                 {voteCardEnums.map(value => {
-                    console.log("CONDITION", value == selectedVoteCard)
-                    return <VoteCard card={value} isSelected={value == selectedVoteCard} renderForMobile={UxUtils.renderingForMobile()} onClick={() => this.voteCardOnClick(value)}/>
+                    return <VoteCard card={value} isSelected={value == selectedVoteCard} renderForMobile={UxUtils.renderingForMobile()} onClick={() => this.setCardOnClick(value)}/>
                     })}
             </Flex>
             {/* <Flex className="your-vote-card">
@@ -88,13 +86,23 @@ export default class VotePage extends React.Component<any, any> {
 
     private renderFooterSection(isMobileView?: boolean) {
         let className = isMobileView ? "" : "footer-layout";
+        const selectedVoteCard = getStore().voteCard;
         return (
             <Flex className={className} gap={"gap.smaller"}>
+
                 <Text
                     content="You can vote multiple times!"
                 />
-            </Flex>
-        );
+                <FlexItem push>
+                    <Button
+                        primary
+                        content={Localizer.getString("Submit")}
+                        onClick={() => {
+                            this.voteCardOnClick(selectedVoteCard);
+                        }}>
+                    </Button>
+                </FlexItem>
+            </Flex>);
     }
 
     private getVoteCardEnums(): VoteCardEnum[] {
@@ -105,8 +113,12 @@ export default class VotePage extends React.Component<any, any> {
     }
 
     private voteCardOnClick(value: VoteCardEnum) {
-        setVoteCard(value);
         vote(value);
+        ActionSdkHelper.closeView();
+    }
+
+    private setCardOnClick(value: VoteCardEnum) {
+        setVoteCard(value);
     }
 
     private renderYourVote() {

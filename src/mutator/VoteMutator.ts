@@ -31,18 +31,10 @@ mutator(setMyRow, (msg) => {
 
 mutator(setVoteCardActionDataRow, (msg) => {
     const store = getStore();
-    console.log("1 mutuator setVoteCard store: " + JSON.stringify(store));
-
     store.voteCardActionDataRow = msg.voteCardActionDataRow;
-    console.log("2 mutuator setVoteCard store: " + JSON.stringify(store));
-
 });
 
 mutator(setVoteCard, (msg) => {
     const store = getStore();
-    console.log("1 mutuator setVoteCard store: " + JSON.stringify(store));
-
     store.voteCard = msg.voteCard;
-    console.log("2 mutuator setVoteCard store: " + JSON.stringify(store));
-
 });
