@@ -224,23 +224,6 @@ export class ActionSdkHelper {
         }
     }
 
-    /**
-     * API to download CSV for the current action instance summary
-     * @param actionId actionID
-     * @param fileName filename of csv
-     */
-    public static async downloadCSV(actionId, fileName) {
-        let request = new actionSDK.DownloadActionDataRowsResult.Request(actionId, fileName);
-        try {
-            let response = actionSDK.executeApi(request);
-            Logger.logInfo(`downloadCSV success - Request: ${JSON.stringify(request)} Response: ${JSON.stringify(response)}`);
-            return {success: true};
-        } catch (error) {
-            Logger.logError(`downloadCSV failed, Error: ${error.category}, ${error.code}, ${error.message}`);
-            return {success: false, error: error};
-        }
-    }
-
     /*
     * @desc Gets the localized strings in which the app is rendered
     */

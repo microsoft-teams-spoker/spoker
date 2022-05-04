@@ -1,31 +1,45 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-import * as React from "react";
-import { observer } from "mobx-react";
-import getSummaryStore, { ViewType } from "./../../store/SummaryStore";
-import "./summary.scss";
 import {
-    closePoll, pollCloseAlertOpen, updateDueDate, pollExpiryChangeAlertOpen, setDueDate, pollDeleteAlertOpen, deletePoll,
-    setCurrentView, downloadCSV, setProgressStatus
-} from "./../../actions/SummaryActions";
-import {
-    Flex, Dialog, Loader, Text, Avatar, ButtonProps, BanIcon, TrashCanIcon, CalendarIcon, MoreIcon, SplitButton, Divider
+    Avatar,
+    BanIcon,
+    ButtonProps,
+    CalendarIcon,
+    Dialog,
+    Divider,
+    Flex,
+    Loader,
+    MoreIcon,
+    Text,
+    TrashCanIcon
 } from "@fluentui/react-northstar";
-import * as html2canvas from "html2canvas";
-import { Utils } from "../../utils/Utils";
-import { Localizer } from "../../utils/Localizer";
 import * as actionSDK from "@microsoft/m365-action-sdk";
-import { ProgressState } from "./../../utils/SharedEnum";
-import { ShimmerContainer } from "../ShimmerLoader";
-import { IBarChartItem, BarChartComponent } from "../BarChartComponent";
-import { ErrorView } from "../ErrorView";
-import { UxUtils } from "./../../utils/UxUtils";
-import { AdaptiveMenuItem, AdaptiveMenuRenderStyle, AdaptiveMenu } from "../Menu";
-import { Constants } from "./../../utils/Constants";
-import { DateTimePickerView } from "../DateTime";
-import { ITableItem, TableComponent } from "../TableComponent";
-import getCreationStore from "../../store/CreationStore";
+import {observer} from "mobx-react";
+import * as React from "react";
+import {Localizer} from "../../utils/Localizer";
+import {Utils} from "../../utils/Utils";
+import {BarChartComponent, IBarChartItem} from "../BarChartComponent";
+import {DateTimePickerView} from "../DateTime";
+import {ErrorView} from "../ErrorView";
+import {AdaptiveMenu, AdaptiveMenuItem, AdaptiveMenuRenderStyle} from "../Menu";
+import {ShimmerContainer} from "../ShimmerLoader";
+import {ITableItem, TableComponent} from "../TableComponent";
+import {
+    closePoll,
+    deletePoll,
+    pollCloseAlertOpen,
+    pollDeleteAlertOpen,
+    pollExpiryChangeAlertOpen,
+    setCurrentView,
+    setDueDate,
+    setProgressStatus,
+    updateDueDate
+} from "./../../actions/SummaryActions";
+import getSummaryStore, {ViewType} from "./../../store/SummaryStore";
+import {ProgressState} from "./../../utils/SharedEnum";
+import {UxUtils} from "./../../utils/UxUtils";
+import "./summary.scss";
 
 /**
  * <SummaryView> component that will render the main page with participation details
@@ -52,7 +66,6 @@ export default class SummaryView extends React.Component<any, any> {
                     {this.getTopContainer()}
                     {this.getShortSummaryContainer()}
                 </Flex>
-                {this.getFooterView()}
             </>
         );
     }
@@ -109,7 +122,7 @@ export default class SummaryView extends React.Component<any, any> {
                             <Flex column className="overflow-hidden">
                                 <Text
                                     truncated
-                                    title = {myResponse}
+                                    title={myResponse}
                                     content={Localizer.getString("YourResponse", myResponse)}
                                 />
                             </Flex>
@@ -284,14 +297,14 @@ export default class SummaryView extends React.Component<any, any> {
                                             }}
                                         />
                                     ) : (
-                                            <Text content={participation} />
-                                        )}
+                                        <Text content={participation}/>
+                                    )}
                                 </div>
                             </ShimmerContainer>
                         </Flex.Item>
                     </Flex>
                 </div>
-                <Divider className="divider" />
+                <Divider className="divider"/>
             </>
         );
     }
@@ -358,76 +371,6 @@ export default class SummaryView extends React.Component<any, any> {
         }
     }
 
-    /**
-     * Method for UI component of download button
-     */
-    private getFooterView(): JSX.Element {
-        let progressStatus = getSummaryStore().progressStatus;
-        if ((progressStatus.actionInstance != ProgressState.Completed) || (UxUtils.renderingForMobile())
-            || (this.canCurrentUserViewResults() === false)) {
-            return null;
-        }
-
-        let content = (progressStatus.downloadData == ProgressState.InProgress)
-            ? (<Loader size="small" />) : (Localizer.getString("Download"));
-
-        let menuItems = [];
-        menuItems.push(this.getDownloadSplitButtonItem("download_image", "DownloadImage"));
-        menuItems.push(this.getDownloadSplitButtonItem("download_responses", "DownloadResponses"));
-
-        return menuItems.length > 0 ? (
-            <Flex className="footer-layout" gap={"gap.smaller"} hAlign="end">
-                <SplitButton
-                    key="download_button"
-                    id="download"
-                    menu={menuItems}
-                    button={{
-                        content: { content },
-                        className: "download-button",
-                    }}
-                    primary
-                    toggleButton={{ "aria-label": "more-options" }}
-                    onMainButtonClick={() => this.downloadImage()}
-                />
-            </Flex>
-        ) : null;
-    }
-
-    private getDownloadSplitButtonItem(key: string, menuLabel: string) {
-        let menuItem: AdaptiveMenuItem = {
-            key: key,
-            content: <Text content={Localizer.getString(menuLabel)} />,
-            onClick: () => {
-                if (key == "download_image") {
-                    this.downloadImage();
-                } else if (key == "download_responses") {
-                    downloadCSV();
-                }
-            },
-        };
-        return menuItem;
-    }
-
-    private downloadImage() {
-        let bodyContainerDiv = document.getElementById("bodyContainer") as HTMLDivElement;
-        let backgroundColorOfResultsImage: string = UxUtils.getBackgroundColorForTheme(getSummaryStore().context.theme);
-        (html2canvas as any)(bodyContainerDiv, {
-            width: bodyContainerDiv.scrollWidth,
-            height: bodyContainerDiv.scrollHeight,
-            backgroundColor: backgroundColorOfResultsImage,
-        }).then((canvas) => {
-            let fileName: string =
-                Localizer.getString("PollResult", getSummaryStore().actionInstance.dataTables[0].dataColumns[0].displayName)
-                    .substring(0, Constants.ACTION_RESULT_FILE_NAME_MAX_LENGTH) + ".png";
-            let base64Image = canvas.toDataURL("image/png");
-            if (window.navigator.msSaveBlob) {
-                window.navigator.msSaveBlob(canvas.msToBlob(), fileName);
-            } else {
-                Utils.downloadContent(fileName, base64Image);
-            }
-        });
-    }
-
     private setupDuedateDialog() {
         return (
             <Dialog
@@ -436,13 +379,14 @@ export default class SummaryView extends React.Component<any, any> {
                     className: "dialog-overlay",
                 }}
                 open={getSummaryStore().isChangeExpiryAlertOpen}
-                onOpen={(e, { open }) => pollExpiryChangeAlertOpen(open)}
+                onOpen={(e, {open}) => pollExpiryChangeAlertOpen(open)}
                 cancelButton={
                     this.getDialogButtonProps(Localizer.getString("ChangeDueDate"), Localizer.getString("Cancel"))
                 }
                 confirmButton={
                     getSummaryStore().progressStatus.updateActionInstance ==
-                        ProgressState.InProgress ? (<Loader size="small" />) : (this.getDueDateDialogConfirmationButtonProps())
+                    ProgressState.InProgress ? (
+                        <Loader size="small"/>) : (this.getDueDateDialogConfirmationButtonProps())
                 }
                 content={
                     <Flex gap="gap.smaller" column>
@@ -458,12 +402,12 @@ export default class SummaryView extends React.Component<any, any> {
                             }}
                         />
                         {getSummaryStore().progressStatus.updateActionInstance ==
-                            ProgressState.Failed ? (
-                                <Text
-                                    content={Localizer.getString("SomethingWentWrong")}
-                                    className="error"
-                                />
-                            ) : null}
+                        ProgressState.Failed ? (
+                            <Text
+                                content={Localizer.getString("SomethingWentWrong")}
+                                className="error"
+                            />
+                        ) : null}
                     </Flex>
                 }
                 header={Localizer.getString("ChangeDueDate")}
@@ -483,7 +427,7 @@ export default class SummaryView extends React.Component<any, any> {
         };
 
         if (UxUtils.renderingForMobile()) {
-            Object.assign(buttonProps, { "aria-label": Localizer.getString("DialogTalkback", dialogDescription, buttonLabel) });
+            Object.assign(buttonProps, {"aria-label": Localizer.getString("DialogTalkback", dialogDescription, buttonLabel)});
         }
         return buttonProps;
     }
@@ -514,7 +458,7 @@ export default class SummaryView extends React.Component<any, any> {
                     UxUtils.renderingForMobile() ? AdaptiveMenuRenderStyle.ACTIONSHEET : AdaptiveMenuRenderStyle.MENU
                 }
                 content={
-                    <MoreIcon title={Localizer.getString("MoreOptions")} outline aria-hidden={false} role="button" />
+                    <MoreIcon title={Localizer.getString("MoreOptions")} outline aria-hidden={false} role="button"/>
                 }
                 menuItems={menuItems}
                 dismissMenuAriaLabel={Localizer.getString("DismissMenu")}
@@ -528,10 +472,10 @@ export default class SummaryView extends React.Component<any, any> {
             let changeExpiry: AdaptiveMenuItem = {
                 key: "changeDueDate",
                 content: Localizer.getString("ChangeDueBy"),
-                icon: <CalendarIcon outline={true} />,
+                icon: <CalendarIcon outline={true}/>,
                 onClick: () => {
                     if (getSummaryStore().progressStatus.updateActionInstance != ProgressState.InProgress) {
-                        setProgressStatus({ updateActionInstance: ProgressState.NotStarted });
+                        setProgressStatus({updateActionInstance: ProgressState.NotStarted});
                     }
                     pollExpiryChangeAlertOpen(true);
                 }
@@ -541,10 +485,10 @@ export default class SummaryView extends React.Component<any, any> {
             let closePoll: AdaptiveMenuItem = {
                 key: "close",
                 content: Localizer.getString("ClosePoll"),
-                icon: <BanIcon outline={true} />,
+                icon: <BanIcon outline={true}/>,
                 onClick: () => {
                     if (getSummaryStore().progressStatus.deleteActionInstance != ProgressState.InProgress) {
-                        setProgressStatus({ closeActionInstance: ProgressState.NotStarted });
+                        setProgressStatus({closeActionInstance: ProgressState.NotStarted});
                     }
                     pollCloseAlertOpen(true);
                 }
@@ -555,10 +499,10 @@ export default class SummaryView extends React.Component<any, any> {
             let deletePoll: AdaptiveMenuItem = {
                 key: "delete",
                 content: Localizer.getString("DeletePoll"),
-                icon: <TrashCanIcon outline={true} />,
+                icon: <TrashCanIcon outline={true}/>,
                 onClick: () => {
                     if (getSummaryStore().progressStatus.deleteActionInstance != ProgressState.InProgress) {
-                        setProgressStatus({ deleteActionInstance: ProgressState.NotStarted });
+                        setProgressStatus({deleteActionInstance: ProgressState.NotStarted});
                     }
                     pollDeleteAlertOpen(true);
                 }
@@ -595,26 +539,26 @@ export default class SummaryView extends React.Component<any, any> {
                     className: "dialog-overlay",
                 }}
                 open={getSummaryStore().isPollCloseAlertOpen}
-                onOpen={(e, { open }) => pollCloseAlertOpen(open)}
+                onOpen={(e, {open}) => pollCloseAlertOpen(open)}
                 cancelButton={
                     this.getDialogButtonProps(Localizer.getString("ClosePoll"), Localizer.getString("Cancel"))
                 }
                 confirmButton={
                     getSummaryStore().progressStatus.closeActionInstance ==
-                        ProgressState.InProgress
-                        ? (<Loader size="small" />)
+                    ProgressState.InProgress
+                        ? (<Loader size="small"/>)
                         : (this.getDialogButtonProps(Localizer.getString("ClosePoll"), Localizer.getString("Confirm")))
                 }
                 content={
                     <Flex gap="gap.smaller" column>
-                        <Text content={Localizer.getString("ClosePollConfirmation")} />
+                        <Text content={Localizer.getString("ClosePollConfirmation")}/>
                         {getSummaryStore().progressStatus.closeActionInstance ==
-                            ProgressState.Failed ? (
-                                <Text
-                                    content={Localizer.getString("SomethingWentWrong")}
-                                    className="error"
-                                />
-                            ) : null}
+                        ProgressState.Failed ? (
+                            <Text
+                                content={Localizer.getString("SomethingWentWrong")}
+                                className="error"
+                            />
+                        ) : null}
                     </Flex>
                 }
                 header={Localizer.getString("ClosePoll")}
@@ -636,26 +580,26 @@ export default class SummaryView extends React.Component<any, any> {
                     className: "dialog-overlay",
                 }}
                 open={getSummaryStore().isDeletePollAlertOpen}
-                onOpen={(e, { open }) => pollDeleteAlertOpen(open)}
+                onOpen={(e, {open}) => pollDeleteAlertOpen(open)}
                 cancelButton={
                     this.getDialogButtonProps(Localizer.getString("DeletePoll"), Localizer.getString("Cancel"))
                 }
                 confirmButton={
                     getSummaryStore().progressStatus.deleteActionInstance ==
-                        ProgressState.InProgress
-                        ? (<Loader size="small" />)
+                    ProgressState.InProgress
+                        ? (<Loader size="small"/>)
                         : (this.getDialogButtonProps(Localizer.getString("DeletePoll"), Localizer.getString("Confirm")))
                 }
                 content={
                     <Flex gap="gap.smaller" column>
-                        <Text content={Localizer.getString("DeletePollConfirmation")} />
+                        <Text content={Localizer.getString("DeletePollConfirmation")}/>
                         {getSummaryStore().progressStatus.closeActionInstance ==
-                            ProgressState.Failed ? (
-                                <Text
-                                    content={Localizer.getString("SomethingWentWrong")}
-                                    className="error"
-                                />
-                            ) : null}
+                        ProgressState.Failed ? (
+                            <Text
+                                content={Localizer.getString("SomethingWentWrong")}
+                                className="error"
+                            />
+                        ) : null}
                     </Flex>
                 }
                 header={Localizer.getString("DeletePoll")}
@@ -672,7 +616,7 @@ export default class SummaryView extends React.Component<any, any> {
     private getNonCreatorErrorView = () => {
         return (
             <Flex column className="non-creator-error-image-container">
-                <img src="./images/permission_error.png" className="non-creator-error-image" />
+                <img src="./images/permission_error.png" className="non-creator-error-image"/>
                 <Text className="non-creator-error-text">
                     {this.isPollActive()
                         ? Localizer.getString("VisibilityCreatorOnlyLabel")
@@ -680,17 +624,7 @@ export default class SummaryView extends React.Component<any, any> {
                             ? Localizer.getString("NotRespondedLabel")
                             : Localizer.getString("VisibilityCreatorOnlyLabel")}
                 </Text>
-                {getSummaryStore().myRow && getSummaryStore().myRow.columnValues ? (
-                    <a
-                        className="download-your-responses-link"
-                        onClick={() => {
-                            downloadCSV();
-                        }}
-                    >
-                        {Localizer.getString("DownloadYourResponses")}
-                    </a>
-                ) : null}
             </Flex>
         );
-    }
+    };
 }

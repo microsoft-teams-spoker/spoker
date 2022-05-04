@@ -1,12 +1,12 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-import { createStore } from "satcheljs";
-import { ProgressState } from "./../utils/SharedEnum";
 import * as actionSDK from "@microsoft/m365-action-sdk";
-import { Utils } from "../utils/Utils";
-import "./../orchestrators/SummaryOrchectrator";
+import {createStore} from "satcheljs";
+import {Utils} from "../utils/Utils";
 import "./../mutator/SummaryMutator";
+import "./../orchestrators/SummaryOrchectrator";
+import {ProgressState} from "./../utils/SharedEnum";
 
 /**
  * Summary view store containing all the required data
@@ -29,7 +29,6 @@ export interface SummaryProgressStatus {
     localizationState: ProgressState;
     actionInstanceRow: ProgressState;
     myActionInstanceRow: ProgressState;
-    downloadData: ProgressState;
     closeActionInstance: ProgressState;
     deleteActionInstance: ProgressState;
     updateActionInstance: ProgressState;
@@ -46,7 +45,7 @@ interface IPollSummaryStore {
     actionInstanceRows: actionSDK.ActionDataRow[];
     myRow: actionSDK.ActionDataRow;
     userProfile: { [key: string]: actionSDK.SubscriptionMember };
-    allUsersPolls: { user: actionSDK.SubscriptionMember, responseIds: {[key:string]: string}}[];
+    allUsersPolls: { user: actionSDK.SubscriptionMember, responseIds: { [key: string]: string } }[];
     nonResponders: actionSDK.SubscriptionMember[];
     memberCount: number;
     showMoreOptionsList: boolean;
@@ -82,7 +81,6 @@ const store: IPollSummaryStore = {
         localizationState: ProgressState.NotStarted,
         actionInstanceRow: ProgressState.NotStarted,
         myActionInstanceRow: ProgressState.NotStarted,
-        downloadData: ProgressState.NotStarted,
         closeActionInstance: ProgressState.NotStarted,
         deleteActionInstance: ProgressState.NotStarted,
         updateActionInstance: ProgressState.NotStarted,

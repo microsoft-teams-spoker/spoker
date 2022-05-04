@@ -1,9 +1,9 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-import { action } from "satcheljs";
-import { SummaryProgressStatus, ViewType } from "../store/SummaryStore";
 import * as actionSDK from "@microsoft/m365-action-sdk";
+import {action} from "satcheljs";
+import {SummaryProgressStatus, ViewType} from "../store/SummaryStore";
 
 export enum HttpStatusCode {
     Unauthorized = 401,
@@ -38,7 +38,6 @@ export enum PollSummaryAction {
     closePoll = "closePoll",
     deletePoll = "deletePoll",
     updateContinuationToken = "updateContinuationToken",
-    downloadCSV = "downloadCSV",
     fetchLocalization = "fetchLocalization",
     fetchMyResponse = "fetchMyResponse",
     fetchMemberCount = "fetchMemberCount",
@@ -81,8 +80,6 @@ export let updateDueDate = action(PollSummaryAction.updateDueDate, (dueDate: num
 export let closePoll = action(PollSummaryAction.closePoll);
 
 export let deletePoll = action(PollSummaryAction.deletePoll);
-
-export let downloadCSV = action(PollSummaryAction.downloadCSV);
 
 export let setProgressStatus = action(PollSummaryAction.setProgressStatus, (status: Partial<SummaryProgressStatus>) => ({
     status: status
@@ -132,7 +129,7 @@ export let updateUserProfileInfo = action(PollSummaryAction.updateUserProfileInf
     userProfileMap: userProfileMap
 }));
 
-export let updateAllUsersInfo = action(PollSummaryAction.updateAllUsersInfo, (usersProfileMap: { user: actionSDK.SubscriptionMember, responseIds: {[key:string]: string}}[]) => ({
+export let updateAllUsersInfo = action(PollSummaryAction.updateAllUsersInfo, (usersProfileMap: { user: actionSDK.SubscriptionMember, responseIds: { [key: string]: string } }[]) => ({
     usersProfileMap: usersProfileMap
 }));
 
