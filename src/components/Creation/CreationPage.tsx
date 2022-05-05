@@ -272,7 +272,6 @@ export default class CreationPage extends React.Component<any, any> {
     getCommonSettingsProps() {
         return {
             resultVisibility: getStore().settings.resultVisibility,
-            dueDate: getStore().settings.dueDate,
             locale: getStore().context.locale,
             renderForMobile: UxUtils.renderingForMobile(),
             strings: this.getStringsForSettings(),

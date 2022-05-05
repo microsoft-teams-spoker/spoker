@@ -10,7 +10,6 @@ import {UxUtils} from "./../../utils/UxUtils";
 import "./Settings.scss";
 
 export interface ISettingsComponentProps {
-    dueDate: number;
     locale?: string;
     resultVisibility: actionSDK.Visibility;
     renderForMobile?: boolean;
@@ -44,7 +43,6 @@ export class Settings extends React.PureComponent<ISettingsComponentProps> {
 
     render() {
         this.settingProps = {
-            dueDate: this.props.dueDate,
             locale: this.props.locale,
             resultVisibility: this.props.resultVisibility,
             strings: this.props.strings

@@ -20,7 +20,6 @@ import {
     initialize,
     pollCloseAlertOpen,
     pollDeleteAlertOpen,
-    pollExpiryChangeAlertOpen,
     setContext,
     setIsActionDeleted,
     setProgressStatus,
@@ -28,7 +27,6 @@ import {
     updateActionInstanceSummary,
     updateAllUsersInfo,
     updateContinuationToken,
-    updateDueDate,
     updateMemberCount,
     updateMyRow,
     updateNonResponders,
@@ -345,38 +343,6 @@ orchestrator(deletePoll, async () => {
         } else {
             handleErrorResponse(response.error);
             failedCallback();
-        }
-    }
-});
-
-orchestrator(updateDueDate, async (actionMessage) => {
-    if (getStore().progressStatus.updateActionInstance != ProgressState.InProgress) {
-        let callback = (success: boolean) => {
-            setProgressStatus({
-                updateActionInstance: success ? ProgressState.Completed : ProgressState.Failed,
-            });
-            fetchActionInstance(false);
-        };
-
-        setProgressStatus({updateActionInstance: ProgressState.InProgress});
-        let actionInstanceUpdateInfo: actionSDK.ActionUpdateInfo = {
-            id: getStore().context.actionId,
-            version: getStore().actionInstance.version,
-            expiryTime: actionMessage.dueDate,
-        };
-
-        let response = await ActionSdkHelper.updateActionInstance(actionInstanceUpdateInfo);
-        if (response.success) {
-            if (response.updateSuccess) {
-                callback(true);
-                pollExpiryChangeAlertOpen(false);
-            } else {
-                Logger.logError(`updateDueDate failed, Error: not success`);
-                callback(false);
-            }
-        } else {
-            handleErrorResponse(response.error);
-            callback(false);
         }
     }
 });

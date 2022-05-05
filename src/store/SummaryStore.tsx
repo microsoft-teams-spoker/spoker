@@ -39,7 +39,6 @@ interface IPollSummaryStore {
     context: actionSDK.ActionSdkContext;
     actionInstance: actionSDK.Action;
     actionSummary: actionSDK.ActionDataRowsSummary;
-    dueDate: number;
     currentView: ViewType;
     continuationToken: string;
     actionInstanceRows: actionSDK.ActionDataRow[];
@@ -61,7 +60,6 @@ const store: IPollSummaryStore = {
     actionInstance: null,
     actionSummary: null,
     myRow: null,
-    dueDate: Utils.getDefaultExpiry(7).getTime(),
     currentView: ViewType.Main,
     actionInstanceRows: [],
     continuationToken: null,

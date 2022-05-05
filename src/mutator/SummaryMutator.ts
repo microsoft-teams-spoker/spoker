@@ -1,14 +1,29 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-import { mutator } from "satcheljs";
-import getStore, { ViewType } from "./../store/SummaryStore";
+import {mutator} from "satcheljs";
+import {Utils} from "../utils/Utils";
 import {
-    setProgressStatus, setContext, updateMyRow, pollCloseAlertOpen, pollExpiryChangeAlertOpen, pollDeleteAlertOpen, setDueDate,
-    showMoreOptions, setCurrentView, addActionInstanceRows, updateContinuationToken, updateMemberCount, goBack, updateNonResponders,
-    setIsActionDeleted, updateActionInstance, updateActionInstanceSummary, updateUserProfileInfo, updateAllUsersInfo
+    addActionInstanceRows,
+    goBack,
+    pollCloseAlertOpen,
+    pollDeleteAlertOpen,
+    pollExpiryChangeAlertOpen,
+    setContext,
+    setCurrentView,
+    setIsActionDeleted,
+    setProgressStatus,
+    showMoreOptions,
+    updateActionInstance,
+    updateActionInstanceSummary,
+    updateAllUsersInfo,
+    updateContinuationToken,
+    updateMemberCount,
+    updateMyRow,
+    updateNonResponders,
+    updateUserProfileInfo
 } from "./../actions/SummaryActions";
-import { Utils } from "../utils/Utils";
+import getStore, {ViewType} from "./../store/SummaryStore";
 
 /**
  * Summary view mutators to modify store data on which summmary view relies
@@ -45,11 +60,6 @@ mutator(pollExpiryChangeAlertOpen, (msg) => {
 mutator(pollDeleteAlertOpen, (msg) => {
     const store = getStore();
     store.isDeletePollAlertOpen = msg.open;
-});
-
-mutator(setDueDate, (msg) => {
-    const store = getStore();
-    store.dueDate = msg.date;
 });
 
 mutator(showMoreOptions, (msg) => {
@@ -131,7 +141,6 @@ mutator(updateActionInstance, (msg) => {
     const store = getStore();
     if (msg.actionInstance) {
         store.actionInstance = msg.actionInstance;
-        store.dueDate = msg.actionInstance.expiryTime;
     }
 });
 
