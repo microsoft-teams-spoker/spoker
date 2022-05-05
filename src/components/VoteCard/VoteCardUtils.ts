@@ -7,23 +7,23 @@ export namespace VoteCardUtils {
 
     export function getType(voteCardEnum: VoteCardEnum): VoteCardType {
         switch (voteCardEnum) {
-            case VoteCardEnum.CARD_1:
-            case VoteCardEnum.CARD_2:
-            case VoteCardEnum.CARD_3:
-            case VoteCardEnum.CARD_5:
-            case VoteCardEnum.CARD_8:
-            case VoteCardEnum.CARD_13:
-            case VoteCardEnum.CARD_21:
+            case VoteCardEnum._1:
+            case VoteCardEnum._2:
+            case VoteCardEnum._3:
+            case VoteCardEnum._5:
+            case VoteCardEnum._8:
+            case VoteCardEnum._13:
+            case VoteCardEnum._21:
                 return VoteCardType.FIBO;
-            case VoteCardEnum.CARD_XS:
-            case VoteCardEnum.CARD_S:
-            case VoteCardEnum.CARD_M:
-            case VoteCardEnum.CARD_L:
-            case VoteCardEnum.CARD_XL:
+            case VoteCardEnum.XS:
+            case VoteCardEnum.S:
+            case VoteCardEnum.M:
+            case VoteCardEnum.L:
+            case VoteCardEnum.XL:
                 return VoteCardType.TSHIRT;
-            case VoteCardEnum.CARD_QUESTIONMARK:
-            case VoteCardEnum.CARD_COFFEE:
-            case VoteCardEnum.CARD_INFINITY:
+            case VoteCardEnum.QUESTIONMARK:
+            case VoteCardEnum.COFFEE:
+            case VoteCardEnum.INFINITY:
                 return VoteCardType.OTHER;
             default:
                 throw new Error("Unknown vote card: " + voteCardEnum);
