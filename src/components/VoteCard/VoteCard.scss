@@ -1,22 +1,19 @@
 @import "./../../scss/common.scss";
 
 .card {
-  margin: 8px;
   height: 48px;
 }
 
 .selected-button {
+  margin-top: 20px;
   height: fit-content !important;
   width: fit-content !important;    
-  margin: 12px;
-  opacity: 0.3 !important;
+  filter: hue-rotate(90deg);
 }
 
 .button {
   height: fit-content !important;
   width: fit-content !important;
-  opacity: 1 !important; 
-  margin: 12px;
 }
 
 .button-card {

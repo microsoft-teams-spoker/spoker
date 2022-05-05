@@ -70,14 +70,34 @@ export default class VotePage extends React.Component<any, any> {
 
     private renderVoteCards() {
         const voteCardEnums = this.getVoteCardEnums();
+        const baseVoteCards = voteCardEnums.slice(0, 5);
+        let additionalVoteCards = [];
+        let mapVoteCardWithText = [];
+        if (voteCardEnums.length > 5) {
+            additionalVoteCards = voteCardEnums.slice(5, 8);
+            mapVoteCardWithText = [{value: additionalVoteCards[0], key: "I'm not sure"}, 
+                         {value: additionalVoteCards[1], key: "I need a break"},
+                         {value: additionalVoteCards[2], key: "The task cannot be completed"}]
+        }
         const selectedVoteCard = getStore().voteCard;
 
-        return <div>
+        return <div className="vote-card-section">
+            <Text className="pick-text"
+                content="Please pick the card which reflects the best your estimation:"
+            />
             <Flex className="vote-card-row">
-                {voteCardEnums.map(value => {
+                {baseVoteCards.map(value => {
                     return <VoteCard card={value} isSelected={value == selectedVoteCard} renderForMobile={UxUtils.renderingForMobile()} onClick={() => this.setCardOnClick(value)}/>
                     })}
             </Flex>
+            { additionalVoteCards.length > 0 && <Flex className="vote-card-row">
+                {mapVoteCardWithText.map(map => {
+                    return <div className="vote-card-with-text">
+                    <VoteCard card={map.value} isSelected={map.value == selectedVoteCard} renderForMobile={UxUtils.renderingForMobile()} onClick={() => this.setCardOnClick(map.value)}/>
+                        <Text className="card-text" content={map.key}/>
+                    </div> 
+                    })}
+            </Flex> }
             {/* <Flex className="your-vote-card">
                 {this.renderYourVote()}
             </Flex> */}
@@ -91,11 +111,12 @@ export default class VotePage extends React.Component<any, any> {
             <Flex className={className} gap={"gap.smaller"}>
 
                 <Text
-                    content="You can vote multiple times!"
+                    content="You can change your vote any time!"
                 />
                 <FlexItem push>
                     <Button
                         primary
+                        disabled={selectedVoteCard == null || undefined}
                         content={Localizer.getString("Submit")}
                         onClick={() => {
                             this.voteCardOnClick(selectedVoteCard);
