@@ -1,15 +1,13 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+import * as actionSDK from "@microsoft/m365-action-sdk";
 import {toJS} from "mobx";
-import {Logger} from "./../utils/Logger";
-import {Constants} from "../utils/Constants";
-import {Localizer} from "../utils/Localizer";
+import {orchestrator} from "satcheljs";
 import {
     addActionInstanceRows,
     closePoll,
     deletePoll,
-    downloadCSV,
     fetchActionInstance,
     fetchActionInstanceRows,
     fetchActionInstanceSummary,
@@ -36,11 +34,11 @@ import {
     updateNonResponders,
     updateUserProfileInfo
 } from "../actions/SummaryActions";
-import {orchestrator} from "satcheljs";
-import {ProgressState} from "../utils/SharedEnum";
-import getStore from "../store/SummaryStore";
-import * as actionSDK from "@microsoft/m365-action-sdk";
 import {ActionSdkHelper} from "../helper/ActionSdkHelper";
+import getStore from "../store/SummaryStore";
+import {Localizer} from "../utils/Localizer";
+import {ProgressState} from "../utils/SharedEnum";
+import {Logger} from "./../utils/Logger";
 
 /**
  * Summary view orchestrators to fetch data for current action, perform any action on that data and dispatch further actions to modify stores
@@ -380,18 +378,5 @@ orchestrator(updateDueDate, async (actionMessage) => {
             handleErrorResponse(response.error);
             callback(false);
         }
-    }
-});
-
-orchestrator(downloadCSV, async (msg) => {
-    if (getStore().progressStatus.downloadData != ProgressState.InProgress) {
-        setProgressStatus({downloadData: ProgressState.InProgress});
-
-        let response = await ActionSdkHelper.downloadCSV(getStore().context.actionId,
-            Localizer.getString("PollResult", getStore().actionInstance.dataTables[0].dataColumns[0].displayName)
-                .substring(0, Constants.ACTION_RESULT_FILE_NAME_MAX_LENGTH)
-        );
-
-        response.success ? setProgressStatus({downloadData: ProgressState.Completed}) : handleError(response.error, "downloadData");
     }
 });

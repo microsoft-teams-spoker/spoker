@@ -43,12 +43,12 @@ export namespace Utils {
 
         let diff = Math.abs(deadLineTime - now);
         return {
-            [Utils.MINUTES] : Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
-            [Utils.HOURS]   : Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-            [Utils.DAYS]    : Math.floor((diff % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24)),
-            [Utils.WEEKS]   : Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24 * 7)),
-            [Utils.MONTHS]  : Math.floor((diff % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30)),
-            [Utils.YEARS]   : Math.floor(diff / (1000 * 60 * 60 * 24 * 365))
+            [Utils.MINUTES]: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+            [Utils.HOURS]: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+            [Utils.DAYS]: Math.floor((diff % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24)),
+            [Utils.WEEKS]: Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24 * 7)),
+            [Utils.MONTHS]: Math.floor((diff % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30)),
+            [Utils.YEARS]: Math.floor(diff / (1000 * 60 * 60 * 24 * 365))
         };
     }
 
@@ -75,22 +75,6 @@ export namespace Utils {
      */
     export function generateGUID(): string {
         return uuid.v4();
-    }
-
-    /**
-     * Method to download content
-     * @param fileName
-     * @param data
-     */
-    export function downloadContent(fileName: string, data: string) {
-        if (data && fileName) {
-            let a = document.createElement("a");
-            a.href = data;
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
     }
 
     /**

@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 import * as React from "react";
-import { Constants } from "./Constants";
+import {Constants} from "./Constants";
 
 export class UxUtils {
 
@@ -86,31 +86,20 @@ export class UxUtils {
      * @param options
      */
     public static formatDate(selectedDate: Date, locale: string, options?: Intl.DateTimeFormatOptions): string {
-        let dateOptions = options ? options : { year: "numeric", month: "long", day: "2-digit", hour: "numeric", minute: "numeric" };
+        let dateOptions = options ? options : {
+            year: "numeric",
+            month: "long",
+            day: "2-digit",
+            hour: "numeric",
+            minute: "numeric"
+        };
         let formattedDate = selectedDate.toLocaleDateString(locale, dateOptions);
         // check if M01, M02, ...M12 pattern is present in the string, if pattern is present, using numeric representation of the month instead
         if (formattedDate.match(/M[\d]{2}/)) {
-            let newOptions = { ...dateOptions, "month": "2-digit" };
+            let newOptions = {...dateOptions, "month": "2-digit"};
             formattedDate = selectedDate.toLocaleDateString(locale, newOptions);
         }
         return formattedDate;
     }
 
-    /**
-     * Get background color based on current selected theme
-     * @param theme
-     */
-    public static getBackgroundColorForTheme(theme: string): string {
-        let backColor: string = Constants.colors.defaultBackgroundColor;
-        theme = theme || "";
-        switch (theme.toLowerCase()) {
-            case "dark":
-                backColor = Constants.colors.darkBackgroundColor;
-                break;
-            case "contrast":
-                backColor = Constants.colors.contrastBackgroundColor;
-                break;
-        }
-        return backColor;
-    }
 }
