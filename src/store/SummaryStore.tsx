@@ -3,7 +3,6 @@
 
 import * as actionSDK from "@microsoft/m365-action-sdk";
 import {createStore} from "satcheljs";
-import {Utils} from "../utils/Utils";
 import "./../mutator/SummaryMutator";
 import "./../orchestrators/SummaryOrchectrator";
 import {ProgressState} from "./../utils/SharedEnum";

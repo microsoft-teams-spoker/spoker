@@ -15,6 +15,15 @@
         "wrap": true
       },
       {
+        "id": "expiry",
+        "type": "TextBlock",
+        "$when": "${equals(action.status, 'Expired')}",
+        "text": "${strings.PollExpired}",
+        "color": "attention",
+        "size": "small",
+        "wrap": true
+      },
+      {
         "id": "ResultVisibility",
         "type": "TextBlock",
         "text": "${if(equals(action.dataTables[0].rowsVisibility, 'All'), strings.ResultEveryone, strings.ResultCreator)}",

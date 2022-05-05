@@ -5,15 +5,9 @@ import * as actionSDK from "@microsoft/m365-action-sdk";
 import {action} from "satcheljs";
 import {SummaryProgressStatus, ViewType} from "../store/SummaryStore";
 
-export enum HttpStatusCode {
-    Unauthorized = 401,
-    NotFound = 404,
-}
-
 export enum PollSummaryAction {
     initialize = "initialize",
     setContext = "setContext",
-    addOptions = "addOptions",
     setCurrentView = "setCurrentView",
     showMoreOptions = "showMoreOptions",
     actionInstanceRow = "actionInstanceRow",
