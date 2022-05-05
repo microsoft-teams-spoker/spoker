@@ -1,5 +1,42 @@
 @import "./../../scss/common.scss";
 
 .body-container {
+
+    .vote-card-section {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .pick-text {
+            margin-bottom: 40px;
+        }
+
+        .vote-card-row {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            margin-bottom: 20px;
+
+            .vote-card-with-text {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                width: 100px;
+
+                .card-text {
+                    margin-top: 20px;
+                }
+            }
+
+            .button-card {
+                height: 90px;
+            }
+        }
+    }
 }
 
