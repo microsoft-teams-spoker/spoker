@@ -242,56 +242,18 @@ export default class CreationPage extends React.Component<any, any> {
     }
 
     /**
-     * method to get the setting summary from selected due date and result visibility
+     * method to get the setting summary from selected result visibility
      */
     getSettingsSummary(): string {
-        let settingsStrings: string[] = [];
-        let dueDate = new Date(getStore().settings.dueDate);
         let resultVisibility = getStore().settings.resultVisibility;
-        if (dueDate) {
-            let dueDateString: string;
-            let dueDateValues: number[];
-            let dueIn: {} = Utils.getTimeRemaining(dueDate);
-            if (dueIn[Utils.YEARS] > 0) {
-                dueDateString = dueIn[Utils.YEARS] == 1 ? "DueInYear" : "DueInYears";
-                dueDateValues = [dueIn[Utils.YEARS]];
-            } else if (dueIn[Utils.MONTHS] > 0) {
-                dueDateString = dueIn[Utils.MONTHS] == 1 ? "DueInMonth" : "DueInMonths";
-                dueDateValues = [dueIn[Utils.MONTHS]];
-            } else if (dueIn[Utils.WEEKS] > 0) {
-                dueDateString = dueIn[Utils.WEEKS] == 1 ? "DueInWeek" : "DueInWeeks";
-                dueDateValues = [dueIn[Utils.WEEKS]];
-            } else if (dueIn[Utils.DAYS] > 0) {
-                dueDateString = dueIn[Utils.DAYS] == 1 ? "DueInDay" : "DueInDays";
-                dueDateValues = [dueIn[Utils.DAYS]];
-            } else if (dueIn[Utils.HOURS] > 0 && dueIn[Utils.MINUTES] > 0) {
-                if (dueIn[Utils.HOURS] == 1 && dueIn[Utils.MINUTES] == 1) {
-                    dueDateString = "DueInHourAndMinute";
-                } else if (dueIn[Utils.HOURS] == 1) {
-                    dueDateString = "DueInHourAndMinutes";
-                } else if (dueIn[Utils.MINUTES] == 1) {
-                    dueDateString = "DueInHoursAndMinute";
-                } else {
-                    dueDateString = "DueInHoursAndMinutes";
-                }
-                dueDateValues = [dueIn[Utils.HOURS], dueIn[Utils.MINUTES]];
-            } else if (dueIn[Utils.HOURS] > 0) {
-                dueDateString = dueIn[Utils.HOURS] == 1 ? "DueInHour" : "DueInHours";
-                dueDateValues = [dueIn[Utils.HOURS]];
-            } else {
-                dueDateString = dueIn[Utils.MINUTES] == 1 ? "DueInMinute" : "DueInMinutes";
-                dueDateValues = [dueIn[Utils.MINUTES]];
-            }
-            settingsStrings.push(Localizer.getString(dueDateString, ...dueDateValues));
-        }
 
         if (resultVisibility) {
             let visibilityString: string = resultVisibility == actionSDK.Visibility.All
                 ? "ResultsVisibilitySettingsSummaryEveryone" : "ResultsVisibilitySettingsSummarySenderOnly";
-            settingsStrings.push(Localizer.getString(visibilityString));
+            return Localizer.getString(visibilityString);
         }
 
-        return settingsStrings.join(". ");
+        return "";
     }
 
     /**

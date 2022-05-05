@@ -13,7 +13,7 @@
     },
     "icon": "images/custom/color_icon.png",
     "actionModel": "actionModel.json",
-    "version": "2.0.31",
+    "version": "2.0.38",
     "views": {
         "CardView": {
             "sourceLocation": "cardView.json"
