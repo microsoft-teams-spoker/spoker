@@ -13,14 +13,12 @@ import {ErrorView} from "../ErrorView";
 import {InputBox} from "../InputBox";
 import {INavBarComponentProps, NavBarComponent} from "../NavBarComponent";
 import {
-    addChoice,
     callActionInstanceCreationAPI,
-    deleteChoice,
     goToPage,
     shouldValidateUI,
     updateChoiceText,
-    updateScale,
     updateExtension,
+    updateScale,
     updateSettings,
     updateTitle
 } from "./../../actions/CreationActions";
@@ -57,7 +55,7 @@ export default class CreationPage extends React.Component<any, any> {
             // Render View
             ActionSdkHelper.hideLoadingIndicator();
             if (UxUtils.renderingForMobile()) {
-                // this will load the setting view where user can change due date and result visibility
+                // this will load the setting view where user can change result visibility
                 if (getStore().currentPage === Page.Settings) {
                     return this.renderSettingsPageForMobile();
                 } else {
@@ -125,46 +123,46 @@ export default class CreationPage extends React.Component<any, any> {
         return (
             <Flex column>
                 <Flex className="label-title-box">
-                <div className="label-title">{Localizer.getString("EnterStoryName")}:</div>
-                <InputBox
-                    fluid multiline
-                    maxLength={Constants.POLL_TITLE_MAX_LENGTH}
-                    inputRef={(element) => {
-                        this.validationErrorQuestionRef = element;
-                    }}
-                    input={{
-                        className: "title-box"
-                    }}
-                    showError={questionEmptyError != null}
-                    errorText={questionEmptyError}
-                    value={getStore().title}
-                    className="title-box"
-                    placeholder={Localizer.getString("PollTitlePlaceholder")}
-                    aria-placeholder={Localizer.getString("PollTitlePlaceholder")}
-                    onChange={(e) => {
-                        updateTitle((e.target as HTMLInputElement).value);
-                        shouldValidateUI(false); // setting this flag to false to not validate input everytime value changes
-                    }}
-                />
-                </Flex>
-                    <ChoiceContainer optionsError={optionsError} options={choiceOptions} limit={getStore().maxOptions}
-                                     focusOnError={focusChoiceOnError}
-                                     renderForMobile={UxUtils.renderingForMobile()}
-                                     maxLength={Constants.POLL_CHOICE_MAX_LENGTH}
-                                     onUpdateChoice={(i, value) => {
-                                         updateChoiceText(i, value);
-                                         shouldValidateUI(false);
-                                     }}
-                                     onUpdateScale={( value) => {
-                                         updateScale( value);
-                                         shouldValidateUI(false);
-                                     }}
-                                     onUpdateExtension={( value) => {
-                                         updateExtension(value);
-                                         shouldValidateUI(false);
-                                     }}
-
+                    <div className="label-title">{Localizer.getString("EnterStoryName")}:</div>
+                    <InputBox
+                        fluid multiline
+                        maxLength={Constants.POLL_TITLE_MAX_LENGTH}
+                        inputRef={(element) => {
+                            this.validationErrorQuestionRef = element;
+                        }}
+                        input={{
+                            className: "title-box"
+                        }}
+                        showError={questionEmptyError != null}
+                        errorText={questionEmptyError}
+                        value={getStore().title}
+                        className="title-box"
+                        placeholder={Localizer.getString("PollTitlePlaceholder")}
+                        aria-placeholder={Localizer.getString("PollTitlePlaceholder")}
+                        onChange={(e) => {
+                            updateTitle((e.target as HTMLInputElement).value);
+                            shouldValidateUI(false); // setting this flag to false to not validate input everytime value changes
+                        }}
                     />
+                </Flex>
+                <ChoiceContainer optionsError={optionsError} options={choiceOptions} limit={getStore().maxOptions}
+                                 focusOnError={focusChoiceOnError}
+                                 renderForMobile={UxUtils.renderingForMobile()}
+                                 maxLength={Constants.POLL_CHOICE_MAX_LENGTH}
+                                 onUpdateChoice={(i, value) => {
+                                     updateChoiceText(i, value);
+                                     shouldValidateUI(false);
+                                 }}
+                                 onUpdateScale={(value) => {
+                                     updateScale(value);
+                                     shouldValidateUI(false);
+                                 }}
+                                 onUpdateExtension={(value) => {
+                                     updateExtension(value);
+                                     shouldValidateUI(false);
+                                 }}
+
+                />
             </Flex>
         );
     }
@@ -261,12 +259,9 @@ export default class CreationPage extends React.Component<any, any> {
      */
     getStringsForSettings(): ISettingsComponentStrings {
         let settingsComponentStrings: ISettingsComponentStrings = {
-            dueBy: Localizer.getString("dueBy"),
             resultsVisibleTo: Localizer.getString("resultsVisibleTo"),
             resultsVisibleToAll: Localizer.getString("resultsVisibleToAll"),
             resultsVisibleToSender: Localizer.getString("resultsVisibleToSender"),
-            datePickerPlaceholder: Localizer.getString("datePickerPlaceholder"),
-            timePickerPlaceholder: Localizer.getString("timePickerPlaceholder"),
         };
         return settingsComponentStrings;
     }
