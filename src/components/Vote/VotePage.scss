@@ -19,7 +19,13 @@
             display: flex;
             flex-direction: row;
             justify-content: space-evenly;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+
+            .vote-card {
+                width: fit-content;
+                height: 110px;
+                display: flex;
+            }
 
             .vote-card-with-text {
                 display: flex;
@@ -29,7 +35,7 @@
                 width: 100px;
 
                 .card-text {
-                    margin-top: 20px;
+                    margin-top: 10px;
                 }
             }
 

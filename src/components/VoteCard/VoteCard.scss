@@ -5,7 +5,7 @@
 }
 
 .selected-button {
-  margin-top: 20px;
+  align-self: flex-end;
   height: fit-content !important;
   width: fit-content !important;    
   filter: hue-rotate(90deg);
