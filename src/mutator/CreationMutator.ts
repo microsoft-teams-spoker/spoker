@@ -1,7 +1,10 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+import * as actionSDK from "@microsoft/m365-action-sdk";
 import {mutator} from "satcheljs";
+import getStore from "../store/CreationStore";
+import {Utils} from "../utils/Utils";
 import {
     addChoice,
     deleteChoice,
@@ -16,9 +19,6 @@ import {
     updateSettings,
     updateTitle
 } from "./../actions/CreationActions";
-import * as actionSDK from "@microsoft/m365-action-sdk";
-import {Utils} from "../utils/Utils";
-import getStore from "../store/CreationStore";
 
 /**
  * Creation view mutators to modify store data on which create view relies
@@ -40,8 +40,6 @@ mutator(setContext, (msg) => {
 
         getStore().settings.resultVisibility = (actionInstance.dataTables[0].rowsVisibility === actionSDK.Visibility.Sender) ?
             actionSDK.Visibility.Sender : actionSDK.Visibility.All;
-
-        getStore().settings.dueDate = actionInstance.expiryTime;
     }
 });
 

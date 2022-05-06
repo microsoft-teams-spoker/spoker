@@ -52,7 +52,7 @@ orchestrator(initialize, async () => {
 orchestrator(callActionInstanceCreationAPI, async () => {
     let actionInstance: actionSDK.Action = {
         displayName: "Spoker",
-        expiryTime: getStore().settings.dueDate,
+        expiryTime: Utils.getDefaultExpiry(365).getTime(),
         dataTables: [
             {
                 name: "",

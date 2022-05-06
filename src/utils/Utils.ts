@@ -4,12 +4,6 @@
 import * as uuid from "uuid";
 
 export namespace Utils {
-    export let YEARS: string = "YEARS";
-    export let MONTHS: string = "MONTHS";
-    export let WEEKS: string = "WEEKS";
-    export let DAYS: string = "DAYS";
-    export let HOURS: string = "HOURS";
-    export let MINUTES: string = "MINUTES";
     export let DEFAULT_LOCALE: string = "en";
 
     /**
@@ -31,25 +25,6 @@ export namespace Utils {
             isEmpty = (JSON.stringify(obj) == "{}");
         }
         return isEmpty;
-    }
-
-    /**
-     * Method to get the time diff between the time passed as param and the current time
-     * @param deadLineDate
-     */
-    export function getTimeRemaining(deadLineDate: Date): {} {
-        let now = new Date().getTime();
-        let deadLineTime = deadLineDate.getTime();
-
-        let diff = Math.abs(deadLineTime - now);
-        return {
-            [Utils.MINUTES]: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
-            [Utils.HOURS]: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-            [Utils.DAYS]: Math.floor((diff % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24)),
-            [Utils.WEEKS]: Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24 * 7)),
-            [Utils.MONTHS]: Math.floor((diff % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30)),
-            [Utils.YEARS]: Math.floor(diff / (1000 * 60 * 60 * 24 * 365))
-        };
     }
 
     /**

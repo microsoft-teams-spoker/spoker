@@ -1,17 +1,15 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-import * as React from "react";
-import { UxUtils } from "./../../utils/UxUtils";
-import "./Settings.scss";
-import { DateTimePickerView } from "../DateTime";
-import { RadioGroupMobile } from "../RadioGroupMobile";
+import {ChevronStartIcon, Flex, RadioGroup, Text} from "@fluentui/react-northstar";
 import * as actionSDK from "@microsoft/m365-action-sdk";
-import { Flex, Text, ChevronStartIcon, RadioGroup } from "@fluentui/react-northstar";
-import { Localizer } from "../../utils/Localizer";
+import * as React from "react";
+import {Localizer} from "../../utils/Localizer";
+import {RadioGroupMobile} from "../RadioGroupMobile";
+import {UxUtils} from "./../../utils/UxUtils";
+import "./Settings.scss";
 
 export interface ISettingsComponentProps {
-    dueDate: number;
     locale?: string;
     resultVisibility: actionSDK.Visibility;
     renderForMobile?: boolean;
@@ -22,12 +20,9 @@ export interface ISettingsComponentProps {
 }
 
 export interface ISettingsComponentStrings {
-    dueBy?: string;
     resultsVisibleTo?: string;
     resultsVisibleToAll?: string;
     resultsVisibleToSender?: string;
-    datePickerPlaceholder?: string;
-    timePickerPlaceholder?: string;
 }
 
 /**
@@ -35,6 +30,7 @@ export interface ISettingsComponentStrings {
  */
 export class Settings extends React.PureComponent<ISettingsComponentProps> {
     private settingProps: ISettingsComponentProps;
+
     constructor(props: ISettingsComponentProps) {
         super(props);
     }
@@ -47,7 +43,6 @@ export class Settings extends React.PureComponent<ISettingsComponentProps> {
 
     render() {
         this.settingProps = {
-            dueDate: this.props.dueDate,
             locale: this.props.locale,
             resultVisibility: this.props.resultVisibility,
             strings: this.props.strings
@@ -71,34 +66,7 @@ export class Settings extends React.PureComponent<ISettingsComponentProps> {
     private renderSettings() {
         return (
             <Flex column>
-                {this.renderDueBySection()}
                 {this.renderResultVisibilitySection()}
-            </Flex>
-        );
-    }
-
-    /**
-     * Rendering due date section for settings view
-     */
-    private renderDueBySection() {
-        // handling mobile view differently
-        let className = this.props.renderForMobile ? "due-by-pickers-container date-time-equal" : "settings-indentation";
-        return (
-            <Flex className="settings-item-margin" role="group" aria-label={this.getString("dueBy")} column gap="gap.smaller">
-                <label className="settings-item-title">{this.getString("dueBy")}</label>
-                <div className={className}>
-                    <DateTimePickerView
-                        minDate={new Date()}
-                        locale={this.props.locale}
-                        value={new Date(this.props.dueDate)}
-                        placeholderDate={this.getString("datePickerPlaceholder")}
-                        placeholderTime={this.getString("timePickerPlaceholder")}
-                        renderForMobile={this.props.renderForMobile}
-                        onSelect={(date: Date) => {
-                            this.settingProps.dueDate = date.getTime();
-                            this.props.onChange(this.settingProps);
-                        }} />
-                </div>
             </Flex>
         );
     }
@@ -122,7 +90,7 @@ export class Settings extends React.PureComponent<ISettingsComponentProps> {
             <RadioGroup vertical {...radioProps} onCheckedValueChange={(e, props) => {
                 this.settingProps.resultVisibility = props.value as actionSDK.Visibility;
                 this.props.onChange(this.settingProps);
-            }} />;
+            }}/>;
 
         return (
             <Flex
@@ -147,12 +115,12 @@ export class Settings extends React.PureComponent<ISettingsComponentProps> {
         return (
             <Flex className="footer-layout" gap={"gap.smaller"}>
                 <Flex vAlign="center" className="pointer-cursor" {...UxUtils.getTabKeyProps()}
-                    onClick={() => {
-                        this.props.onBack();
-                    }}
+                      onClick={() => {
+                          this.props.onBack();
+                      }}
                 >
-                    <ChevronStartIcon xSpacing="after" size="small" />
-                    <Text content={Localizer.getString("Back")} />
+                    <ChevronStartIcon xSpacing="after" size="small"/>
+                    <Text content={Localizer.getString("Back")}/>
                 </Flex>
             </Flex>
         );

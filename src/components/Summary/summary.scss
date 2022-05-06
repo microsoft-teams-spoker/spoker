@@ -69,15 +69,6 @@
     font-size: 14px;
 }
 
-.due-date-dialog {
-    @extend .dialog-base;
-    width: fit-content !important;
-    @supports not (width: min-content) {
-        width: auto !important;
-        max-width: 60% !important;
-    }
-}
-
 .tab-view-footer {
     justify-content: space-between;
 }
