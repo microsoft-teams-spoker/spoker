@@ -87,13 +87,17 @@ export default class VotePage extends React.Component<any, any> {
             />
             <Flex className="vote-card-row">
                 {baseVoteCards.map(value => {
-                    return <VoteCard card={value} isSelected={value == selectedVoteCard} renderForMobile={UxUtils.renderingForMobile()} onClick={() => this.setCardOnClick(value)}/>
-                    })}
+                    return <div className="vote-card">
+                        <VoteCard card={value} isSelected={value == selectedVoteCard} renderForMobile={UxUtils.renderingForMobile()} onClick={() => this.setCardOnClick(value)}/>
+                    </div>
+                })}
             </Flex>
             { additionalVoteCards.length > 0 && <Flex className="vote-card-row">
                 {mapVoteCardWithText.map(map => {
                     return <div className="vote-card-with-text">
-                    <VoteCard card={map.value} isSelected={map.value == selectedVoteCard} renderForMobile={UxUtils.renderingForMobile()} onClick={() => this.setCardOnClick(map.value)}/>
+                        <div className="vote-card">
+                        <VoteCard card={map.value} isSelected={map.value == selectedVoteCard} renderForMobile={UxUtils.renderingForMobile()} onClick={() => this.setCardOnClick(map.value)}/>
+                        </div>
                         <Text className="card-text" content={map.key}/>
                     </div> 
                     })}
