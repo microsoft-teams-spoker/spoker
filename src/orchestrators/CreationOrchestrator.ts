@@ -11,7 +11,7 @@ import getStore from "../store/CreationStore";
 import {Utils} from "../utils/Utils";
 import * as actionSDK from "@microsoft/m365-action-sdk";
 import {ActionSdkHelper} from "../helper/ActionSdkHelper";
-import {FIBO_VOTE_CARDS, OTHER_VOTE_CARDS, TSHIRT_VOTE_CARDS, VoteCardType} from "../components/VoteCard/VoteCard";
+import {FIBO_VOTE_CARDS, OTHER_VOTE_CARDS, TSHIRT_VOTE_CARDS, VoteCardEnum, VoteCardType} from "../components/VoteCard/VoteCard";
 
 /**
  * Creation view orchestrators to do API calls, perform any action on data and dispatch further actions to modify stores in case of any change
@@ -89,9 +89,11 @@ orchestrator(callActionInstanceCreationAPI, async () => {
     }
 
     for (const card of cards) {
+        console.log(VoteCardEnum[card]);
+        console.log(card);
         let pollChoice: actionSDK.ActionDataColumnOption = {
             name: card.toString(),
-            displayName: card.toString(),
+            displayName: VoteCardEnum[card],
         };
         actionInstance.dataTables[0].dataColumns[0].options.push(pollChoice);
     }
@@ -100,7 +102,7 @@ orchestrator(callActionInstanceCreationAPI, async () => {
         for (const card of OTHER_VOTE_CARDS) {
             let pollChoice: actionSDK.ActionDataColumnOption = {
                 name: card.toString(),
-                displayName: card.toString(),
+                displayName: VoteCardEnum[card],
             };
             actionInstance.dataTables[0].dataColumns[0].options.push(pollChoice);
         }

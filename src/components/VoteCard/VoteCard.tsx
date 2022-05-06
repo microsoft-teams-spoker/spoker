@@ -5,21 +5,21 @@ import {Button} from "@fluentui/react-northstar";
 import { thProperties } from "office-ui-fabric-react";
 
 export enum VoteCardEnum {
-    CARD_1,
-    CARD_2,
-    CARD_3,
-    CARD_5,
-    CARD_8,
-    CARD_13,
-    CARD_21,
-    CARD_XS,
-    CARD_S,
-    CARD_M,
-    CARD_L,
-    CARD_XL,
-    CARD_QUESTIONMARK,
-    CARD_COFFEE,
-    CARD_INFINITY,
+    _1,
+    _2,
+    _3,
+    _5,
+    _8,
+    _13,
+    _21,
+    XS,
+    S,
+    M,
+    L,
+    XL,
+    QUESTIONMARK,
+    COFFEE,
+    INFINITY,
 }
 
 export enum VoteCardType {
@@ -29,25 +29,25 @@ export enum VoteCardType {
 }
 
 export const FIBO_VOTE_CARDS = [
-    VoteCardEnum.CARD_1,
-    VoteCardEnum.CARD_3,
-    VoteCardEnum.CARD_5,
-    VoteCardEnum.CARD_8,
-    VoteCardEnum.CARD_13,
+    VoteCardEnum._1,
+    VoteCardEnum._3,
+    VoteCardEnum._5,
+    VoteCardEnum._8,
+    VoteCardEnum._13,
 ];
 
 export const TSHIRT_VOTE_CARDS = [
-    VoteCardEnum.CARD_XS,
-    VoteCardEnum.CARD_S,
-    VoteCardEnum.CARD_M,
-    VoteCardEnum.CARD_L,
-    VoteCardEnum.CARD_XL,
+    VoteCardEnum.XS,
+    VoteCardEnum.S,
+    VoteCardEnum.M,
+    VoteCardEnum.L,
+    VoteCardEnum.XL,
 ];
 
 export const OTHER_VOTE_CARDS = [
-    VoteCardEnum.CARD_QUESTIONMARK,
-    VoteCardEnum.CARD_COFFEE,
-    VoteCardEnum.CARD_INFINITY,
+    VoteCardEnum.QUESTIONMARK,
+    VoteCardEnum.COFFEE,
+    VoteCardEnum.INFINITY,
 ];
 
 export interface IVoteCardProps {
@@ -123,35 +123,35 @@ export class VoteCard extends React.Component<IVoteCardProps, IVoteCardState> {
 
     getName(): string {
         switch (this.props.card) {
-            case VoteCardEnum.CARD_1:
+            case VoteCardEnum._1:
                 return "1";
-            case VoteCardEnum.CARD_2:
+            case VoteCardEnum._2:
                 return "2";
-            case VoteCardEnum.CARD_3:
+            case VoteCardEnum._3:
                 return "3";
-            case VoteCardEnum.CARD_5:
+            case VoteCardEnum._5:
                 return "5";
-            case VoteCardEnum.CARD_8:
+            case VoteCardEnum._8:
                 return "8";
-            case VoteCardEnum.CARD_13:
+            case VoteCardEnum._13:
                 return "13";
-            case VoteCardEnum.CARD_21:
+            case VoteCardEnum._21:
                 return "21";
-            case VoteCardEnum.CARD_XS:
+            case VoteCardEnum.XS:
                 return "XS";
-            case VoteCardEnum.CARD_S:
+            case VoteCardEnum.S:
                 return "S";
-            case VoteCardEnum.CARD_M:
+            case VoteCardEnum.M:
                 return "M";
-            case VoteCardEnum.CARD_L:
+            case VoteCardEnum.L:
                 return "L";
-            case VoteCardEnum.CARD_XL:
+            case VoteCardEnum.XL:
                 return "XL";
-            case VoteCardEnum.CARD_QUESTIONMARK:
+            case VoteCardEnum.QUESTIONMARK:
                 return "Questionmark";
-            case VoteCardEnum.CARD_COFFEE:
+            case VoteCardEnum.COFFEE:
                 return "Coffee";
-            case VoteCardEnum.CARD_INFINITY:
+            case VoteCardEnum.INFINITY:
                 return "Infinity";
             default:
                 throw new Error("Unknown vote card: " + this.props.card);

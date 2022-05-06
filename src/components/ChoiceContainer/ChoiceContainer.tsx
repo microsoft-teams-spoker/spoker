@@ -66,11 +66,11 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps, 
                             <label htmlFor="fibo">{Localizer.getString("Fibonacci")}</label>
                         </div>
                     </Flex>
-                    <VoteCard card={VoteCardEnum.CARD_1} renderForMobile={this.props.renderForMobile}/>
-                    <VoteCard card={VoteCardEnum.CARD_3} renderForMobile={this.props.renderForMobile}/>
-                    <VoteCard card={VoteCardEnum.CARD_5} renderForMobile={this.props.renderForMobile}/>
-                    <VoteCard card={VoteCardEnum.CARD_8} renderForMobile={this.props.renderForMobile}/>
-                    <VoteCard card={VoteCardEnum.CARD_13} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum._1} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum._3} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum._5} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum._8} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum._13} renderForMobile={this.props.renderForMobile}/>
                 </Flex>
                 <Flex className="row-scale">
                     <Flex className="equal-width">
@@ -81,11 +81,11 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps, 
                             <label htmlFor="tshirts">{Localizer.getString("Tshirts")}</label>
                         </div>
                     </Flex>
-                    <VoteCard card={VoteCardEnum.CARD_XS} renderForMobile={this.props.renderForMobile}/>
-                    <VoteCard card={VoteCardEnum.CARD_S} renderForMobile={this.props.renderForMobile}/>
-                    <VoteCard card={VoteCardEnum.CARD_M} renderForMobile={this.props.renderForMobile}/>
-                    <VoteCard card={VoteCardEnum.CARD_L} renderForMobile={this.props.renderForMobile}/>
-                    <VoteCard card={VoteCardEnum.CARD_XL} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum.XS} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum.S} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum.M} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum.L} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum.XL} renderForMobile={this.props.renderForMobile}/>
                 </Flex>
                 <Flex className="row-option">
                     <Flex className="equal-width">
@@ -94,9 +94,9 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps, 
                             <label htmlFor="also">{Localizer.getString("OtherCards")}</label>
                         </div>
                     </Flex>
-                    <VoteCard card={VoteCardEnum.CARD_QUESTIONMARK} renderForMobile={this.props.renderForMobile}/>
-                    <VoteCard card={VoteCardEnum.CARD_INFINITY} renderForMobile={this.props.renderForMobile}/>
-                    <VoteCard card={VoteCardEnum.CARD_COFFEE} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum.QUESTIONMARK} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum.INFINITY} renderForMobile={this.props.renderForMobile}/>
+                    <VoteCard card={VoteCardEnum.COFFEE} renderForMobile={this.props.renderForMobile}/>
                 </Flex>
             </div>
         );
