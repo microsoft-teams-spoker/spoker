@@ -5,16 +5,9 @@ import * as actionSDK from "@microsoft/m365-action-sdk";
 import {action} from "satcheljs";
 import {SummaryProgressStatus, ViewType} from "../store/SummaryStore";
 
-export enum HttpStatusCode {
-    Unauthorized = 401,
-    NotFound = 404,
-}
-
 export enum PollSummaryAction {
     initialize = "initialize",
     setContext = "setContext",
-    addOptions = "addOptions",
-    setDueDate = "setDueDate",
     setCurrentView = "setCurrentView",
     showMoreOptions = "showMoreOptions",
     actionInstanceRow = "actionInstanceRow",
@@ -34,7 +27,6 @@ export enum PollSummaryAction {
     fetchActionInstanceSummary = "fetchActionInstanceSummary",
     fetchAllUsersPolls = "fetchAllUsersPolls",
     fetchNonReponders = "fetchNonReponders",
-    updateDueDate = "updateDueDate",
     closePoll = "closePoll",
     deletePoll = "deletePoll",
     updateContinuationToken = "updateContinuationToken",
@@ -73,10 +65,6 @@ export let fetchActionInstanceSummary = action(PollSummaryAction.fetchActionInst
 
 export let fetchAllUsersPolls = action(PollSummaryAction.fetchAllUsersPolls);
 
-export let updateDueDate = action(PollSummaryAction.updateDueDate, (dueDate: number) => ({
-    dueDate: dueDate
-}));
-
 export let closePoll = action(PollSummaryAction.closePoll);
 
 export let deletePoll = action(PollSummaryAction.deletePoll);
@@ -103,10 +91,6 @@ export let pollExpiryChangeAlertOpen = action(PollSummaryAction.pollExpiryChange
 
 export let pollDeleteAlertOpen = action(PollSummaryAction.pollDeleteAlertOpen, (open: boolean) => ({
     open: open
-}));
-
-export let setDueDate = action(PollSummaryAction.setDueDate, (date: number) => ({
-    date: date
 }));
 
 export let showMoreOptions = action(PollSummaryAction.showMoreOptions, (showMoreOptions: boolean) => ({

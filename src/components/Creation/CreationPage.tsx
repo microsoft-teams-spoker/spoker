@@ -13,14 +13,12 @@ import {ErrorView} from "../ErrorView";
 import {InputBox} from "../InputBox";
 import {INavBarComponentProps, NavBarComponent} from "../NavBarComponent";
 import {
-    addChoice,
     callActionInstanceCreationAPI,
-    deleteChoice,
     goToPage,
     shouldValidateUI,
     updateChoiceText,
-    updateScale,
     updateExtension,
+    updateScale,
     updateSettings,
     updateTitle
 } from "./../../actions/CreationActions";
@@ -57,7 +55,7 @@ export default class CreationPage extends React.Component<any, any> {
             // Render View
             ActionSdkHelper.hideLoadingIndicator();
             if (UxUtils.renderingForMobile()) {
-                // this will load the setting view where user can change due date and result visibility
+                // this will load the setting view where user can change result visibility
                 if (getStore().currentPage === Page.Settings) {
                     return this.renderSettingsPageForMobile();
                 } else {
@@ -125,46 +123,46 @@ export default class CreationPage extends React.Component<any, any> {
         return (
             <Flex column>
                 <Flex className="label-title-box">
-                <div className="label-title">{Localizer.getString("EnterStoryName")}:</div>
-                <InputBox
-                    fluid multiline
-                    maxLength={Constants.POLL_TITLE_MAX_LENGTH}
-                    inputRef={(element) => {
-                        this.validationErrorQuestionRef = element;
-                    }}
-                    input={{
-                        className: "title-box"
-                    }}
-                    showError={questionEmptyError != null}
-                    errorText={questionEmptyError}
-                    value={getStore().title}
-                    className="title-box"
-                    placeholder={Localizer.getString("PollTitlePlaceholder")}
-                    aria-placeholder={Localizer.getString("PollTitlePlaceholder")}
-                    onChange={(e) => {
-                        updateTitle((e.target as HTMLInputElement).value);
-                        shouldValidateUI(false); // setting this flag to false to not validate input everytime value changes
-                    }}
-                />
-                </Flex>
-                    <ChoiceContainer optionsError={optionsError} options={choiceOptions} limit={getStore().maxOptions}
-                                     focusOnError={focusChoiceOnError}
-                                     renderForMobile={UxUtils.renderingForMobile()}
-                                     maxLength={Constants.POLL_CHOICE_MAX_LENGTH}
-                                     onUpdateChoice={(i, value) => {
-                                         updateChoiceText(i, value);
-                                         shouldValidateUI(false);
-                                     }}
-                                     onUpdateScale={( value) => {
-                                         updateScale( value);
-                                         shouldValidateUI(false);
-                                     }}
-                                     onUpdateExtension={( value) => {
-                                         updateExtension(value);
-                                         shouldValidateUI(false);
-                                     }}
-
+                    <div className="label-title">{Localizer.getString("EnterStoryName")}:</div>
+                    <InputBox
+                        fluid multiline
+                        maxLength={Constants.POLL_TITLE_MAX_LENGTH}
+                        inputRef={(element) => {
+                            this.validationErrorQuestionRef = element;
+                        }}
+                        input={{
+                            className: "title-box"
+                        }}
+                        showError={questionEmptyError != null}
+                        errorText={questionEmptyError}
+                        value={getStore().title}
+                        className="title-box"
+                        placeholder={Localizer.getString("PollTitlePlaceholder")}
+                        aria-placeholder={Localizer.getString("PollTitlePlaceholder")}
+                        onChange={(e) => {
+                            updateTitle((e.target as HTMLInputElement).value);
+                            shouldValidateUI(false); // setting this flag to false to not validate input everytime value changes
+                        }}
                     />
+                </Flex>
+                <ChoiceContainer optionsError={optionsError} options={choiceOptions} limit={getStore().maxOptions}
+                                 focusOnError={focusChoiceOnError}
+                                 renderForMobile={UxUtils.renderingForMobile()}
+                                 maxLength={Constants.POLL_CHOICE_MAX_LENGTH}
+                                 onUpdateChoice={(i, value) => {
+                                     updateChoiceText(i, value);
+                                     shouldValidateUI(false);
+                                 }}
+                                 onUpdateScale={(value) => {
+                                     updateScale(value);
+                                     shouldValidateUI(false);
+                                 }}
+                                 onUpdateExtension={(value) => {
+                                     updateExtension(value);
+                                     shouldValidateUI(false);
+                                 }}
+
+                />
             </Flex>
         );
     }
@@ -242,56 +240,18 @@ export default class CreationPage extends React.Component<any, any> {
     }
 
     /**
-     * method to get the setting summary from selected due date and result visibility
+     * method to get the setting summary from selected result visibility
      */
     getSettingsSummary(): string {
-        let settingsStrings: string[] = [];
-        let dueDate = new Date(getStore().settings.dueDate);
         let resultVisibility = getStore().settings.resultVisibility;
-        if (dueDate) {
-            let dueDateString: string;
-            let dueDateValues: number[];
-            let dueIn: {} = Utils.getTimeRemaining(dueDate);
-            if (dueIn[Utils.YEARS] > 0) {
-                dueDateString = dueIn[Utils.YEARS] == 1 ? "DueInYear" : "DueInYears";
-                dueDateValues = [dueIn[Utils.YEARS]];
-            } else if (dueIn[Utils.MONTHS] > 0) {
-                dueDateString = dueIn[Utils.MONTHS] == 1 ? "DueInMonth" : "DueInMonths";
-                dueDateValues = [dueIn[Utils.MONTHS]];
-            } else if (dueIn[Utils.WEEKS] > 0) {
-                dueDateString = dueIn[Utils.WEEKS] == 1 ? "DueInWeek" : "DueInWeeks";
-                dueDateValues = [dueIn[Utils.WEEKS]];
-            } else if (dueIn[Utils.DAYS] > 0) {
-                dueDateString = dueIn[Utils.DAYS] == 1 ? "DueInDay" : "DueInDays";
-                dueDateValues = [dueIn[Utils.DAYS]];
-            } else if (dueIn[Utils.HOURS] > 0 && dueIn[Utils.MINUTES] > 0) {
-                if (dueIn[Utils.HOURS] == 1 && dueIn[Utils.MINUTES] == 1) {
-                    dueDateString = "DueInHourAndMinute";
-                } else if (dueIn[Utils.HOURS] == 1) {
-                    dueDateString = "DueInHourAndMinutes";
-                } else if (dueIn[Utils.MINUTES] == 1) {
-                    dueDateString = "DueInHoursAndMinute";
-                } else {
-                    dueDateString = "DueInHoursAndMinutes";
-                }
-                dueDateValues = [dueIn[Utils.HOURS], dueIn[Utils.MINUTES]];
-            } else if (dueIn[Utils.HOURS] > 0) {
-                dueDateString = dueIn[Utils.HOURS] == 1 ? "DueInHour" : "DueInHours";
-                dueDateValues = [dueIn[Utils.HOURS]];
-            } else {
-                dueDateString = dueIn[Utils.MINUTES] == 1 ? "DueInMinute" : "DueInMinutes";
-                dueDateValues = [dueIn[Utils.MINUTES]];
-            }
-            settingsStrings.push(Localizer.getString(dueDateString, ...dueDateValues));
-        }
 
         if (resultVisibility) {
             let visibilityString: string = resultVisibility == actionSDK.Visibility.All
                 ? "ResultsVisibilitySettingsSummaryEveryone" : "ResultsVisibilitySettingsSummarySenderOnly";
-            settingsStrings.push(Localizer.getString(visibilityString));
+            return Localizer.getString(visibilityString);
         }
 
-        return settingsStrings.join(". ");
+        return "";
     }
 
     /**
@@ -299,12 +259,9 @@ export default class CreationPage extends React.Component<any, any> {
      */
     getStringsForSettings(): ISettingsComponentStrings {
         let settingsComponentStrings: ISettingsComponentStrings = {
-            dueBy: Localizer.getString("dueBy"),
             resultsVisibleTo: Localizer.getString("resultsVisibleTo"),
             resultsVisibleToAll: Localizer.getString("resultsVisibleToAll"),
             resultsVisibleToSender: Localizer.getString("resultsVisibleToSender"),
-            datePickerPlaceholder: Localizer.getString("datePickerPlaceholder"),
-            timePickerPlaceholder: Localizer.getString("timePickerPlaceholder"),
         };
         return settingsComponentStrings;
     }
@@ -315,7 +272,6 @@ export default class CreationPage extends React.Component<any, any> {
     getCommonSettingsProps() {
         return {
             resultVisibility: getStore().settings.resultVisibility,
-            dueDate: getStore().settings.dueDate,
             locale: getStore().context.locale,
             renderForMobile: UxUtils.renderingForMobile(),
             strings: this.getStringsForSettings(),

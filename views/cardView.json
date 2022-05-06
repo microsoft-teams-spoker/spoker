@@ -6,16 +6,6 @@
     "version": "1.0",
     "body": [
       {
-        "id": "active",
-        "type": "TextBlock",
-        "$when": "${equals(action.status, 'Active')}",
-        "text": "${formatString(strings.dueByDate, ('' + dateString(action.expiryTime, 'SHORT') + ' ' + timeString(action.expiryTime)))}",
-        "_text.comment": "due date if poll is active",
-        "color": "default",
-        "size": "small",
-        "wrap": true
-      },
-      {
         "id": "close",
         "type": "TextBlock",
         "$when": "${equals(action.status, 'Closed')}",

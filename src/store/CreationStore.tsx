@@ -44,7 +44,6 @@ const store: IPollCreationStore = {
     extension: false,
     settings: {
         resultVisibility: actionSDK.Visibility.All,   // result of poll will be visible to everyone
-        dueDate: Utils.getDefaultExpiry(7).getTime(), // default due date for poll is one week
         strings: null,
     },
     shouldValidate: false,
