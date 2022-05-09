@@ -75,7 +75,8 @@ orchestrator(callActionInstanceCreationAPI, async () => {
         name: "0",
         valueType: actionSDK.ActionDataColumnValueType.SingleOption,
         displayName: getStore().title,
-        properties: getStore().scale
+        properties: getStore().scale,
+        allowNullValue: getStore().extension
     };
     actionInstance.dataTables[0].dataColumns.push(pollQuestion);
     actionInstance.dataTables[0].dataColumns[0].options = [];
@@ -89,8 +90,6 @@ orchestrator(callActionInstanceCreationAPI, async () => {
     }
 
     for (const card of cards) {
-        console.log(VoteCardEnum[card]);
-        console.log(card);
         let pollChoice: actionSDK.ActionDataColumnOption = {
             name: card.toString(),
             displayName: VoteCardEnum[card],

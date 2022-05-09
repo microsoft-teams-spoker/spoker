@@ -18,6 +18,8 @@ export interface IChoiceContainerProps {
     title?: string;
     options: IChoiceContainerOption[];
     optionsError?: string[];
+    scale?: string;
+    extension?: boolean;
     limit?: number;
     maxLength?: number;
     renderForMobile?: boolean;
@@ -28,24 +30,17 @@ export interface IChoiceContainerProps {
     onUpdateExtension?: (value) => void;
 }
 
-type State = {
-    scale: string;
-}
-
 /**
  * <ChoiceContainer> component to add choice input box in creation view
  */
-export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps, State> {
+export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps> {
 
     constructor(props: IChoiceContainerProps) {
         super(props);
-        this.state = {scale: "fibo"};
-
         this.handleOnUpdateScale = this.handleOnUpdateScale.bind(this);
     }
 
     handleOnUpdateScale = e => {
-        this.setState({scale: e.target.value});
         this.props.onUpdateScale(e.target.value);
     }
 
@@ -62,7 +57,7 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps, 
                         <div className="first-scale-label">
                             <input id="fibo" type="radio" className="option" value="fibo" name="scale"
                                    key={"option" + 0} onChange={this.handleOnUpdateScale}
-                                   checked={this.state.scale === "fibo"}/>
+                                   checked={this.props.scale === "fibo"}/>
                             <label htmlFor="fibo">{Localizer.getString("Fibonacci")}</label>
                         </div>
                     </Flex>
@@ -76,7 +71,7 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps, 
                     <Flex className="equal-width">
                         <div className="second-scale-label">
                             <input id="tshirts" type="radio" className="option" value="tshirts" name="scale"
-                                   key={"option" + 1} checked={this.state.scale === "tshirts"}
+                                   key={"option" + 1} checked={this.props.scale === "tshirts"}
                                    onChange={this.handleOnUpdateScale}/>
                             <label htmlFor="tshirts">{Localizer.getString("Tshirts")}</label>
                         </div>
@@ -90,7 +85,8 @@ export class ChoiceContainer extends React.PureComponent<IChoiceContainerProps, 
                 <Flex className="row-option">
                     <Flex className="equal-width">
                         <div className="option-label">
-                            <input type="checkbox" className="option" id="also" name="also" onChange={this.handleOnUpdateExtension}/>
+                            <input type="checkbox" className="option" id="also" 
+                            checked={this.props.extension} name="also" onChange={this.handleOnUpdateExtension}/>
                             <label htmlFor="also">{Localizer.getString("OtherCards")}</label>
                         </div>
                     </Flex>
