@@ -8,7 +8,7 @@ import * as React from "react";
 import {ActionSdkHelper} from "../../helper/ActionSdkHelper";
 import {Localizer} from "../../utils/Localizer";
 import {Utils} from "../../utils/Utils";
-import {ChoiceContainer, IChoiceContainerOption} from "../ChoiceContainer";
+import {ChoiceContainer, IChoiceContainerOption, IChoiceContainerProps} from "../ChoiceContainer";
 import {ErrorView} from "../ErrorView";
 import {InputBox} from "../InputBox";
 import {INavBarComponentProps, NavBarComponent} from "../NavBarComponent";
@@ -119,6 +119,12 @@ export default class CreationPage extends React.Component<any, any> {
             choiceOptions.push(choiceOption);
             i++;
         });
+
+        let choiceProps: IChoiceContainerProps = {
+            options: choiceOptions,
+            scale: getStore().scale,
+            extension: getStore().extension
+        };
         Utils.announceText(accessibilityAnnouncementString);
         return (
             <Flex column>
@@ -145,7 +151,7 @@ export default class CreationPage extends React.Component<any, any> {
                         }}
                     />
                 </Flex>
-                <ChoiceContainer optionsError={optionsError} options={choiceOptions} limit={getStore().maxOptions}
+                <ChoiceContainer optionsError={optionsError} limit={getStore().maxOptions}
                                  focusOnError={focusChoiceOnError}
                                  renderForMobile={UxUtils.renderingForMobile()}
                                  maxLength={Constants.POLL_CHOICE_MAX_LENGTH}
@@ -161,6 +167,7 @@ export default class CreationPage extends React.Component<any, any> {
                                      updateExtension(value);
                                      shouldValidateUI(false);
                                  }}
+                                 {...choiceProps}
 
                 />
             </Flex>

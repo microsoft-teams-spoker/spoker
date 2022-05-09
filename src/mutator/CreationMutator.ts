@@ -38,6 +38,8 @@ mutator(setContext, (msg) => {
             getStore().options.push(option.displayName);
         });
 
+        getStore().scale = actionInstance.dataTables[0].dataColumns[0].properties;
+        getStore().extension = actionInstance.dataTables[0].dataColumns[0].allowNullValue;
         getStore().settings.resultVisibility = (actionInstance.dataTables[0].rowsVisibility === actionSDK.Visibility.Sender) ?
             actionSDK.Visibility.Sender : actionSDK.Visibility.All;
     }
