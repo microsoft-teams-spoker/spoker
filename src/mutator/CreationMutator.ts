@@ -3,6 +3,7 @@
 
 import * as actionSDK from "@microsoft/m365-action-sdk";
 import {mutator} from "satcheljs";
+import {FIBO_VOTE_CARDS, OTHER_VOTE_CARDS, TSHIRT_VOTE_CARDS} from "../components/VoteCard/VoteCard";
 import getStore from "../store/CreationStore";
 import {Utils} from "../utils/Utils";
 import {
@@ -39,7 +40,8 @@ mutator(setContext, (msg) => {
         });
 
         getStore().scale = actionInstance.dataTables[0].dataColumns[0].properties;
-        getStore().extension = actionInstance.dataTables[0].dataColumns[0].allowNullValue;
+        getStore().extension = actionInstance.dataTables[0].dataColumns[0].options.length === 
+        (FIBO_VOTE_CARDS.length + OTHER_VOTE_CARDS.length || TSHIRT_VOTE_CARDS.length + OTHER_VOTE_CARDS.length);
         getStore().settings.resultVisibility = (actionInstance.dataTables[0].rowsVisibility === actionSDK.Visibility.Sender) ?
             actionSDK.Visibility.Sender : actionSDK.Visibility.All;
     }

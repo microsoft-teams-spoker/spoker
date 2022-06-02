@@ -2,7 +2,6 @@ import * as React from "react";
 import "./VoteCard.scss";
 import {VoteCardUtils} from "./VoteCardUtils";
 import {Button} from "@fluentui/react-northstar";
-import { thProperties } from "office-ui-fabric-react";
 
 export enum VoteCardEnum {
     _1,

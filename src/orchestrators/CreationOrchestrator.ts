@@ -76,7 +76,6 @@ orchestrator(callActionInstanceCreationAPI, async () => {
         valueType: actionSDK.ActionDataColumnValueType.SingleOption,
         displayName: getStore().title,
         properties: getStore().scale,
-        allowNullValue: getStore().extension
     };
     actionInstance.dataTables[0].dataColumns.push(pollQuestion);
     actionInstance.dataTables[0].dataColumns[0].options = [];
